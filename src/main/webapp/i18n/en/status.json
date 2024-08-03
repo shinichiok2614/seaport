@@ -1,0 +1,10 @@
+{
+  "seaportApp": {
+    "Status": {
+      "null": "",
+      "PENDING": "PENDING",
+      "APPROVED": "APPROVED",
+      "CANCELLED": "CANCELLED"
+    }
+  }
+}

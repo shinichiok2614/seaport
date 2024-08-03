@@ -1,0 +1,11 @@
+id;description;image;image_content_type;created_at;update_at
+1;../fake-data/blob/hipster.txt;../fake-data/blob/hipster.png;image/png;2024-08-03T17:26:31;2024-08-03T08:52:56
+2;../fake-data/blob/hipster.txt;../fake-data/blob/hipster.png;image/png;2024-08-02T21:24:45;2024-08-02T20:58:54
+3;../fake-data/blob/hipster.txt;../fake-data/blob/hipster.png;image/png;2024-08-03T16:19:27;2024-08-02T21:49:48
+4;../fake-data/blob/hipster.txt;../fake-data/blob/hipster.png;image/png;2024-08-02T19:16:28;2024-08-03T14:57:27
+5;../fake-data/blob/hipster.txt;../fake-data/blob/hipster.png;image/png;2024-08-03T11:12:42;2024-08-03T07:12:41
+6;../fake-data/blob/hipster.txt;../fake-data/blob/hipster.png;image/png;2024-08-03T14:24:51;2024-08-03T03:26:50
+7;../fake-data/blob/hipster.txt;../fake-data/blob/hipster.png;image/png;2024-08-03T07:16:57;2024-08-03T09:48:56
+8;../fake-data/blob/hipster.txt;../fake-data/blob/hipster.png;image/png;2024-08-03T18:33:01;2024-08-03T15:40:09
+9;../fake-data/blob/hipster.txt;../fake-data/blob/hipster.png;image/png;2024-08-03T17:06:31;2024-08-03T12:25:02
+10;../fake-data/blob/hipster.txt;../fake-data/blob/hipster.png;image/png;2024-08-03T11:25:14;2024-08-03T08:45:19
