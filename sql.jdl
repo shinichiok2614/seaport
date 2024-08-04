@@ -16,11 +16,11 @@ entity Person{
     //danh sách hình ảnh
     //danh sách followee
 }
-entity Department{
+entity Department{ //admin mới được tạo
     name String required
     image ImageBlob
 }
-entity Category{
+entity Category{ //admin mới được tạo
     name String required
 }
 enum Status{
@@ -40,7 +40,7 @@ entity Post{
     approvedAt Instant
     modifiedAt Instant
 }
-entity Paragraph {
+entity Paragraph { //post
     image ImageBlob
     caption String
     content TextBlob
@@ -48,7 +48,7 @@ entity Paragraph {
     createdAt Instant required
     updatedAt Instant required
 }
-entity Comment{
+entity Comment{ //post
     description TextBlob
     image ImageBlob
     createdAt Instant required
@@ -59,7 +59,7 @@ entity Message{
     image ImageBlob
     createdAt Instant required
 }
-entity Follow {
+entity Follow { //person
     createdAt Instant required
 }
 relationship OneToOne{

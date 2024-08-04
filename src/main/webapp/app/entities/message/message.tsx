@@ -10,6 +10,7 @@ import { overrideSortStateWithQueryParams } from 'app/shared/util/entity-utils';
 import { useAppDispatch, useAppSelector } from 'app/config/store';
 
 import { getEntities } from './message.reducer';
+import MessageList from 'app/component/message-list/message-list';
 
 export const Message = () => {
   const dispatch = useAppDispatch();
@@ -80,7 +81,7 @@ export const Message = () => {
           </Link>
         </div>
       </h2>
-      <div className="table-responsive">
+      {/* <div className="table-responsive">
         {messageList && messageList.length > 0 ? (
           <Table responsive>
             <thead>
@@ -174,7 +175,8 @@ export const Message = () => {
             </div>
           )
         )}
-      </div>
+      </div> */}
+      <MessageList messageList={messageList} loading={loading} sort={sort} getSortIconByFieldName={getSortIconByFieldName} />
     </div>
   );
 };

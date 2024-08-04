@@ -10,6 +10,7 @@ import { overrideSortStateWithQueryParams } from 'app/shared/util/entity-utils';
 import { useAppDispatch, useAppSelector } from 'app/config/store';
 
 import { getEntities } from './comment.reducer';
+import CommentList from 'app/component/comment-list/comment-list';
 
 export const Comment = () => {
   const dispatch = useAppDispatch();
@@ -80,7 +81,7 @@ export const Comment = () => {
           </Link>
         </div>
       </h2>
-      <div className="table-responsive">
+      {/* <div className="table-responsive">
         {commentList && commentList.length > 0 ? (
           <Table responsive>
             <thead>
@@ -179,7 +180,14 @@ export const Comment = () => {
             </div>
           )
         )}
-      </div>
+      </div> */}
+      <CommentList
+        commentList={commentList}
+        loading={loading}
+        sortState={sortState}
+        sort={sort}
+        getSortIconByFieldName={getSortIconByFieldName}
+      />
     </div>
   );
 };
