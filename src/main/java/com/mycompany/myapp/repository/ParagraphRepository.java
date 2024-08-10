@@ -32,9 +32,15 @@ public interface ParagraphRepository extends JpaRepository<Paragraph, Long> {
     )
     Page<Paragraph> findAllWithToOneRelationships(Pageable pageable);
 
-    @Query("select paragraph from Paragraph paragraph left join fetch paragraph.paragraph")
+    @Query(
+        "select paragraph from Paragraph paragraph left join fetch paragraph.paragraph"
+    )
     List<Paragraph> findAllWithToOneRelationships();
 
-    @Query("select paragraph from Paragraph paragraph left join fetch paragraph.paragraph where paragraph.id =:id")
+    @Query(
+        "select paragraph from Paragraph paragraph left join fetch paragraph.paragraph where paragraph.id =:id"
+    )
     Optional<Paragraph> findOneWithToOneRelationships(@Param("id") Long id);
+
+    List<Paragraph> findAllByParagraphId(Long postId);
 }

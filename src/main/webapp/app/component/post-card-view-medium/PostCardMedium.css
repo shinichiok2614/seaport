@@ -1,0 +1,85 @@
+.medium {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  overflow: hidden;
+  margin: 16px;
+  margin-left: 0px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 16px;
+  border-radius: 8px;
+  background-color: #fff;
+  justify-content: space-between;
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+}
+.medium:hover {
+  background-color: #f0f0f0; /* Màu nền khi hover */
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+}
+.medium img {
+  /* height: 500px; */
+  width: 100%;
+}
+
+.medium1 {
+  position: relative;
+}
+
+.medium2 {
+  padding-left: 16px;
+  font-family: 'Merriweather', serif;
+  margin-top: 8px;
+  font-size: 1.5em;
+  color: #007bff;
+}
+
+.medium3 {
+  padding: 16px;
+  font-size: 1.5em;
+  font-weight: bold;
+  text-decoration: none;
+  color: #000;
+}
+
+.medium4 {
+  padding: 16px;
+  font-size: 14px;
+  color: #666;
+}
+
+.medium5 {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px;
+  background-color: #fafafa;
+  border-top: 1px solid #eee;
+}
+
+.medium5 > div {
+  display: flex;
+  align-items: center;
+}
+
+.medium5 svg {
+  margin-right: 8px;
+}
+
+.medium5 span {
+  font-size: 14px;
+}
+.medium6 {
+  padding-left: 16px;
+  color: rgb(199, 70, 1);
+  font-style: italic;
+  /* font-weight: bold; */
+  font-size: 1.5em;
+}
+
+.medium7 {
+  max-height: 150px;
+  object-fit: contain;
+}

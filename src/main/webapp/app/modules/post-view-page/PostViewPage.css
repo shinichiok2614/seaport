@@ -1,0 +1,20 @@
+.PostViewPage {
+  display: flex;
+  justify-content: space-between;
+}
+.PostViewPage1 {
+  width: 20%;
+  min-width: 200px;
+}
+.PostViewPage3 {
+  width: 20%;
+  min-width: 300px;
+}
+.PostViewPage2 {
+  min-width: 600px;
+}
+.PostViewPage2-comment {
+  margin: 5px;
+  font-size: 20px;
+  font-weight: bold;
+}

@@ -3,12 +3,17 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Button, Table } from 'reactstrap';
 import { Translate, getSortState } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSort, faSortUp, faSortDown } from '@fortawesome/free-solid-svg-icons';
+import {
+  faSort,
+  faSortUp,
+  faSortDown,
+} from '@fortawesome/free-solid-svg-icons';
 import { ASC, DESC, SORT } from 'app/shared/util/pagination.constants';
 import { overrideSortStateWithQueryParams } from 'app/shared/util/entity-utils';
 import { useAppDispatch, useAppSelector } from 'app/config/store';
 
-import { getEntities } from './category.reducer';
+import { getEntities, getEntityWithPost } from './category.reducer';
+import CategoryList from 'app/component/category-list/category-list';
 
 export const Category = () => {
   const dispatch = useAppDispatch();
@@ -16,7 +21,12 @@ export const Category = () => {
   const pageLocation = useLocation();
   const navigate = useNavigate();
 
-  const [sortState, setSortState] = useState(overrideSortStateWithQueryParams(getSortState(pageLocation, 'id'), pageLocation.search));
+  const [sortState, setSortState] = useState(
+    overrideSortStateWithQueryParams(
+      getSortState(pageLocation, 'id'),
+      pageLocation.search,
+    ),
+  );
 
   const categoryList = useAppSelector(state => state.category.entities);
   const loading = useAppSelector(state => state.category.loading);
@@ -27,6 +37,7 @@ export const Category = () => {
         sort: `${sortState.sort},${sortState.order}`,
       }),
     );
+    dispatch(getEntityWithPost());
   };
 
   const sortEntities = () => {
@@ -66,21 +77,43 @@ export const Category = () => {
   return (
     <div>
       <h2 id="category-heading" data-cy="CategoryHeading">
-        <Translate contentKey="seaportApp.category.home.title">Categories</Translate>
+        <Translate contentKey="seaportApp.category.home.title">
+          Categories
+        </Translate>
         <div className="d-flex justify-content-end">
-          <Button className="me-2" color="info" onClick={handleSyncList} disabled={loading}>
+          <Button
+            className="me-2"
+            color="info"
+            onClick={handleSyncList}
+            disabled={loading}
+          >
             <FontAwesomeIcon icon="sync" spin={loading} />{' '}
-            <Translate contentKey="seaportApp.category.home.refreshListLabel">Refresh List</Translate>
+            <Translate contentKey="seaportApp.category.home.refreshListLabel">
+              Refresh List
+            </Translate>
           </Button>
-          <Link to="/category/new" className="btn btn-primary jh-create-entity" id="jh-create-entity" data-cy="entityCreateButton">
+          <Link
+            to="/category/new"
+            className="btn btn-primary jh-create-entity"
+            id="jh-create-entity"
+            data-cy="entityCreateButton"
+          >
             <FontAwesomeIcon icon="plus" />
             &nbsp;
-            <Translate contentKey="seaportApp.category.home.createLabel">Create new Category</Translate>
+            <Translate contentKey="seaportApp.category.home.createLabel">
+              Create new Category
+            </Translate>
           </Link>
         </div>
       </h2>
       <div className="table-responsive">
-        {categoryList && categoryList.length > 0 ? (
+        <CategoryList
+          loading={loading}
+          categoryList={categoryList}
+          sort={sort}
+          getSortIconByFieldName={getSortIconByFieldName}
+        />
+        {/* {categoryList && categoryList.length > 0 ? (
           <Table responsive>
             <thead>
               <tr>
@@ -140,7 +173,7 @@ export const Category = () => {
               <Translate contentKey="seaportApp.category.home.notFound">No Categories found</Translate>
             </div>
           )
-        )}
+        )} */}
       </div>
     </div>
   );

@@ -9,7 +9,13 @@ import { APP_DATE_FORMAT } from 'app/config/constants';
 import CommentTableHeader from '../comment-list-header/comment-table-header';
 import CommentTableRow from '../comment-list-row/comment-table-row';
 
-const CommentList = ({ commentList, loading, sortState, sort, getSortIconByFieldName }) => {
+const CommentList = ({
+  commentList,
+  loading,
+  sortState,
+  sort,
+  getSortIconByFieldName,
+}) => {
   return (
     <div>
       <div className="table-responsive">
@@ -46,9 +52,14 @@ const CommentList = ({ commentList, loading, sortState, sort, getSortIconByField
                 <th />
               </tr>
             </thead> */}
-            <CommentTableHeader sortState={sortState} sort={sort} getSortIconByFieldName={getSortIconByFieldName} />
+            <CommentTableHeader
+              sortState={sortState}
+              sort={sort}
+              getSortIconByFieldName={getSortIconByFieldName}
+            />
             <tbody>
               {commentList.map((comment, i) => (
+                <CommentTableRow key={`entity-${i}`} comment={comment} />
                 // <tr key={`entity-${i}`} data-cy="entityTable">
                 //   <td>
                 //     <Button tag={Link} to={`/comment/${comment.id}`} color="link" size="sm">
@@ -103,14 +114,15 @@ const CommentList = ({ commentList, loading, sortState, sort, getSortIconByField
                 //     </div>
                 //   </td>
                 // </tr>
-                <CommentTableRow key={`entity-${i}`} comment={comment} />
               ))}
             </tbody>
           </Table>
         ) : (
           !loading && (
             <div className="alert alert-warning">
-              <Translate contentKey="seaportApp.comment.home.notFound">No Comments found</Translate>
+              <Translate contentKey="seaportApp.comment.home.notFound">
+                No Comments found
+              </Translate>
             </div>
           )
         )}

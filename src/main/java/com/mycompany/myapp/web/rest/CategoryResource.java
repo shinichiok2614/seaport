@@ -26,7 +26,9 @@ import tech.jhipster.web.util.ResponseUtil;
 @RequestMapping("/api/categories")
 public class CategoryResource {
 
-    private static final Logger log = LoggerFactory.getLogger(CategoryResource.class);
+    private static final Logger log = LoggerFactory.getLogger(
+        CategoryResource.class
+    );
 
     private static final String ENTITY_NAME = "category";
 
@@ -37,7 +39,10 @@ public class CategoryResource {
 
     private final CategoryRepository categoryRepository;
 
-    public CategoryResource(CategoryService categoryService, CategoryRepository categoryRepository) {
+    public CategoryResource(
+        CategoryService categoryService,
+        CategoryRepository categoryRepository
+    ) {
         this.categoryService = categoryService;
         this.categoryRepository = categoryRepository;
     }
@@ -50,14 +55,29 @@ public class CategoryResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PostMapping("")
-    public ResponseEntity<CategoryDTO> createCategory(@Valid @RequestBody CategoryDTO categoryDTO) throws URISyntaxException {
+    public ResponseEntity<CategoryDTO> createCategory(
+        @Valid @RequestBody CategoryDTO categoryDTO
+    ) throws URISyntaxException {
         log.debug("REST request to save Category : {}", categoryDTO);
         if (categoryDTO.getId() != null) {
-            throw new BadRequestAlertException("A new category cannot already have an ID", ENTITY_NAME, "idexists");
+            throw new BadRequestAlertException(
+                "A new category cannot already have an ID",
+                ENTITY_NAME,
+                "idexists"
+            );
         }
         categoryDTO = categoryService.save(categoryDTO);
-        return ResponseEntity.created(new URI("/api/categories/" + categoryDTO.getId()))
-            .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, categoryDTO.getId().toString()))
+        return ResponseEntity.created(
+            new URI("/api/categories/" + categoryDTO.getId())
+        )
+            .headers(
+                HeaderUtil.createEntityCreationAlert(
+                    applicationName,
+                    true,
+                    ENTITY_NAME,
+                    categoryDTO.getId().toString()
+                )
+            )
             .body(categoryDTO);
     }
 
@@ -78,19 +98,38 @@ public class CategoryResource {
     ) throws URISyntaxException {
         log.debug("REST request to update Category : {}, {}", id, categoryDTO);
         if (categoryDTO.getId() == null) {
-            throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
+            throw new BadRequestAlertException(
+                "Invalid id",
+                ENTITY_NAME,
+                "idnull"
+            );
         }
         if (!Objects.equals(id, categoryDTO.getId())) {
-            throw new BadRequestAlertException("Invalid ID", ENTITY_NAME, "idinvalid");
+            throw new BadRequestAlertException(
+                "Invalid ID",
+                ENTITY_NAME,
+                "idinvalid"
+            );
         }
 
         if (!categoryRepository.existsById(id)) {
-            throw new BadRequestAlertException("Entity not found", ENTITY_NAME, "idnotfound");
+            throw new BadRequestAlertException(
+                "Entity not found",
+                ENTITY_NAME,
+                "idnotfound"
+            );
         }
 
         categoryDTO = categoryService.update(categoryDTO);
         return ResponseEntity.ok()
-            .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, categoryDTO.getId().toString()))
+            .headers(
+                HeaderUtil.createEntityUpdateAlert(
+                    applicationName,
+                    true,
+                    ENTITY_NAME,
+                    categoryDTO.getId().toString()
+                )
+            )
             .body(categoryDTO);
     }
 
@@ -105,28 +144,54 @@ public class CategoryResource {
      * or with status {@code 500 (Internal Server Error)} if the categoryDTO couldn't be updated.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
-    @PatchMapping(value = "/{id}", consumes = { "application/json", "application/merge-patch+json" })
+    @PatchMapping(
+        value = "/{id}",
+        consumes = { "application/json", "application/merge-patch+json" }
+    )
     public ResponseEntity<CategoryDTO> partialUpdateCategory(
         @PathVariable(value = "id", required = false) final Long id,
         @NotNull @RequestBody CategoryDTO categoryDTO
     ) throws URISyntaxException {
-        log.debug("REST request to partial update Category partially : {}, {}", id, categoryDTO);
+        log.debug(
+            "REST request to partial update Category partially : {}, {}",
+            id,
+            categoryDTO
+        );
         if (categoryDTO.getId() == null) {
-            throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
+            throw new BadRequestAlertException(
+                "Invalid id",
+                ENTITY_NAME,
+                "idnull"
+            );
         }
         if (!Objects.equals(id, categoryDTO.getId())) {
-            throw new BadRequestAlertException("Invalid ID", ENTITY_NAME, "idinvalid");
+            throw new BadRequestAlertException(
+                "Invalid ID",
+                ENTITY_NAME,
+                "idinvalid"
+            );
         }
 
         if (!categoryRepository.existsById(id)) {
-            throw new BadRequestAlertException("Entity not found", ENTITY_NAME, "idnotfound");
+            throw new BadRequestAlertException(
+                "Entity not found",
+                ENTITY_NAME,
+                "idnotfound"
+            );
         }
 
-        Optional<CategoryDTO> result = categoryService.partialUpdate(categoryDTO);
+        Optional<CategoryDTO> result = categoryService.partialUpdate(
+            categoryDTO
+        );
 
         return ResponseUtil.wrapOrNotFound(
             result,
-            HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, categoryDTO.getId().toString())
+            HeaderUtil.createEntityUpdateAlert(
+                applicationName,
+                true,
+                ENTITY_NAME,
+                categoryDTO.getId().toString()
+            )
         );
     }
 
@@ -148,7 +213,9 @@ public class CategoryResource {
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the categoryDTO, or with status {@code 404 (Not Found)}.
      */
     @GetMapping("/{id}")
-    public ResponseEntity<CategoryDTO> getCategory(@PathVariable("id") Long id) {
+    public ResponseEntity<CategoryDTO> getCategory(
+        @PathVariable("id") Long id
+    ) {
         log.debug("REST request to get Category : {}", id);
         Optional<CategoryDTO> categoryDTO = categoryService.findOne(id);
         return ResponseUtil.wrapOrNotFound(categoryDTO);
@@ -165,7 +232,20 @@ public class CategoryResource {
         log.debug("REST request to delete Category : {}", id);
         categoryService.delete(id);
         return ResponseEntity.noContent()
-            .headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString()))
+            .headers(
+                HeaderUtil.createEntityDeletionAlert(
+                    applicationName,
+                    true,
+                    ENTITY_NAME,
+                    id.toString()
+                )
+            )
             .build();
+    }
+
+    @GetMapping("/categories-with-posts")
+    public ResponseEntity<List<CategoryDTO>> getAllCategoriesWithPosts() {
+        List<CategoryDTO> categories = categoryService.findAllWithPosts();
+        return ResponseEntity.ok().body(categories);
     }
 }

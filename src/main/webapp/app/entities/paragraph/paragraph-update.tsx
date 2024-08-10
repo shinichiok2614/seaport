@@ -1,17 +1,33 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { Button, Row, Col, FormText } from 'reactstrap';
-import { isNumber, Translate, translate, ValidatedField, ValidatedForm, ValidatedBlobField } from 'react-jhipster';
+import {
+  isNumber,
+  Translate,
+  translate,
+  ValidatedField,
+  ValidatedForm,
+  ValidatedBlobField,
+} from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-import { convertDateTimeFromServer, convertDateTimeToServer, displayDefaultDateTime } from 'app/shared/util/date-utils';
+import {
+  convertDateTimeFromServer,
+  convertDateTimeToServer,
+  displayDefaultDateTime,
+} from 'app/shared/util/date-utils';
 import { mapIdList } from 'app/shared/util/entity-utils';
 import { useAppDispatch, useAppSelector } from 'app/config/store';
 
 import { IPost } from 'app/shared/model/post.model';
 import { getEntities as getPosts } from 'app/entities/post/post.reducer';
 import { IParagraph } from 'app/shared/model/paragraph.model';
-import { getEntity, updateEntity, createEntity, reset } from './paragraph.reducer';
+import {
+  getEntity,
+  updateEntity,
+  createEntity,
+  reset,
+} from './paragraph.reducer';
 
 export const ParagraphUpdate = () => {
   const dispatch = useAppDispatch();
@@ -58,7 +74,9 @@ export const ParagraphUpdate = () => {
     const entity = {
       ...paragraphEntity,
       ...values,
-      paragraph: posts.find(it => it.id.toString() === values.paragraph?.toString()),
+      paragraph: posts.find(
+        it => it.id.toString() === values.paragraph?.toString(),
+      ),
     };
 
     if (isNew) {
@@ -85,8 +103,13 @@ export const ParagraphUpdate = () => {
     <div>
       <Row className="justify-content-center">
         <Col md="8">
-          <h2 id="seaportApp.paragraph.home.createOrEditLabel" data-cy="ParagraphCreateUpdateHeading">
-            <Translate contentKey="seaportApp.paragraph.home.createOrEditLabel">Create or edit a Paragraph</Translate>
+          <h2
+            id="seaportApp.paragraph.home.createOrEditLabel"
+            data-cy="ParagraphCreateUpdateHeading"
+          >
+            <Translate contentKey="seaportApp.paragraph.home.createOrEditLabel">
+              Create or edit a Paragraph
+            </Translate>
           </h2>
         </Col>
       </Row>
@@ -95,7 +118,10 @@ export const ParagraphUpdate = () => {
           {loading ? (
             <p>Loading...</p>
           ) : (
-            <ValidatedForm defaultValues={defaultValues()} onSubmit={saveEntity}>
+            <ValidatedForm
+              defaultValues={defaultValues()}
+              onSubmit={saveEntity}
+            >
               {!isNew ? (
                 <ValidatedField
                   name="id"
@@ -143,7 +169,10 @@ export const ParagraphUpdate = () => {
                 type="datetime-local"
                 placeholder="YYYY-MM-DD HH:mm"
                 validate={{
-                  required: { value: true, message: translate('entity.validation.required') },
+                  required: {
+                    value: true,
+                    message: translate('entity.validation.required'),
+                  },
                 }}
               />
               <ValidatedField
@@ -154,7 +183,10 @@ export const ParagraphUpdate = () => {
                 type="datetime-local"
                 placeholder="YYYY-MM-DD HH:mm"
                 validate={{
-                  required: { value: true, message: translate('entity.validation.required') },
+                  required: {
+                    value: true,
+                    message: translate('entity.validation.required'),
+                  },
                 }}
               />
               <ValidatedField
@@ -173,7 +205,14 @@ export const ParagraphUpdate = () => {
                     ))
                   : null}
               </ValidatedField>
-              <Button tag={Link} id="cancel-save" data-cy="entityCreateCancelButton" to="/paragraph" replace color="info">
+              <Button
+                tag={Link}
+                id="cancel-save"
+                data-cy="entityCreateCancelButton"
+                to="/paragraph"
+                replace
+                color="info"
+              >
                 <FontAwesomeIcon icon="arrow-left" />
                 &nbsp;
                 <span className="d-none d-md-inline">
@@ -181,7 +220,13 @@ export const ParagraphUpdate = () => {
                 </span>
               </Button>
               &nbsp;
-              <Button color="primary" id="save-entity" data-cy="entityCreateSaveButton" type="submit" disabled={updating}>
+              <Button
+                color="primary"
+                id="save-entity"
+                data-cy="entityCreateSaveButton"
+                type="submit"
+                disabled={updating}
+              >
                 <FontAwesomeIcon icon="save" />
                 &nbsp;
                 <Translate contentKey="entity.action.save">Save</Translate>

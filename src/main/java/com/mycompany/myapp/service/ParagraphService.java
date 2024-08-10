@@ -22,13 +22,18 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public class ParagraphService {
 
-    private static final Logger log = LoggerFactory.getLogger(ParagraphService.class);
+    private static final Logger log = LoggerFactory.getLogger(
+        ParagraphService.class
+    );
 
     private final ParagraphRepository paragraphRepository;
 
     private final ParagraphMapper paragraphMapper;
 
-    public ParagraphService(ParagraphRepository paragraphRepository, ParagraphMapper paragraphMapper) {
+    public ParagraphService(
+        ParagraphRepository paragraphRepository,
+        ParagraphMapper paragraphMapper
+    ) {
         this.paragraphRepository = paragraphRepository;
         this.paragraphMapper = paragraphMapper;
     }
@@ -87,7 +92,11 @@ public class ParagraphService {
     @Transactional(readOnly = true)
     public List<ParagraphDTO> findAll() {
         log.debug("Request to get all Paragraphs");
-        return paragraphRepository.findAll().stream().map(paragraphMapper::toDto).collect(Collectors.toCollection(LinkedList::new));
+        return paragraphRepository
+            .findAll()
+            .stream()
+            .map(paragraphMapper::toDto)
+            .collect(Collectors.toCollection(LinkedList::new));
     }
 
     /**
@@ -96,7 +105,9 @@ public class ParagraphService {
      * @return the list of entities.
      */
     public Page<ParagraphDTO> findAllWithEagerRelationships(Pageable pageable) {
-        return paragraphRepository.findAllWithEagerRelationships(pageable).map(paragraphMapper::toDto);
+        return paragraphRepository
+            .findAllWithEagerRelationships(pageable)
+            .map(paragraphMapper::toDto);
     }
 
     /**
@@ -108,7 +119,9 @@ public class ParagraphService {
     @Transactional(readOnly = true)
     public Optional<ParagraphDTO> findOne(Long id) {
         log.debug("Request to get Paragraph : {}", id);
-        return paragraphRepository.findOneWithEagerRelationships(id).map(paragraphMapper::toDto);
+        return paragraphRepository
+            .findOneWithEagerRelationships(id)
+            .map(paragraphMapper::toDto);
     }
 
     /**
@@ -119,5 +132,10 @@ public class ParagraphService {
     public void delete(Long id) {
         log.debug("Request to delete Paragraph : {}", id);
         paragraphRepository.deleteById(id);
+    }
+
+    @Transactional(readOnly = true)
+    public List<Paragraph> findAllByParagraphId(Long postId) {
+        return paragraphRepository.findAllByParagraphId(postId);
     }
 }

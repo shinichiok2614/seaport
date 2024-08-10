@@ -2,7 +2,12 @@ import axios from 'axios';
 import { createAsyncThunk, isFulfilled, isPending } from '@reduxjs/toolkit';
 import { ASC } from 'app/shared/util/pagination.constants';
 import { cleanEntity } from 'app/shared/util/entity-utils';
-import { IQueryParams, createEntitySlice, EntityState, serializeAxiosError } from 'app/shared/reducers/reducer.utils';
+import {
+  IQueryParams,
+  createEntitySlice,
+  EntityState,
+  serializeAxiosError,
+} from 'app/shared/reducers/reducer.utils';
 import { IPost, defaultValue } from 'app/shared/model/post.model';
 
 const initialState: EntityState<IPost> = {
@@ -35,12 +40,19 @@ export const getEntity = createAsyncThunk(
   },
   { serializeError: serializeAxiosError },
 );
-
+export const getEntityByPerson = createAsyncThunk(
+  'post/fetch_entity_by_person',
+  async (id: string | number) => {
+    const requestUrl = `${apiUrl}/${id}/by-person`;
+    return axios.get<IPost>(requestUrl);
+  },
+  { serializeError: serializeAxiosError },
+);
 export const createEntity = createAsyncThunk(
   'post/create_entity',
   async (entity: IPost, thunkAPI) => {
     const result = await axios.post<IPost>(apiUrl, cleanEntity(entity));
-    thunkAPI.dispatch(getEntities({}));
+    // thunkAPI.dispatch(getEntities({}));
     return result;
   },
   { serializeError: serializeAxiosError },
@@ -49,8 +61,11 @@ export const createEntity = createAsyncThunk(
 export const updateEntity = createAsyncThunk(
   'post/update_entity',
   async (entity: IPost, thunkAPI) => {
-    const result = await axios.put<IPost>(`${apiUrl}/${entity.id}`, cleanEntity(entity));
-    thunkAPI.dispatch(getEntities({}));
+    const result = await axios.put<IPost>(
+      `${apiUrl}/${entity.id}`,
+      cleanEntity(entity),
+    );
+    // thunkAPI.dispatch(getEntities({}));
     return result;
   },
   { serializeError: serializeAxiosError },
@@ -59,7 +74,10 @@ export const updateEntity = createAsyncThunk(
 export const partialUpdateEntity = createAsyncThunk(
   'post/partial_update_entity',
   async (entity: IPost, thunkAPI) => {
-    const result = await axios.patch<IPost>(`${apiUrl}/${entity.id}`, cleanEntity(entity));
+    const result = await axios.patch<IPost>(
+      `${apiUrl}/${entity.id}`,
+      cleanEntity(entity),
+    );
     thunkAPI.dispatch(getEntities({}));
     return result;
   },
@@ -71,7 +89,7 @@ export const deleteEntity = createAsyncThunk(
   async (id: string | number, thunkAPI) => {
     const requestUrl = `${apiUrl}/${id}`;
     const result = await axios.delete<IPost>(requestUrl);
-    thunkAPI.dispatch(getEntities({}));
+    // thunkAPI.dispatch(getEntities({}));
     return result;
   },
   { serializeError: serializeAxiosError },
@@ -105,26 +123,48 @@ export const PostSlice = createEntitySlice({
             }
             const order = action.meta.arg.sort.split(',')[1];
             const predicate = action.meta.arg.sort.split(',')[0];
-            return order === ASC ? (a[predicate] < b[predicate] ? -1 : 1) : b[predicate] < a[predicate] ? -1 : 1;
+            return order === ASC
+              ? a[predicate] < b[predicate]
+                ? -1
+                : 1
+              : b[predicate] < a[predicate]
+                ? -1
+                : 1;
           }),
         };
       })
-      .addMatcher(isFulfilled(createEntity, updateEntity, partialUpdateEntity), (state, action) => {
-        state.updating = false;
-        state.loading = false;
-        state.updateSuccess = true;
-        state.entity = action.payload.data;
-      })
+      .addMatcher(
+        isFulfilled(
+          createEntity,
+          updateEntity,
+          partialUpdateEntity,
+          getEntityByPerson,
+        ),
+        (state, action) => {
+          state.updating = false;
+          state.loading = false;
+          state.updateSuccess = true;
+          state.entity = action.payload.data;
+        },
+      )
       .addMatcher(isPending(getEntities, getEntity), state => {
         state.errorMessage = null;
         state.updateSuccess = false;
         state.loading = true;
       })
-      .addMatcher(isPending(createEntity, updateEntity, partialUpdateEntity, deleteEntity), state => {
-        state.errorMessage = null;
-        state.updateSuccess = false;
-        state.updating = true;
-      });
+      .addMatcher(
+        isPending(
+          createEntity,
+          updateEntity,
+          partialUpdateEntity,
+          deleteEntity,
+        ),
+        state => {
+          state.errorMessage = null;
+          state.updateSuccess = false;
+          state.updating = true;
+        },
+      );
   },
 });
 

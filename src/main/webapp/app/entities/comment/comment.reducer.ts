@@ -2,7 +2,12 @@ import axios from 'axios';
 import { createAsyncThunk, isFulfilled, isPending } from '@reduxjs/toolkit';
 import { ASC } from 'app/shared/util/pagination.constants';
 import { cleanEntity } from 'app/shared/util/entity-utils';
-import { IQueryParams, createEntitySlice, EntityState, serializeAxiosError } from 'app/shared/reducers/reducer.utils';
+import {
+  IQueryParams,
+  createEntitySlice,
+  EntityState,
+  serializeAxiosError,
+} from 'app/shared/reducers/reducer.utils';
 import { IComment, defaultValue } from 'app/shared/model/comment.model';
 
 const initialState: EntityState<IComment> = {
@@ -22,6 +27,15 @@ export const getEntities = createAsyncThunk(
   'comment/fetch_entity_list',
   async ({ sort }: IQueryParams) => {
     const requestUrl = `${apiUrl}?${sort ? `sort=${sort}&` : ''}cacheBuster=${new Date().getTime()}`;
+    return axios.get<IComment[]>(requestUrl);
+  },
+  { serializeError: serializeAxiosError },
+);
+
+export const getEntitiesByPost = createAsyncThunk(
+  'comment/fetch_entity_by_post',
+  async (id: string | number) => {
+    const requestUrl = `${apiUrl}/${id}/by-post`;
     return axios.get<IComment[]>(requestUrl);
   },
   { serializeError: serializeAxiosError },
@@ -49,7 +63,10 @@ export const createEntity = createAsyncThunk(
 export const updateEntity = createAsyncThunk(
   'comment/update_entity',
   async (entity: IComment, thunkAPI) => {
-    const result = await axios.put<IComment>(`${apiUrl}/${entity.id}`, cleanEntity(entity));
+    const result = await axios.put<IComment>(
+      `${apiUrl}/${entity.id}`,
+      cleanEntity(entity),
+    );
     thunkAPI.dispatch(getEntities({}));
     return result;
   },
@@ -59,7 +76,10 @@ export const updateEntity = createAsyncThunk(
 export const partialUpdateEntity = createAsyncThunk(
   'comment/partial_update_entity',
   async (entity: IComment, thunkAPI) => {
-    const result = await axios.patch<IComment>(`${apiUrl}/${entity.id}`, cleanEntity(entity));
+    const result = await axios.patch<IComment>(
+      `${apiUrl}/${entity.id}`,
+      cleanEntity(entity),
+    );
     thunkAPI.dispatch(getEntities({}));
     return result;
   },
@@ -88,6 +108,10 @@ export const CommentSlice = createEntitySlice({
         state.loading = false;
         state.entity = action.payload.data;
       })
+      .addCase(getEntitiesByPost.fulfilled, (state, action) => {
+        state.loading = false;
+        state.entities = action.payload.data;
+      })
       .addCase(deleteEntity.fulfilled, state => {
         state.updating = false;
         state.updateSuccess = true;
@@ -105,26 +129,46 @@ export const CommentSlice = createEntitySlice({
             }
             const order = action.meta.arg.sort.split(',')[1];
             const predicate = action.meta.arg.sort.split(',')[0];
-            return order === ASC ? (a[predicate] < b[predicate] ? -1 : 1) : b[predicate] < a[predicate] ? -1 : 1;
+            return order === ASC
+              ? a[predicate] < b[predicate]
+                ? -1
+                : 1
+              : b[predicate] < a[predicate]
+                ? -1
+                : 1;
           }),
         };
       })
-      .addMatcher(isFulfilled(createEntity, updateEntity, partialUpdateEntity), (state, action) => {
-        state.updating = false;
-        state.loading = false;
-        state.updateSuccess = true;
-        state.entity = action.payload.data;
-      })
-      .addMatcher(isPending(getEntities, getEntity), state => {
-        state.errorMessage = null;
-        state.updateSuccess = false;
-        state.loading = true;
-      })
-      .addMatcher(isPending(createEntity, updateEntity, partialUpdateEntity, deleteEntity), state => {
-        state.errorMessage = null;
-        state.updateSuccess = false;
-        state.updating = true;
-      });
+      .addMatcher(
+        isFulfilled(createEntity, updateEntity, partialUpdateEntity),
+        (state, action) => {
+          state.updating = false;
+          state.loading = false;
+          state.updateSuccess = true;
+          state.entity = action.payload.data;
+        },
+      )
+      .addMatcher(
+        isPending(getEntities, getEntity, getEntitiesByPost),
+        state => {
+          state.errorMessage = null;
+          state.updateSuccess = false;
+          state.loading = true;
+        },
+      )
+      .addMatcher(
+        isPending(
+          createEntity,
+          updateEntity,
+          partialUpdateEntity,
+          deleteEntity,
+        ),
+        state => {
+          state.errorMessage = null;
+          state.updateSuccess = false;
+          state.updating = true;
+        },
+      );
   },
 });
 

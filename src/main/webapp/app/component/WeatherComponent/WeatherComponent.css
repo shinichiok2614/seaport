@@ -1,0 +1,74 @@
+/* WeatherComponent.css */
+.weather-component {
+  font-family: Arial, sans-serif;
+  max-width: 400px;
+  margin: 20px auto;
+  padding: 20px;
+  border-radius: 10px;
+  background: #ffffff;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.weather-component input[type='text'] {
+  width: 80%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.weather-component button {
+  padding: 10px 20px;
+  background: #007bff;
+  border: none;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.weather-component button:hover {
+  background: #0056b3;
+}
+
+.weather-details {
+  margin-top: 20px;
+}
+
+.weather-details h3 {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.weather-details p {
+  margin: 5px 0;
+}
+
+.weather-details img {
+  margin-top: 10px;
+}
+.weather-item {
+  display: flex;
+  align-items: center;
+  margin: 0.5rem 0;
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+.weather-item p {
+  margin: 0 0 0 1rem;
+}
+
+.weather-item:hover {
+  background-color: #f0f0f0;
+  transition: background-color 0.3s;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}

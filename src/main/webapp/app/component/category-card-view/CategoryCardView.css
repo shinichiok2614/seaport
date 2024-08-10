@@ -1,0 +1,10 @@
+.category {
+  display: flex;
+}
+.category1 {
+  width: 30%;
+}
+.category1-name {
+  font-size: 30px;
+  font-weight: bold;
+}

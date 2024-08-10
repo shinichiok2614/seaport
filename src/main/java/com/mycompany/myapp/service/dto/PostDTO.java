@@ -49,6 +49,43 @@ public class PostDTO implements Serializable {
 
     private UserDTO post;
 
+    private PersonDTO person; // Thêm thuộc tính PersonDTO
+    private Long userId;
+    private Long personId;
+    private String personName;
+
+    public PersonDTO getPerson() {
+        return person;
+    }
+
+    public void setPerson(PersonDTO person) {
+        this.person = person;
+    }
+
+    public Long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
+    }
+
+    public Long getPersonId() {
+        return personId;
+    }
+
+    public void setPersonId(Long personId) {
+        this.personId = personId;
+    }
+
+    public String getPersonName() {
+        return personName;
+    }
+
+    public void setPersonName(String personName) {
+        this.personName = personName;
+    }
+
     public Long getId() {
         return id;
     }

@@ -1,9 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Button, Table } from 'reactstrap';
-import { openFile, byteSize, Translate, TextFormat, getSortState } from 'react-jhipster';
+import {
+  openFile,
+  byteSize,
+  Translate,
+  TextFormat,
+  getSortState,
+} from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSort, faSortUp, faSortDown } from '@fortawesome/free-solid-svg-icons';
+import {
+  faSort,
+  faSortUp,
+  faSortDown,
+} from '@fortawesome/free-solid-svg-icons';
 import { APP_DATE_FORMAT, APP_LOCAL_DATE_FORMAT } from 'app/config/constants';
 import { ASC, DESC, SORT } from 'app/shared/util/pagination.constants';
 import { overrideSortStateWithQueryParams } from 'app/shared/util/entity-utils';
@@ -17,7 +27,12 @@ export const Paragraph = () => {
   const pageLocation = useLocation();
   const navigate = useNavigate();
 
-  const [sortState, setSortState] = useState(overrideSortStateWithQueryParams(getSortState(pageLocation, 'id'), pageLocation.search));
+  const [sortState, setSortState] = useState(
+    overrideSortStateWithQueryParams(
+      getSortState(pageLocation, 'id'),
+      pageLocation.search,
+    ),
+  );
 
   const paragraphList = useAppSelector(state => state.paragraph.entities);
   const loading = useAppSelector(state => state.paragraph.loading);
@@ -67,62 +82,48 @@ export const Paragraph = () => {
   return (
     <div>
       <h2 id="paragraph-heading" data-cy="ParagraphHeading">
-        <Translate contentKey="seaportApp.paragraph.home.title">Paragraphs</Translate>
+        <Translate contentKey="seaportApp.paragraph.home.title">
+          Paragraphs
+        </Translate>
         <div className="d-flex justify-content-end">
-          <Button className="me-2" color="info" onClick={handleSyncList} disabled={loading}>
+          <Button
+            className="me-2"
+            color="info"
+            onClick={handleSyncList}
+            disabled={loading}
+          >
             <FontAwesomeIcon icon="sync" spin={loading} />{' '}
-            <Translate contentKey="seaportApp.paragraph.home.refreshListLabel">Refresh List</Translate>
+            <Translate contentKey="seaportApp.paragraph.home.refreshListLabel">
+              Refresh List
+            </Translate>
           </Button>
-          <Link to="/paragraph/new" className="btn btn-primary jh-create-entity" id="jh-create-entity" data-cy="entityCreateButton">
+          <Link
+            to="/paragraph/new"
+            className="btn btn-primary jh-create-entity"
+            id="jh-create-entity"
+            data-cy="entityCreateButton"
+          >
             <FontAwesomeIcon icon="plus" />
             &nbsp;
-            <Translate contentKey="seaportApp.paragraph.home.createLabel">Create new Paragraph</Translate>
+            <Translate contentKey="seaportApp.paragraph.home.createLabel">
+              Create new Paragraph
+            </Translate>
           </Link>
         </div>
       </h2>
       <div className="table-responsive">
         {paragraphList && paragraphList.length > 0 ? (
           <Table responsive>
-            <thead>
-              <tr>
-                <th className="hand" onClick={sort('id')}>
-                  <Translate contentKey="seaportApp.paragraph.id">ID</Translate> <FontAwesomeIcon icon={getSortIconByFieldName('id')} />
-                </th>
-                <th className="hand" onClick={sort('image')}>
-                  <Translate contentKey="seaportApp.paragraph.image">Image</Translate>{' '}
-                  <FontAwesomeIcon icon={getSortIconByFieldName('image')} />
-                </th>
-                <th className="hand" onClick={sort('caption')}>
-                  <Translate contentKey="seaportApp.paragraph.caption">Caption</Translate>{' '}
-                  <FontAwesomeIcon icon={getSortIconByFieldName('caption')} />
-                </th>
-                <th className="hand" onClick={sort('content')}>
-                  <Translate contentKey="seaportApp.paragraph.content">Content</Translate>{' '}
-                  <FontAwesomeIcon icon={getSortIconByFieldName('content')} />
-                </th>
-                <th className="hand" onClick={sort('contentType')}>
-                  <Translate contentKey="seaportApp.paragraph.contentType">Content Type</Translate>{' '}
-                  <FontAwesomeIcon icon={getSortIconByFieldName('contentType')} />
-                </th>
-                <th className="hand" onClick={sort('createdAt')}>
-                  <Translate contentKey="seaportApp.paragraph.createdAt">Created At</Translate>{' '}
-                  <FontAwesomeIcon icon={getSortIconByFieldName('createdAt')} />
-                </th>
-                <th className="hand" onClick={sort('updatedAt')}>
-                  <Translate contentKey="seaportApp.paragraph.updatedAt">Updated At</Translate>{' '}
-                  <FontAwesomeIcon icon={getSortIconByFieldName('updatedAt')} />
-                </th>
-                <th>
-                  <Translate contentKey="seaportApp.paragraph.paragraph">Paragraph</Translate> <FontAwesomeIcon icon="sort" />
-                </th>
-                <th />
-              </tr>
-            </thead>
             <tbody>
               {paragraphList.map((paragraph, i) => (
                 <tr key={`entity-${i}`} data-cy="entityTable">
                   <td>
-                    <Button tag={Link} to={`/paragraph/${paragraph.id}`} color="link" size="sm">
+                    <Button
+                      tag={Link}
+                      to={`/paragraph/${paragraph.id}`}
+                      color="link"
+                      size="sm"
+                    >
                       {paragraph.id}
                     </Button>
                   </td>
@@ -130,13 +131,22 @@ export const Paragraph = () => {
                     {paragraph.image ? (
                       <div>
                         {paragraph.imageContentType ? (
-                          <a onClick={openFile(paragraph.imageContentType, paragraph.image)}>
-                            <img src={`data:${paragraph.imageContentType};base64,${paragraph.image}`} style={{ maxHeight: '30px' }} />
+                          <a
+                            onClick={openFile(
+                              paragraph.imageContentType,
+                              paragraph.image,
+                            )}
+                          >
+                            <img
+                              src={`data:${paragraph.imageContentType};base64,${paragraph.image}`}
+                              style={{ maxHeight: '30px' }}
+                            />
                             &nbsp;
                           </a>
                         ) : null}
                         <span>
-                          {paragraph.imageContentType}, {byteSize(paragraph.image)}
+                          {paragraph.imageContentType},{' '}
+                          {byteSize(paragraph.image)}
                         </span>
                       </div>
                     ) : null}
@@ -144,32 +154,76 @@ export const Paragraph = () => {
                   <td>{paragraph.caption}</td>
                   <td>{paragraph.content}</td>
                   <td>{paragraph.contentType}</td>
-                  <td>{paragraph.createdAt ? <TextFormat type="date" value={paragraph.createdAt} format={APP_DATE_FORMAT} /> : null}</td>
-                  <td>{paragraph.updatedAt ? <TextFormat type="date" value={paragraph.updatedAt} format={APP_DATE_FORMAT} /> : null}</td>
-                  <td>{paragraph.paragraph ? <Link to={`/post/${paragraph.paragraph.id}`}>{paragraph.paragraph.name}</Link> : ''}</td>
+                  <td>
+                    {paragraph.createdAt ? (
+                      <TextFormat
+                        type="date"
+                        value={paragraph.createdAt}
+                        format={APP_DATE_FORMAT}
+                      />
+                    ) : null}
+                  </td>
+                  <td>
+                    {paragraph.updatedAt ? (
+                      <TextFormat
+                        type="date"
+                        value={paragraph.updatedAt}
+                        format={APP_DATE_FORMAT}
+                      />
+                    ) : null}
+                  </td>
+                  <td>
+                    {paragraph.paragraph ? (
+                      <Link to={`/post/${paragraph.paragraph.id}`}>
+                        {paragraph.paragraph.name}
+                      </Link>
+                    ) : (
+                      ''
+                    )}
+                  </td>
                   <td className="text-end">
                     <div className="btn-group flex-btn-group-container">
-                      <Button tag={Link} to={`/paragraph/${paragraph.id}`} color="info" size="sm" data-cy="entityDetailsButton">
+                      <Button
+                        tag={Link}
+                        to={`/paragraph/${paragraph.id}`}
+                        color="info"
+                        size="sm"
+                        data-cy="entityDetailsButton"
+                      >
                         <FontAwesomeIcon icon="eye" />{' '}
                         <span className="d-none d-md-inline">
-                          <Translate contentKey="entity.action.view">View</Translate>
-                        </span>
-                      </Button>
-                      <Button tag={Link} to={`/paragraph/${paragraph.id}/edit`} color="primary" size="sm" data-cy="entityEditButton">
-                        <FontAwesomeIcon icon="pencil-alt" />{' '}
-                        <span className="d-none d-md-inline">
-                          <Translate contentKey="entity.action.edit">Edit</Translate>
+                          <Translate contentKey="entity.action.view">
+                            View
+                          </Translate>
                         </span>
                       </Button>
                       <Button
-                        onClick={() => (window.location.href = `/paragraph/${paragraph.id}/delete`)}
+                        tag={Link}
+                        to={`/paragraph/${paragraph.id}/edit`}
+                        color="primary"
+                        size="sm"
+                        data-cy="entityEditButton"
+                      >
+                        <FontAwesomeIcon icon="pencil-alt" />{' '}
+                        <span className="d-none d-md-inline">
+                          <Translate contentKey="entity.action.edit">
+                            Edit
+                          </Translate>
+                        </span>
+                      </Button>
+                      <Button
+                        onClick={() =>
+                          (window.location.href = `/paragraph/${paragraph.id}/delete`)
+                        }
                         color="danger"
                         size="sm"
                         data-cy="entityDeleteButton"
                       >
                         <FontAwesomeIcon icon="trash" />{' '}
                         <span className="d-none d-md-inline">
-                          <Translate contentKey="entity.action.delete">Delete</Translate>
+                          <Translate contentKey="entity.action.delete">
+                            Delete
+                          </Translate>
                         </span>
                       </Button>
                     </div>
@@ -181,7 +235,9 @@ export const Paragraph = () => {
         ) : (
           !loading && (
             <div className="alert alert-warning">
-              <Translate contentKey="seaportApp.paragraph.home.notFound">No Paragraphs found</Translate>
+              <Translate contentKey="seaportApp.paragraph.home.notFound">
+                No Paragraphs found
+              </Translate>
             </div>
           )
         )}

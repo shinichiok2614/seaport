@@ -22,13 +22,18 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public class CommentService {
 
-    private static final Logger log = LoggerFactory.getLogger(CommentService.class);
+    private static final Logger log = LoggerFactory.getLogger(
+        CommentService.class
+    );
 
     private final CommentRepository commentRepository;
 
     private final CommentMapper commentMapper;
 
-    public CommentService(CommentRepository commentRepository, CommentMapper commentMapper) {
+    public CommentService(
+        CommentRepository commentRepository,
+        CommentMapper commentMapper
+    ) {
         this.commentRepository = commentRepository;
         this.commentMapper = commentMapper;
     }
@@ -87,7 +92,11 @@ public class CommentService {
     @Transactional(readOnly = true)
     public List<CommentDTO> findAll() {
         log.debug("Request to get all Comments");
-        return commentRepository.findAll().stream().map(commentMapper::toDto).collect(Collectors.toCollection(LinkedList::new));
+        return commentRepository
+            .findAll()
+            .stream()
+            .map(commentMapper::toDto)
+            .collect(Collectors.toCollection(LinkedList::new));
     }
 
     /**
@@ -96,7 +105,9 @@ public class CommentService {
      * @return the list of entities.
      */
     public Page<CommentDTO> findAllWithEagerRelationships(Pageable pageable) {
-        return commentRepository.findAllWithEagerRelationships(pageable).map(commentMapper::toDto);
+        return commentRepository
+            .findAllWithEagerRelationships(pageable)
+            .map(commentMapper::toDto);
     }
 
     /**
@@ -108,7 +119,9 @@ public class CommentService {
     @Transactional(readOnly = true)
     public Optional<CommentDTO> findOne(Long id) {
         log.debug("Request to get Comment : {}", id);
-        return commentRepository.findOneWithEagerRelationships(id).map(commentMapper::toDto);
+        return commentRepository
+            .findOneWithEagerRelationships(id)
+            .map(commentMapper::toDto);
     }
 
     /**
@@ -119,5 +132,15 @@ public class CommentService {
     public void delete(Long id) {
         log.debug("Request to delete Comment : {}", id);
         commentRepository.deleteById(id);
+    }
+
+    @Transactional(readOnly = true)
+    public List<CommentDTO> findAllByPostId(Long id) {
+        log.debug("Request to get all Comments");
+        return commentRepository
+            .findAllByPostId(id)
+            .stream()
+            .map(commentMapper::toDto)
+            .collect(Collectors.toCollection(LinkedList::new));
     }
 }

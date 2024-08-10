@@ -2,7 +2,12 @@ import axios from 'axios';
 import { createAsyncThunk, isFulfilled, isPending } from '@reduxjs/toolkit';
 import { ASC } from 'app/shared/util/pagination.constants';
 import { cleanEntity } from 'app/shared/util/entity-utils';
-import { IQueryParams, createEntitySlice, EntityState, serializeAxiosError } from 'app/shared/reducers/reducer.utils';
+import {
+  IQueryParams,
+  createEntitySlice,
+  EntityState,
+  serializeAxiosError,
+} from 'app/shared/reducers/reducer.utils';
 import { IParagraph, defaultValue } from 'app/shared/model/paragraph.model';
 
 const initialState: EntityState<IParagraph> = {
@@ -35,6 +40,14 @@ export const getEntity = createAsyncThunk(
   },
   { serializeError: serializeAxiosError },
 );
+export const getEntitiesByPost = createAsyncThunk(
+  'paragraph/fetch_entity_by_post',
+  async (id: string | number) => {
+    const requestUrl = `${apiUrl}/${id}/by-post`;
+    return axios.get<IParagraph[]>(requestUrl);
+  },
+  { serializeError: serializeAxiosError },
+);
 
 export const createEntity = createAsyncThunk(
   'paragraph/create_entity',
@@ -49,7 +62,10 @@ export const createEntity = createAsyncThunk(
 export const updateEntity = createAsyncThunk(
   'paragraph/update_entity',
   async (entity: IParagraph, thunkAPI) => {
-    const result = await axios.put<IParagraph>(`${apiUrl}/${entity.id}`, cleanEntity(entity));
+    const result = await axios.put<IParagraph>(
+      `${apiUrl}/${entity.id}`,
+      cleanEntity(entity),
+    );
     thunkAPI.dispatch(getEntities({}));
     return result;
   },
@@ -59,7 +75,10 @@ export const updateEntity = createAsyncThunk(
 export const partialUpdateEntity = createAsyncThunk(
   'paragraph/partial_update_entity',
   async (entity: IParagraph, thunkAPI) => {
-    const result = await axios.patch<IParagraph>(`${apiUrl}/${entity.id}`, cleanEntity(entity));
+    const result = await axios.patch<IParagraph>(
+      `${apiUrl}/${entity.id}`,
+      cleanEntity(entity),
+    );
     thunkAPI.dispatch(getEntities({}));
     return result;
   },
@@ -105,26 +124,52 @@ export const ParagraphSlice = createEntitySlice({
             }
             const order = action.meta.arg.sort.split(',')[1];
             const predicate = action.meta.arg.sort.split(',')[0];
-            return order === ASC ? (a[predicate] < b[predicate] ? -1 : 1) : b[predicate] < a[predicate] ? -1 : 1;
+            return order === ASC
+              ? a[predicate] < b[predicate]
+                ? -1
+                : 1
+              : b[predicate] < a[predicate]
+                ? -1
+                : 1;
           }),
         };
       })
-      .addMatcher(isFulfilled(createEntity, updateEntity, partialUpdateEntity), (state, action) => {
+      .addMatcher(
+        isFulfilled(createEntity, updateEntity, partialUpdateEntity),
+        (state, action) => {
+          state.updating = false;
+          state.loading = false;
+          state.updateSuccess = true;
+          state.entity = action.payload.data;
+        },
+      )
+      .addMatcher(isFulfilled(getEntitiesByPost), (state, action) => {
         state.updating = false;
         state.loading = false;
-        state.updateSuccess = true;
-        state.entity = action.payload.data;
+        // state.updateSuccess = true;
+        state.entities = action.payload.data;
       })
-      .addMatcher(isPending(getEntities, getEntity), state => {
-        state.errorMessage = null;
-        state.updateSuccess = false;
-        state.loading = true;
-      })
-      .addMatcher(isPending(createEntity, updateEntity, partialUpdateEntity, deleteEntity), state => {
-        state.errorMessage = null;
-        state.updateSuccess = false;
-        state.updating = true;
-      });
+      .addMatcher(
+        isPending(getEntities, getEntity, getEntitiesByPost),
+        state => {
+          state.errorMessage = null;
+          state.updateSuccess = false;
+          state.loading = true;
+        },
+      )
+      .addMatcher(
+        isPending(
+          createEntity,
+          updateEntity,
+          partialUpdateEntity,
+          deleteEntity,
+        ),
+        state => {
+          state.errorMessage = null;
+          state.updateSuccess = false;
+          state.updating = true;
+        },
+      );
   },
 });
 

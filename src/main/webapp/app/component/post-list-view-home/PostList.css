@@ -1,0 +1,40 @@
+.post-list-container {
+  display: grid;
+  grid-template-areas:
+    'featured-post'
+    'secondary-posts'
+    'tertiary-post'
+    'additional-posts'
+    'other-posts';
+  gap: 0px;
+}
+
+.featured-post {
+  grid-area: featured-post;
+}
+
+.secondary-posts {
+  grid-area: secondary-posts;
+  display: flex;
+  gap: 16px;
+}
+.tertiary-additional {
+  display: flex;
+}
+.tertiary-post {
+  grid-area: tertiary-post;
+  width: 50%;
+  align-items: stretch;
+}
+
+.additional-posts {
+  width: 50%;
+  grid-area: additional-posts;
+}
+
+.other-posts {
+  grid-area: other-posts;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+}

@@ -1,8 +1,13 @@
 package com.mycompany.myapp.service;
 
+import com.mycompany.myapp.domain.Person;
 import com.mycompany.myapp.domain.Post;
+import com.mycompany.myapp.repository.PersonRepository;
 import com.mycompany.myapp.repository.PostRepository;
+import com.mycompany.myapp.service.dto.CategoryDTO;
+import com.mycompany.myapp.service.dto.PersonDTO;
 import com.mycompany.myapp.service.dto.PostDTO;
+import com.mycompany.myapp.service.mapper.PersonMapper;
 import com.mycompany.myapp.service.mapper.PostMapper;
 import java.util.LinkedList;
 import java.util.List;
@@ -22,15 +27,26 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public class PostService {
 
-    private static final Logger log = LoggerFactory.getLogger(PostService.class);
+    private static final Logger log = LoggerFactory.getLogger(
+        PostService.class
+    );
 
     private final PostRepository postRepository;
+    private final PersonRepository personRepository;
 
     private final PostMapper postMapper;
+    private final PersonMapper personMapper;
 
-    public PostService(PostRepository postRepository, PostMapper postMapper) {
+    public PostService(
+        PostRepository postRepository,
+        PostMapper postMapper,
+        PersonRepository personRepository,
+        PersonMapper personMapper
+    ) {
         this.postRepository = postRepository;
         this.postMapper = postMapper;
+        this.personRepository = personRepository;
+        this.personMapper = personMapper;
     }
 
     /**
@@ -87,7 +103,11 @@ public class PostService {
     @Transactional(readOnly = true)
     public List<PostDTO> findAll() {
         log.debug("Request to get all Posts");
-        return postRepository.findAll().stream().map(postMapper::toDto).collect(Collectors.toCollection(LinkedList::new));
+        return postRepository
+            .findAll()
+            .stream()
+            .map(postMapper::toDto)
+            .collect(Collectors.toCollection(LinkedList::new));
     }
 
     /**
@@ -96,7 +116,9 @@ public class PostService {
      * @return the list of entities.
      */
     public Page<PostDTO> findAllWithEagerRelationships(Pageable pageable) {
-        return postRepository.findAllWithEagerRelationships(pageable).map(postMapper::toDto);
+        return postRepository
+            .findAllWithEagerRelationships(pageable)
+            .map(postMapper::toDto);
     }
 
     /**
@@ -108,7 +130,9 @@ public class PostService {
     @Transactional(readOnly = true)
     public Optional<PostDTO> findOne(Long id) {
         log.debug("Request to get Post : {}", id);
-        return postRepository.findOneWithEagerRelationships(id).map(postMapper::toDto);
+        return postRepository
+            .findOneWithEagerRelationships(id)
+            .map(postMapper::toDto);
     }
 
     /**
@@ -119,5 +143,41 @@ public class PostService {
     public void delete(Long id) {
         log.debug("Request to delete Post : {}", id);
         postRepository.deleteById(id);
+    }
+
+    @Transactional(readOnly = true)
+    public Optional<PostDTO> findOneWithPerson(Long id) {
+        return postRepository
+            .findById(id)
+            .map(post -> {
+                PostDTO postDTO = new PostDTO();
+                postDTO.setId(post.getId());
+                postDTO.setName(post.getName());
+                postDTO.setCreatedAt(post.getCreatedAt());
+                postDTO.setSummary(post.getSummary());
+                postDTO.setImage(post.getImage());
+                postDTO.setImageContentType(post.getImageContentType());
+                postDTO.setStatus(post.getStatus());
+                postDTO.setView(post.getView());
+                postDTO.setRemark(post.getRemark());
+                postDTO.setUpdateAt(post.getUpdateAt());
+                postDTO.setApprovedAt(post.getApprovedAt());
+                postDTO.setModifiedAt(post.getModifiedAt());
+
+                Optional<Person> personOpt = personRepository.findOneByUserId(
+                    post.getPost().getId()
+                );
+                personOpt.ifPresent(person -> {
+                    PersonDTO personDTO = personMapper.toDto(person);
+                    postDTO.setPerson(personDTO);
+                });
+                if (post.getCategory() != null) {
+                    CategoryDTO categoryDTO = new CategoryDTO();
+                    categoryDTO.setId(post.getCategory().getId());
+                    categoryDTO.setName(post.getCategory().getName());
+                    postDTO.setCategory(categoryDTO);
+                }
+                return postDTO;
+            });
     }
 }

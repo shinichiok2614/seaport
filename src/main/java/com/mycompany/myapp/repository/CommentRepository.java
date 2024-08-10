@@ -14,7 +14,9 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface CommentRepository extends JpaRepository<Comment, Long> {
-    @Query("select comment from Comment comment where comment.comment.login = ?#{authentication.name}")
+    @Query(
+        "select comment from Comment comment where comment.comment.login = ?#{authentication.name}"
+    )
     List<Comment> findByCommentIsCurrentUser();
 
     default Optional<Comment> findOneWithEagerRelationships(Long id) {
@@ -35,9 +37,15 @@ public interface CommentRepository extends JpaRepository<Comment, Long> {
     )
     Page<Comment> findAllWithToOneRelationships(Pageable pageable);
 
-    @Query("select comment from Comment comment left join fetch comment.post left join fetch comment.comment")
+    @Query(
+        "select comment from Comment comment left join fetch comment.post left join fetch comment.comment"
+    )
     List<Comment> findAllWithToOneRelationships();
 
-    @Query("select comment from Comment comment left join fetch comment.post left join fetch comment.comment where comment.id =:id")
+    @Query(
+        "select comment from Comment comment left join fetch comment.post left join fetch comment.comment where comment.id =:id"
+    )
     Optional<Comment> findOneWithToOneRelationships(@Param("id") Long id);
+
+    List<Comment> findAllByPostId(Long postId);
 }

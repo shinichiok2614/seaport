@@ -35,6 +35,10 @@ public interface PersonRepository extends JpaRepository<Person, Long> {
     @Query("select person from Person person left join fetch person.department")
     List<Person> findAllWithToOneRelationships();
 
-    @Query("select person from Person person left join fetch person.department where person.id =:id")
+    @Query(
+        "select person from Person person left join fetch person.department where person.id =:id"
+    )
     Optional<Person> findOneWithToOneRelationships(@Param("id") Long id);
+
+    Optional<Person> findOneByUserId(Long id);
 }

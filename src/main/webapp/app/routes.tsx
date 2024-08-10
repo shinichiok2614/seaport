@@ -14,6 +14,11 @@ import PrivateRoute from 'app/shared/auth/private-route';
 import ErrorBoundaryRoutes from 'app/shared/error/error-boundary-routes';
 import PageNotFound from 'app/shared/error/page-not-found';
 import { AUTHORITIES } from 'app/config/constants';
+import CategoryPage from './modules/category-page/category-page';
+import PostViewPage from './modules/post-view-page/post-view-page';
+import PostEditPage from './modules/post-edit-page/post-edit-page';
+import ParagraphEditPage from './modules/paragraph-edit-page/paragraph-edit-page';
+import ParagraphEditUpdate from './modules/paragraph-edit-update/paragraph-edit-update';
 
 const loading = <div>loading ...</div>;
 
@@ -23,7 +28,10 @@ const Account = Loadable({
 });
 
 const Admin = Loadable({
-  loader: () => import(/* webpackChunkName: "administration" */ 'app/modules/administration'),
+  loader: () =>
+    import(
+      /* webpackChunkName: "administration" */ 'app/modules/administration'
+    ),
   loading: () => loading,
 });
 const AppRoutes = () => {
@@ -31,13 +39,24 @@ const AppRoutes = () => {
     <div className="view-routes">
       <ErrorBoundaryRoutes>
         <Route index element={<Home />} />
+        <Route path="categorypage/:id" element={<CategoryPage />} />
+        <Route path="postpage/:id" element={<PostViewPage />} />
+        <Route path="postpage/new" element={<PostEditPage />} />
+        <Route path="posteditpage/:id" element={<PostEditPage />} />
+        <Route path="paragrapheditpage/:id" element={<ParagraphEditPage />} />
+        <Route
+          path="paragrapheditupdatepage/:id"
+          element={<ParagraphEditUpdate />}
+        />
         <Route path="login" element={<Login />} />
         <Route path="logout" element={<Logout />} />
         <Route path="account">
           <Route
             path="*"
             element={
-              <PrivateRoute hasAnyAuthorities={[AUTHORITIES.ADMIN, AUTHORITIES.USER]}>
+              <PrivateRoute
+                hasAnyAuthorities={[AUTHORITIES.ADMIN, AUTHORITIES.USER]}
+              >
                 <Account />
               </PrivateRoute>
             }

@@ -2,6 +2,7 @@ package com.mycompany.myapp.service.dto;
 
 import jakarta.validation.constraints.*;
 import java.io.Serializable;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -14,6 +15,16 @@ public class CategoryDTO implements Serializable {
 
     @NotNull
     private String name;
+
+    private List<PostDTO> posts;
+
+    public List<PostDTO> getPosts() {
+        return posts;
+    }
+
+    public void setPosts(List<PostDTO> posts) {
+        this.posts = posts;
+    }
 
     public Long getId() {
         return id;

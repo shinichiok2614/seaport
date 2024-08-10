@@ -6,7 +6,7 @@
         "refreshListLabel": "Refresh list",
         "createLabel": "Create a new Comment",
         "createOrEditLabel": "Create or edit a Comment",
-        "notFound": "No Comments found"
+        "notFound": "No Comments"
       },
       "created": "A new Comment is created with identifier {{ param }}",
       "updated": "A Comment is updated with identifier {{ param }}",

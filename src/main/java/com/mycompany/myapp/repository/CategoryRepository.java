@@ -1,6 +1,8 @@
 package com.mycompany.myapp.repository;
 
 import com.mycompany.myapp.domain.Category;
+import com.mycompany.myapp.service.dto.CategoryDTO;
+import java.util.List;
 import org.springframework.data.jpa.repository.*;
 import org.springframework.stereotype.Repository;
 

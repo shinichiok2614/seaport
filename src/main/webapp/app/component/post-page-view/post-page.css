@@ -1,0 +1,18 @@
+.PostPageView {
+  margin-bottom: 50px;
+}
+.PostPageView2 {
+  font-size: 40px;
+}
+.PostPageView3 {
+  display: flex;
+  justify-content: space-between;
+}
+.PostPageView3-1 {
+  font-size: 40px;
+  font-style: italic;
+  color: rgb(199, 70, 1);
+}
+.PostPageView3 img {
+  height: 200px;
+}
