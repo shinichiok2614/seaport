@@ -15,6 +15,7 @@ const PostCardView = ({
   hideImage = false,
   hidesumary = false,
   hidePersonAvatar = true,
+  hideRemark = false,
 }) => {
   if (!post) {
     return <p>Loading...</p>;
@@ -22,6 +23,9 @@ const PostCardView = ({
   const navigate = useNavigate();
   const handlePostName = () => {
     navigate(`/postpage/${post.id}`);
+  };
+  const handlePersonName = () => {
+    navigate(`/personalpage/${post.person.id}`);
   };
   return (
     <div className="post-card">
@@ -39,7 +43,7 @@ const PostCardView = ({
             {post.name}
           </div>
           {post.person && (
-            <div className="post-card-login">
+            <div className="post-card-login" onClick={handlePersonName}>
               {/* <span>{post.post.login}</span> */}
               <span>{post.person.name}</span>
               <div>
@@ -75,45 +79,47 @@ const PostCardView = ({
           <FontAwesomeIcon icon={faCommentDots} />
         </div>
       </div>
-      <div className="post-card-meta">
-        {post.updateAt && (
-          <div className="post-card-meta-item">
-            <FontAwesomeIcon icon={faCalendarAlt} />
-            <span>
-              <TextFormat
-                type="date"
-                value={post.updateAt}
-                format="YYYY-MM-DD"
-              />
-            </span>
-          </div>
-        )}
-        {post.approvedAt && (
-          <div className="post-card-meta-item">
-            <FontAwesomeIcon icon={faCalendarAlt} />
-            <span>
-              <TextFormat
-                type="date"
-                value={post.approvedAt}
-                format="YYYY-MM-DD"
-              />
-            </span>
-          </div>
-        )}
-        {post.modifiedAt && (
-          <div className="post-card-meta-item">
-            <FontAwesomeIcon icon={faCalendarAlt} />
-            <span>
-              <TextFormat
-                type="date"
-                value={post.modifiedAt}
-                format="YYYY-MM-DD"
-              />
-            </span>
-          </div>
-        )}
-        <div className="post-card-meta-item">{post.remark}</div>
-      </div>
+      {!hideRemark && (
+        <div className="post-card-meta">
+          {post.updateAt && (
+            <div className="post-card-meta-item">
+              <FontAwesomeIcon icon={faCalendarAlt} />
+              <span>
+                <TextFormat
+                  type="date"
+                  value={post.updateAt}
+                  format="YYYY-MM-DD"
+                />
+              </span>
+            </div>
+          )}
+          {post.approvedAt && (
+            <div className="post-card-meta-item">
+              <FontAwesomeIcon icon={faCalendarAlt} />
+              <span>
+                <TextFormat
+                  type="date"
+                  value={post.approvedAt}
+                  format="YYYY-MM-DD"
+                />
+              </span>
+            </div>
+          )}
+          {post.modifiedAt && (
+            <div className="post-card-meta-item">
+              <FontAwesomeIcon icon={faCalendarAlt} />
+              <span>
+                <TextFormat
+                  type="date"
+                  value={post.modifiedAt}
+                  format="YYYY-MM-DD"
+                />
+              </span>
+            </div>
+          )}
+          <div className="post-card-meta-item">{post.remark}</div>
+        </div>
+      )}
     </div>
   );
 };

@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import { Button, Row, Col } from 'reactstrap';
 import { Translate, openFile, byteSize, TextFormat } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -7,6 +7,10 @@ import { APP_DATE_FORMAT } from 'app/config/constants';
 import './post-page.css'; // Import tệp CSS mới của bạn
 
 export const PostPageView = ({ postEntity }) => {
+  const navigate = useNavigate();
+  const handlePersonName = () => {
+    navigate(`/personalpage/${postEntity.person.id}`);
+  };
   return (
     <div className="PostPageView">
       {postEntity.image && postEntity.imageContentType && (
@@ -17,7 +21,7 @@ export const PostPageView = ({ postEntity }) => {
         />
       )}
       <div className="PostPageView2">{postEntity.name}</div>
-      <div className="PostPageView3">
+      <div className="PostPageView3" onClick={handlePersonName}>
         {postEntity.person && (
           <div className="PostPageView3-1">{postEntity.person.name}</div>
         )}

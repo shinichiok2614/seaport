@@ -1,17 +1,37 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Button, Row, Col } from 'reactstrap';
-import { Translate, translate, ValidatedField, ValidatedForm, ValidatedBlobField } from 'react-jhipster';
+import {
+  Translate,
+  translate,
+  ValidatedField,
+  ValidatedForm,
+  ValidatedBlobField,
+} from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { displayDefaultDateTime } from 'app/shared/util/date-utils';
-
-const PersonForm = ({ isNew, users, departments, personEntity, loading, updating, defaultValues, saveEntity }) => {
+import './PersonForm.css';
+const PersonForm = ({
+  isNew,
+  users,
+  departments,
+  personEntity,
+  loading,
+  updating,
+  defaultValues,
+  saveEntity,
+}) => {
   return (
-    <div>
+    <div className="PersonForm">
       <Row className="justify-content-center">
         <Col md="8">
-          <h2 id="seaportApp.person.home.createOrEditLabel" data-cy="PersonCreateUpdateHeading">
-            <Translate contentKey="seaportApp.person.home.createOrEditLabel">Create or edit a Person</Translate>
+          <h2
+            id="seaportApp.person.home.createOrEditLabel"
+            data-cy="PersonCreateUpdateHeading"
+          >
+            <Translate contentKey="seaportApp.person.home.createOrEditLabel">
+              Create or edit a Person
+            </Translate>
           </h2>
         </Col>
       </Row>
@@ -21,7 +41,7 @@ const PersonForm = ({ isNew, users, departments, personEntity, loading, updating
             <p>Loading...</p>
           ) : (
             <ValidatedForm defaultValues={defaultValues} onSubmit={saveEntity}>
-              {!isNew ? (
+              {/* {!isNew ? (
                 <ValidatedField
                   name="id"
                   required
@@ -30,7 +50,7 @@ const PersonForm = ({ isNew, users, departments, personEntity, loading, updating
                   label={translate('global.field.id')}
                   validate={{ required: true }}
                 />
-              ) : null}
+              ) : null} */}
               <ValidatedField
                 label={translate('seaportApp.person.name')}
                 id="person-name"
@@ -38,10 +58,14 @@ const PersonForm = ({ isNew, users, departments, personEntity, loading, updating
                 data-cy="name"
                 type="text"
                 validate={{
-                  required: { value: true, message: translate('entity.validation.required') },
+                  required: {
+                    value: true,
+                    message: translate('entity.validation.required'),
+                  },
                 }}
               />
               <ValidatedBlobField
+                className="PersonForm-avatar"
                 label={translate('seaportApp.person.avatar')}
                 id="person-avatar"
                 name="avatar"
@@ -49,10 +73,14 @@ const PersonForm = ({ isNew, users, departments, personEntity, loading, updating
                 isImage
                 accept="image/*"
                 validate={{
-                  required: { value: true, message: translate('entity.validation.required') },
+                  required: {
+                    value: true,
+                    message: translate('entity.validation.required'),
+                  },
                 }}
               />
               <ValidatedBlobField
+                className="PersonForm-cover"
                 label={translate('seaportApp.person.cover')}
                 id="person-cover"
                 name="cover"
@@ -60,10 +88,20 @@ const PersonForm = ({ isNew, users, departments, personEntity, loading, updating
                 isImage
                 accept="image/*"
                 validate={{
-                  required: { value: true, message: translate('entity.validation.required') },
+                  required: {
+                    value: true,
+                    message: translate('entity.validation.required'),
+                  },
                 }}
               />
-              <ValidatedField label={translate('seaportApp.person.bio')} id="person-bio" name="bio" data-cy="bio" type="textarea" />
+              <div className="PersonForm-customize">Customize your intro</div>
+              <ValidatedField
+                label={translate('seaportApp.person.bio')}
+                id="person-bio"
+                name="bio"
+                data-cy="bio"
+                type="textarea"
+              />
               <ValidatedField
                 label={translate('seaportApp.person.phone')}
                 id="person-phone"
@@ -71,8 +109,18 @@ const PersonForm = ({ isNew, users, departments, personEntity, loading, updating
                 data-cy="phone"
                 type="text"
                 validate={{
-                  minLength: { value: 12, message: translate('entity.validation.minlength', { min: 12 }) },
-                  maxLength: { value: 12, message: translate('entity.validation.maxlength', { max: 12 }) },
+                  minLength: {
+                    value: 12,
+                    message: translate('entity.validation.minlength', {
+                      min: 12,
+                    }),
+                  },
+                  maxLength: {
+                    value: 12,
+                    message: translate('entity.validation.maxlength', {
+                      max: 12,
+                    }),
+                  },
                 }}
               />
               <ValidatedField
@@ -97,10 +145,13 @@ const PersonForm = ({ isNew, users, departments, personEntity, loading, updating
                 type="datetime-local"
                 placeholder="YYYY-MM-DD HH:mm"
                 validate={{
-                  required: { value: true, message: translate('entity.validation.required') },
+                  required: {
+                    value: true,
+                    message: translate('entity.validation.required'),
+                  },
                 }}
               />
-              <ValidatedField
+              {/* <ValidatedField
                 label={translate('seaportApp.person.updateAt')}
                 id="person-updateAt"
                 name="updateAt"
@@ -108,9 +159,12 @@ const PersonForm = ({ isNew, users, departments, personEntity, loading, updating
                 type="datetime-local"
                 placeholder="YYYY-MM-DD HH:mm"
                 validate={{
-                  required: { value: true, message: translate('entity.validation.required') },
+                  required: {
+                    value: true,
+                    message: translate('entity.validation.required'),
+                  },
                 }}
-              />
+              /> */}
               <ValidatedField
                 label={translate('seaportApp.person.dateOfBirth')}
                 id="person-dateOfBirth"
@@ -119,15 +173,21 @@ const PersonForm = ({ isNew, users, departments, personEntity, loading, updating
                 type="datetime-local"
                 placeholder="YYYY-MM-DD HH:mm"
               />
-              <ValidatedField
+              {/* <ValidatedField
                 label={translate('seaportApp.person.isAuthor')}
                 id="person-isAuthor"
                 name="isAuthor"
                 data-cy="isAuthor"
                 check
                 type="checkbox"
-              />
-              <ValidatedField id="person-user" name="user" data-cy="user" label={translate('seaportApp.person.user')} type="select">
+              /> */}
+              {/* <ValidatedField
+                id="person-user"
+                name="user"
+                data-cy="user"
+                label={translate('seaportApp.person.user')}
+                type="select"
+              >
                 <option value="" key="0" />
                 {users
                   ? users.map(otherEntity => (
@@ -136,7 +196,7 @@ const PersonForm = ({ isNew, users, departments, personEntity, loading, updating
                       </option>
                     ))
                   : null}
-              </ValidatedField>
+              </ValidatedField> */}
               <ValidatedField
                 id="person-department"
                 name="department"
@@ -153,7 +213,14 @@ const PersonForm = ({ isNew, users, departments, personEntity, loading, updating
                     ))
                   : null}
               </ValidatedField>
-              <Button tag={Link} id="cancel-save" data-cy="entityCreateCancelButton" to="/person" replace color="info">
+              <Button
+                tag={Link}
+                id="cancel-save"
+                data-cy="entityCreateCancelButton"
+                to="/person"
+                replace
+                color="info"
+              >
                 <FontAwesomeIcon icon="arrow-left" />
                 &nbsp;
                 <span className="d-none d-md-inline">
@@ -161,7 +228,13 @@ const PersonForm = ({ isNew, users, departments, personEntity, loading, updating
                 </span>
               </Button>
               &nbsp;
-              <Button color="primary" id="save-entity" data-cy="entityCreateSaveButton" type="submit" disabled={updating}>
+              <Button
+                color="primary"
+                id="save-entity"
+                data-cy="entityCreateSaveButton"
+                type="submit"
+                disabled={updating}
+              >
                 <FontAwesomeIcon icon="save" />
                 &nbsp;
                 <Translate contentKey="entity.action.save">Save</Translate>

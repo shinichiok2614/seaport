@@ -9,6 +9,7 @@ import com.mycompany.myapp.service.dto.PersonDTO;
 import com.mycompany.myapp.service.dto.PostDTO;
 import com.mycompany.myapp.service.mapper.PersonMapper;
 import com.mycompany.myapp.service.mapper.PostMapper;
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
@@ -168,7 +169,7 @@ public class PostService {
                     post.getPost().getId()
                 );
                 personOpt.ifPresent(person -> {
-                    PersonDTO personDTO = personMapper.toDto(person);
+                    PersonDTO personDTO = personMapper.toDto(person); //lấy kq user và tìm person tương ứng
                     postDTO.setPerson(personDTO);
                 });
                 if (post.getCategory() != null) {
@@ -179,5 +180,40 @@ public class PostService {
                 }
                 return postDTO;
             });
+    }
+
+    // @Transactional(readOnly = true)
+    // public List<PostDTO> findAllByPersonId(Long personId) { //có person id và tìm user id tương ứng
+    //     Optional<PersonDTO> persondto= personRepository.findOneWithEagerRelationships(
+    //             personId).map(personMapper::toDto);
+    //     return postRepository.findAllByPost(
+    //             persondto.getUser().getId())
+    //             .stream()
+    //             .map(postMapper::toDto)
+    //             .collect(Collectors.toList());
+    // }
+    @Transactional(readOnly = true)
+    public List<PostDTO> findAllByPersonId(Long personId) {
+        // Lấy Optional của PersonDTO từ personRepository
+        Optional<PersonDTO> persondtoOptional = personRepository
+            .findOneWithEagerRelationships(personId)
+            .map(personMapper::toDto);
+
+        // Kiểm tra nếu persondtoOptional có giá trị
+        if (persondtoOptional.isPresent()) {
+            PersonDTO persondto = persondtoOptional.get();
+            Long userId = persondto.getUser().getId();
+
+            // Tìm tất cả các Post liên quan đến userId và chuyển đổi chúng sang DTO
+            return postRepository
+                .findAllByUserId(userId)
+                .stream()
+                .map(postMapper::toDto)
+                .collect(Collectors.toList());
+        } else {
+            // Trường hợp không tìm thấy Person, có thể trả về danh sách trống hoặc xử lý
+            // khác
+            return Collections.emptyList();
+        }
     }
 }

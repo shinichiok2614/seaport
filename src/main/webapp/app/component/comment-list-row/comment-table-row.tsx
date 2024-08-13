@@ -11,21 +11,22 @@ const CommentTableRow = ({ comment }) => {
   return (
     <div className="CommentTableRow">
       <div className="CommentTableRow1">
+        <div>{comment.comment ? comment.comment.login : ''}</div>
+      </div>
+      <div className="CommentTableRow2">
+        <div>{comment.description}</div>
         {comment.image ? (
           <div>
             {comment.imageContentType ? (
               <a onClick={openFile(comment.imageContentType, comment.image)}>
                 <img
                   src={`data:${comment.imageContentType};base64,${comment.image}`}
+                  style={{ maxHeight: '100px' }}
                 />
               </a>
             ) : null}
           </div>
         ) : null}
-        <div>{comment.comment ? comment.comment.login : ''}</div>
-      </div>
-      <div className="CommentTableRow2">
-        <div>{comment.description}</div>
         <div>
           {comment.createdAt ? (
             <TextFormat

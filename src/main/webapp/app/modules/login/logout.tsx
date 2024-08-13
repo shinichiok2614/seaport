@@ -14,7 +14,7 @@ export const Logout = () => {
     } else if (!authentication.isAuthenticated) {
       window.location.href = '/';
     }
-  });
+  }, []); // Thêm dependency array rỗng để chỉ chạy khi component mount
 
   return (
     <div className="p-5">

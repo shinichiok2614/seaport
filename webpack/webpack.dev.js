@@ -53,7 +53,13 @@ module.exports = async options =>
       port: 9060,
       proxy: [
         {
-          context: ['/api', '/services', '/management', '/v3/api-docs', '/h2-console'],
+          context: [
+            '/api',
+            '/services',
+            '/management',
+            '/v3/api-docs',
+            '/h2-console',
+          ],
           target: `http${options.tls ? 's' : ''}://localhost:8080`,
           secure: false,
           changeOrigin: options.tls,
@@ -85,13 +91,14 @@ module.exports = async options =>
               heartbeatTimeout: 60000,
             },
           },
-          /*
-      ,ghostMode: { // uncomment this part to disable BrowserSync ghostMode; https://github.com/jhipster/generator-jhipster/issues/11116
-        clicks: false,
-        location: false,
-        forms: false,
-        scroll: false
-      } */
+
+          ghostMode: {
+            // uncomment this part to disable BrowserSync ghostMode; https://github.com/jhipster/generator-jhipster/issues/11116
+            clicks: false,
+            location: false,
+            forms: false,
+            scroll: false,
+          },
         },
         {
           reload: false,

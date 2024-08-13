@@ -11,10 +11,15 @@
   min-width: 300px;
 }
 .PostViewPage2 {
-  min-width: 600px;
+  min-width: 800px;
 }
 .PostViewPage2-comment {
   margin: 5px;
   font-size: 20px;
   font-weight: bold;
+}
+.PostViewPage22 {
+  box-shadow: 0 2px 4px #888888;
+  border-radius: 8px;
+  padding: 10px;
 }

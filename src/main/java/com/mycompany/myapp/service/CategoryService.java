@@ -172,6 +172,7 @@ public class CategoryService {
                         postDTO.setImage(post.getImage());
                         postDTO.setImageContentType(post.getImageContentType());
                         postDTO.setCreatedAt(post.getCreatedAt());
+                        postDTO.setView(post.getView());
 
                         Optional<Person> personOpt =
                             personRepository.findOneByUserId(

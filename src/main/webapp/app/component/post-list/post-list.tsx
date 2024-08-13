@@ -1,14 +1,31 @@
 // PostList.js
-import React from 'react';
-import { Table } from 'reactstrap';
+import React, { useState } from 'react';
+import { Input, Table } from 'reactstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Translate } from 'react-jhipster';
 import PostCard from '../post-card/post-card';
 
 const PostList = ({ postList, sort, getSortIconByFieldName }) => {
+  const [searchTerm, setSearchTerm] = useState('');
+
+  const handleSearchChange = event => {
+    setSearchTerm(event.target.value);
+  };
+
+  const filteredPostList = postList.filter(post =>
+    post.name.toLowerCase().includes(searchTerm.toLowerCase()),
+  );
+
   return (
     <div className="table-responsive">
-      {postList && postList.length > 0 ? (
+      <Input
+        type="text"
+        placeholder="Search by name"
+        value={searchTerm}
+        onChange={handleSearchChange}
+        className="mb-3"
+      />
+      {filteredPostList && filteredPostList.length > 0 ? (
         <Table responsive>
           <thead>
             <tr>
@@ -84,7 +101,7 @@ const PostList = ({ postList, sort, getSortIconByFieldName }) => {
             </tr>
           </thead>
           <tbody>
-            {postList.map((post, i) => (
+            {filteredPostList.map((post, i) => (
               <PostCard key={`entity-${i}`} post={post} />
             ))}
           </tbody>

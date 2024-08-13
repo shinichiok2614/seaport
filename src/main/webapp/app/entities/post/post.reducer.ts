@@ -32,6 +32,15 @@ export const getEntities = createAsyncThunk(
   { serializeError: serializeAxiosError },
 );
 
+export const getEntitiesByPerson = createAsyncThunk(
+  'post/fetch_entities_by_person',
+  async (id: string | number) => {
+    const requestUrl = `${apiUrl}/${id}/by-person-id`;
+    return axios.get<IPost[]>(requestUrl);
+  },
+  { serializeError: serializeAxiosError },
+);
+
 export const getEntity = createAsyncThunk(
   'post/fetch_entity',
   async (id: string | number) => {
@@ -106,6 +115,10 @@ export const PostSlice = createEntitySlice({
         state.loading = false;
         state.entity = action.payload.data;
       })
+      .addCase(getEntitiesByPerson.fulfilled, (state, action) => {
+        state.loading = false;
+        state.entities = action.payload.data;
+      })
       .addCase(deleteEntity.fulfilled, state => {
         state.updating = false;
         state.updateSuccess = true;
@@ -147,11 +160,14 @@ export const PostSlice = createEntitySlice({
           state.entity = action.payload.data;
         },
       )
-      .addMatcher(isPending(getEntities, getEntity), state => {
-        state.errorMessage = null;
-        state.updateSuccess = false;
-        state.loading = true;
-      })
+      .addMatcher(
+        isPending(getEntities, getEntity, getEntitiesByPerson),
+        state => {
+          state.errorMessage = null;
+          state.updateSuccess = false;
+          state.loading = true;
+        },
+      )
       .addMatcher(
         isPending(
           createEntity,

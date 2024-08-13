@@ -18,6 +18,9 @@ const PostCardViewRight = ({ post }) => {
   const handlePostName = () => {
     navigate(`/postpage/${post.id}`);
   };
+  const handlePersonName = () => {
+    navigate(`/personalpage/${post.person.id}`);
+  };
   return (
     <div className="post1">
       <div className="post11">
@@ -30,7 +33,7 @@ const PostCardViewRight = ({ post }) => {
           {post.name}
         </div>
         {post.person && (
-          <div className="post113">
+          <div className="post113" onClick={handlePersonName}>
             <span>{post.person.name}</span>
           </div>
         )}
@@ -81,7 +84,7 @@ const PostCardViewRight = ({ post }) => {
         )}
         <div className="post11-11">{post.remark}</div> */}
       </div>
-      <div className="post12">
+      <div className="post12" onClick={handlePostName}>
         {post.image && (
           <img
             src={`data:${post.imageContentType};base64,${post.image}`}

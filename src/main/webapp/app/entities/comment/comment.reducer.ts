@@ -54,7 +54,7 @@ export const createEntity = createAsyncThunk(
   'comment/create_entity',
   async (entity: IComment, thunkAPI) => {
     const result = await axios.post<IComment>(apiUrl, cleanEntity(entity));
-    thunkAPI.dispatch(getEntities({}));
+    // thunkAPI.dispatch(getEntities({}));
     return result;
   },
   { serializeError: serializeAxiosError },
@@ -67,7 +67,7 @@ export const updateEntity = createAsyncThunk(
       `${apiUrl}/${entity.id}`,
       cleanEntity(entity),
     );
-    thunkAPI.dispatch(getEntities({}));
+    // thunkAPI.dispatch(getEntities({}));
     return result;
   },
   { serializeError: serializeAxiosError },
@@ -80,7 +80,7 @@ export const partialUpdateEntity = createAsyncThunk(
       `${apiUrl}/${entity.id}`,
       cleanEntity(entity),
     );
-    thunkAPI.dispatch(getEntities({}));
+    // thunkAPI.dispatch(getEntities({}));
     return result;
   },
   { serializeError: serializeAxiosError },
@@ -91,7 +91,7 @@ export const deleteEntity = createAsyncThunk(
   async (id: string | number, thunkAPI) => {
     const requestUrl = `${apiUrl}/${id}`;
     const result = await axios.delete<IComment>(requestUrl);
-    thunkAPI.dispatch(getEntities({}));
+    // thunkAPI.dispatch(getEntities({}));
     return result;
   },
   { serializeError: serializeAxiosError },

@@ -87,7 +87,7 @@ const PostCard = ({ post }) => {
         <div className="btn-group flex-btn-group-container">
           <Button
             tag={Link}
-            to={`/post/${post.id}`}
+            to={`/postapprovepageremark/${post.id}`}
             color="info"
             size="sm"
             data-cy="entityDetailsButton"

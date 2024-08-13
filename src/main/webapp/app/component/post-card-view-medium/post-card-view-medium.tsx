@@ -22,6 +22,9 @@ const PostCardViewMedium = ({
   const handlePostName = () => {
     navigate(`/postpage/${post.id}`);
   };
+  const handlePersonName = () => {
+    navigate(`/personalpage/${post.person.id}`);
+  };
   return (
     <div className="medium">
       <div>
@@ -36,7 +39,11 @@ const PostCardViewMedium = ({
         <div className="medium3" onClick={handlePostName}>
           {post.name}
         </div>
-        {post.person && <div className="medium6">{post.person.name}</div>}
+        {post.person && (
+          <div className="medium6" onClick={handlePersonName}>
+            {post.person.name}
+          </div>
+        )}
         <div className="medium4">{post.summary}</div>
       </div>
       <div>
@@ -44,6 +51,7 @@ const PostCardViewMedium = ({
           <img
             src={`data:${post.person.avatarContentType};base64,${post.person.avatar}`}
             className="medium7"
+            onClick={handlePersonName}
           />
         )}
         <div className="medium5">

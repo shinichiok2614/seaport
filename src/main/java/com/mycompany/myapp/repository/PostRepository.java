@@ -19,6 +19,11 @@ public interface PostRepository extends JpaRepository<Post, Long> {
     )
     List<Post> findByPostIsCurrentUser();
 
+    @Query("select post from Post post where post.post.id = :userId")
+    List<Post> findAllByUserId(@Param("userId") Long userId);
+
+    // List<Post> findAllByPost(Long post);
+
     default Optional<Post> findOneWithEagerRelationships(Long id) {
         return this.findOneWithToOneRelationships(id);
     }

@@ -245,9 +245,20 @@ public class PostResource {
     }
 
     @GetMapping("/{id}/by-person")
-    public ResponseEntity<PostDTO> getPosByPerson(@PathVariable("id") Long id) {
+    public ResponseEntity<PostDTO> getPostByPerson(
+        @PathVariable("id") Long id
+    ) {
         log.debug("REST request to get Post : {}", id);
         Optional<PostDTO> postDTO = postService.findOneWithPerson(id);
         return ResponseUtil.wrapOrNotFound(postDTO);
+    }
+
+    @GetMapping("/{id}/by-person-id")
+    public ResponseEntity<List<PostDTO>> getPostsByPerson(
+        @PathVariable("id") Long id
+    ) {
+        log.debug("REST request to get Post : {}", id);
+        List<PostDTO> postDTOs = postService.findAllByPersonId(id);
+        return ResponseEntity.ok().body(postDTOs);
     }
 }

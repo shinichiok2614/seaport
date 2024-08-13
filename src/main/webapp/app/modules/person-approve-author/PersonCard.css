@@ -1,0 +1,22 @@
+.PersonCard {
+  display: flex;
+  margin: 10px;
+  box-shadow: 0 2px 4px #bfbfbf;
+  border-radius: 8px;
+  justify-content: space-between;
+}
+.PersonCard-avatar img {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 50%;
+}
+.PersonCard-avatar {
+  width: 200px;
+}
+.PersonCard-info {
+  width: 200px;
+}
+.PersonCard-author {
+  width: 200px;
+}

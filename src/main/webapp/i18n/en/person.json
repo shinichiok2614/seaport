@@ -5,7 +5,7 @@
         "title": "People",
         "refreshListLabel": "Refresh list",
         "createLabel": "Create a new Person",
-        "createOrEditLabel": "Create or edit a Person",
+        "createOrEditLabel": "Edit profile",
         "notFound": "No People found"
       },
       "created": "A new Person is created with identifier {{ param }}",

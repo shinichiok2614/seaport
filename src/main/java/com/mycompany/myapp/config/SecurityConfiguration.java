@@ -38,7 +38,10 @@ public class SecurityConfiguration {
     }
 
     @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http, MvcRequestMatcher.Builder mvc) throws Exception {
+    public SecurityFilterChain filterChain(
+        HttpSecurity http,
+        MvcRequestMatcher.Builder mvc
+    ) throws Exception {
         http
             .cors(withDefaults())
             .csrf(csrf -> csrf.disable())
@@ -46,10 +49,20 @@ public class SecurityConfiguration {
             .headers(
                 headers ->
                     headers
-                        .contentSecurityPolicy(csp -> csp.policyDirectives(jHipsterProperties.getSecurity().getContentSecurityPolicy()))
+                        .contentSecurityPolicy(
+                            csp ->
+                                csp.policyDirectives(
+                                    jHipsterProperties
+                                        .getSecurity()
+                                        .getContentSecurityPolicy()
+                                )
+                        )
                         .frameOptions(FrameOptionsConfig::sameOrigin)
                         .referrerPolicy(
-                            referrer -> referrer.policy(ReferrerPolicyHeaderWriter.ReferrerPolicy.STRICT_ORIGIN_WHEN_CROSS_ORIGIN)
+                            referrer ->
+                                referrer.policy(
+                                    ReferrerPolicyHeaderWriter.ReferrerPolicy.STRICT_ORIGIN_WHEN_CROSS_ORIGIN
+                                )
                         )
                         .permissionsPolicy(
                             permissions ->
@@ -70,6 +83,7 @@ public class SecurityConfiguration {
                     .requestMatchers(mvc.pattern("/swagger-ui/**")).permitAll()
                     .requestMatchers(mvc.pattern(HttpMethod.POST, "/api/authenticate")).permitAll()
                     .requestMatchers(mvc.pattern(HttpMethod.GET, "/api/authenticate")).permitAll()
+                    .requestMatchers(mvc.pattern("/api/categories/categories-with-posts")).permitAll()
                     .requestMatchers(mvc.pattern("/api/register")).permitAll()
                     .requestMatchers(mvc.pattern("/api/activate")).permitAll()
                     .requestMatchers(mvc.pattern("/api/account/reset-password/init")).permitAll()
@@ -83,12 +97,21 @@ public class SecurityConfiguration {
                     .requestMatchers(mvc.pattern("/management/prometheus")).permitAll()
                     .requestMatchers(mvc.pattern("/management/**")).hasAuthority(AuthoritiesConstants.ADMIN)
             )
-            .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+            .sessionManagement(
+                session ->
+                    session.sessionCreationPolicy(
+                        SessionCreationPolicy.STATELESS
+                    )
+            )
             .exceptionHandling(
                 exceptions ->
                     exceptions
-                        .authenticationEntryPoint(new BearerTokenAuthenticationEntryPoint())
-                        .accessDeniedHandler(new BearerTokenAccessDeniedHandler())
+                        .authenticationEntryPoint(
+                            new BearerTokenAuthenticationEntryPoint()
+                        )
+                        .accessDeniedHandler(
+                            new BearerTokenAccessDeniedHandler()
+                        )
             )
             .oauth2ResourceServer(oauth2 -> oauth2.jwt(withDefaults()));
         return http.build();
