@@ -24,6 +24,7 @@ import PersonUpdatePage from './modules/person-update-page/person-update-page';
 import PersonApprovePage from './modules/person-approve-author/person-approve-author';
 import PostApprovePage from './modules/post-approve-page/post-approve-page';
 import PostApprovePageRemark from './modules/post-approve-page-remark/post-approve-page-remark';
+import PersonalPageForward from './modules/personal-page-forward/personal-page-forward';
 
 const loading = <div>loading ...</div>;
 
@@ -50,7 +51,9 @@ const AppRoutes = () => {
         <Route path="posteditpage/:id" element={<PostEditPage />} />
         <Route path="paragrapheditpage/:id" element={<ParagraphEditPage />} />
         <Route path="personalpage/:id" element={<PersonalPage />} />
+        <Route path="personalpageforward/" element={<PersonalPageForward />} />
         <Route path="personalupdatepage/:id" element={<PersonUpdatePage />} />
+        <Route path="personalupdatepage/new" element={<PersonUpdatePage />} />
         <Route path="personalapprovepage/" element={<PersonApprovePage />} />
         <Route path="postapprovepage/" element={<PostApprovePage />} />
         <Route

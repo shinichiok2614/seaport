@@ -21,6 +21,7 @@ import { useAppDispatch, useAppSelector } from 'app/config/store';
 
 import { ICategory } from 'app/shared/model/category.model';
 import { getEntities as getCategories } from 'app/entities/category/category.reducer';
+import { getPersonByUser as getPersonByUser } from 'app/entities/person/person.reducer';
 import { IUser } from 'app/shared/model/user.model';
 import { getUsers } from 'app/modules/administration/user-management/user-management.reducer';
 import { IPost } from 'app/shared/model/post.model';
@@ -41,6 +42,10 @@ export const PostEditPage = () => {
   const { id } = useParams<'id'>();
   const isNew = id === undefined;
   const currentUser = useAppSelector(state => state.authentication.account);
+  const currentUserLoading = useAppSelector(
+    state => state.authentication.loading,
+  );
+  const personEntity = useAppSelector(state => state.person.entity);
 
   const categories = useAppSelector(state => state.category.entities);
   const users = useAppSelector(state => state.userManagement.users);
@@ -50,10 +55,8 @@ export const PostEditPage = () => {
   const updateSuccess = useAppSelector(state => state.post.updateSuccess);
   const statusValues = Object.keys(Status);
 
-  const handleClose = () => {
-    navigate('/post');
-  };
-
+  const handleClose = () => {};
+  // useEffect(() => {dispatch(getPersonByUser(currentUser.id));}, [currentUser]);
   useEffect(() => {
     if (isNew) {
       dispatch(reset());
@@ -63,6 +66,7 @@ export const PostEditPage = () => {
 
     dispatch(getCategories({}));
     dispatch(getUsers({}));
+    // dispatch(getPersonByUser(currentUser.id));
   }, []);
 
   useEffect(() => {
@@ -91,13 +95,15 @@ export const PostEditPage = () => {
         it => it.id.toString() === values.category?.toString(),
       ),
       //   post: users.find(it => it.id.toString() === values.post?.toString()),
-      post: users.find(it => it.id.toString() === values.post?.toString()),
+      post: currentUser,
     };
 
     if (isNew) {
       dispatch(createEntity(entity));
+      dispatch(getPersonByUser(currentUser.id));
     } else {
       dispatch(updateEntity(entity));
+      // dispatch(getPersonByUser(currentUser.id));
     }
   };
 
@@ -109,6 +115,8 @@ export const PostEditPage = () => {
           approvedAt: displayDefaultDateTime(),
           modifiedAt: displayDefaultDateTime(),
           post: currentUser.id,
+          view: 0,
+          status: 'PENDING',
         }
       : {
           status: 'PENDING',
@@ -216,7 +224,7 @@ export const PostEditPage = () => {
                 name="status"
                 data-cy="status"
                 type="select"
-                defaultValue={statusValues[1]}
+                defaultValue={statusValues[0]}
                 disabled
               >
                 {statusValues.map(status => (
@@ -237,7 +245,7 @@ export const PostEditPage = () => {
                 }}
               /> */}
               {/* <ValidatedField label={translate('seaportApp.post.remark')} id="post-remark" name="remark" data-cy="remark" type="textarea" /> */}
-              <div className="PostEditPage-create-update">
+              {/* <div className="PostEditPage-create-update">
                 <ValidatedField
                   label={translate('seaportApp.post.createdAt')}
                   id="post-createdAt"
@@ -268,7 +276,7 @@ export const PostEditPage = () => {
                   }}
                   disabled
                 />
-              </div>
+              </div> */}
               {/* <ValidatedField
                 label={translate('seaportApp.post.approvedAt')}
                 id="post-approvedAt"
@@ -285,7 +293,7 @@ export const PostEditPage = () => {
                 type="datetime-local"
                 placeholder="YYYY-MM-DD HH:mm"
               /> */}
-              <ValidatedField
+              {/* <ValidatedField
                 id="post-post"
                 name="post"
                 data-cy="post"
@@ -300,8 +308,8 @@ export const PostEditPage = () => {
                       </option>
                     ))
                   : null}
-              </ValidatedField>
-              <Button
+              </ValidatedField> */}
+              {/* <Button
                 tag={Link}
                 id="cancel-save"
                 data-cy="entityCreateCancelButton"
@@ -315,7 +323,7 @@ export const PostEditPage = () => {
                   <Translate contentKey="entity.action.back">Back</Translate>
                 </span>
               </Button>
-              &nbsp;
+              &nbsp; */}
               <Button
                 color="primary"
                 id="save-entity"

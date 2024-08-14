@@ -1,5 +1,6 @@
 package com.mycompany.myapp.service.dto;
 
+import com.mycompany.myapp.domain.Person;
 import jakarta.persistence.Lob;
 import jakarta.validation.constraints.*;
 import java.io.Serializable;
@@ -31,6 +32,16 @@ public class CommentDTO implements Serializable {
     private PostDTO post;
 
     private UserDTO comment;
+
+    private PersonDTO person;
+
+    public PersonDTO getPerson() {
+        return person;
+    }
+
+    public void setPerson(PersonDTO person) {
+        this.person = person;
+    }
 
     public Long getId() {
         return id;

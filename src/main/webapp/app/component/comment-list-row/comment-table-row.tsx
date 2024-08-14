@@ -11,7 +11,17 @@ const CommentTableRow = ({ comment }) => {
   return (
     <div className="CommentTableRow">
       <div className="CommentTableRow1">
-        <div>{comment.comment ? comment.comment.login : ''}</div>
+        {comment.person ? (
+          <div>
+            {comment.person.avatarContentType ? (
+              <img
+                src={`data:${comment.person.avatarContentType};base64,${comment.person.avatar}`}
+                style={{ maxHeight: '100px' }}
+              />
+            ) : null}
+          </div>
+        ) : null}
+        <div>{comment.person ? comment.person.name : ''}</div>
       </div>
       <div className="CommentTableRow2">
         <div>{comment.description}</div>
@@ -27,7 +37,7 @@ const CommentTableRow = ({ comment }) => {
             ) : null}
           </div>
         ) : null}
-        <div>
+        <div className="CommentTableRow2-createAt">
           {comment.createdAt ? (
             <TextFormat
               type="date"

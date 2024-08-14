@@ -26,7 +26,9 @@ import tech.jhipster.web.util.ResponseUtil;
 @RequestMapping("/api/people")
 public class PersonResource {
 
-    private static final Logger log = LoggerFactory.getLogger(PersonResource.class);
+    private static final Logger log = LoggerFactory.getLogger(
+        PersonResource.class
+    );
 
     private static final String ENTITY_NAME = "person";
 
@@ -37,7 +39,10 @@ public class PersonResource {
 
     private final PersonRepository personRepository;
 
-    public PersonResource(PersonService personService, PersonRepository personRepository) {
+    public PersonResource(
+        PersonService personService,
+        PersonRepository personRepository
+    ) {
         this.personService = personService;
         this.personRepository = personRepository;
     }
@@ -50,14 +55,29 @@ public class PersonResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PostMapping("")
-    public ResponseEntity<PersonDTO> createPerson(@Valid @RequestBody PersonDTO personDTO) throws URISyntaxException {
+    public ResponseEntity<PersonDTO> createPerson(
+        @Valid @RequestBody PersonDTO personDTO
+    ) throws URISyntaxException {
         log.debug("REST request to save Person : {}", personDTO);
         if (personDTO.getId() != null) {
-            throw new BadRequestAlertException("A new person cannot already have an ID", ENTITY_NAME, "idexists");
+            throw new BadRequestAlertException(
+                "A new person cannot already have an ID",
+                ENTITY_NAME,
+                "idexists"
+            );
         }
         personDTO = personService.save(personDTO);
-        return ResponseEntity.created(new URI("/api/people/" + personDTO.getId()))
-            .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, personDTO.getId().toString()))
+        return ResponseEntity.created(
+            new URI("/api/people/" + personDTO.getId())
+        )
+            .headers(
+                HeaderUtil.createEntityCreationAlert(
+                    applicationName,
+                    true,
+                    ENTITY_NAME,
+                    personDTO.getId().toString()
+                )
+            )
             .body(personDTO);
     }
 
@@ -78,19 +98,38 @@ public class PersonResource {
     ) throws URISyntaxException {
         log.debug("REST request to update Person : {}, {}", id, personDTO);
         if (personDTO.getId() == null) {
-            throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
+            throw new BadRequestAlertException(
+                "Invalid id",
+                ENTITY_NAME,
+                "idnull"
+            );
         }
         if (!Objects.equals(id, personDTO.getId())) {
-            throw new BadRequestAlertException("Invalid ID", ENTITY_NAME, "idinvalid");
+            throw new BadRequestAlertException(
+                "Invalid ID",
+                ENTITY_NAME,
+                "idinvalid"
+            );
         }
 
         if (!personRepository.existsById(id)) {
-            throw new BadRequestAlertException("Entity not found", ENTITY_NAME, "idnotfound");
+            throw new BadRequestAlertException(
+                "Entity not found",
+                ENTITY_NAME,
+                "idnotfound"
+            );
         }
 
         personDTO = personService.update(personDTO);
         return ResponseEntity.ok()
-            .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, personDTO.getId().toString()))
+            .headers(
+                HeaderUtil.createEntityUpdateAlert(
+                    applicationName,
+                    true,
+                    ENTITY_NAME,
+                    personDTO.getId().toString()
+                )
+            )
             .body(personDTO);
     }
 
@@ -105,28 +144,52 @@ public class PersonResource {
      * or with status {@code 500 (Internal Server Error)} if the personDTO couldn't be updated.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
-    @PatchMapping(value = "/{id}", consumes = { "application/json", "application/merge-patch+json" })
+    @PatchMapping(
+        value = "/{id}",
+        consumes = { "application/json", "application/merge-patch+json" }
+    )
     public ResponseEntity<PersonDTO> partialUpdatePerson(
         @PathVariable(value = "id", required = false) final Long id,
         @NotNull @RequestBody PersonDTO personDTO
     ) throws URISyntaxException {
-        log.debug("REST request to partial update Person partially : {}, {}", id, personDTO);
+        log.debug(
+            "REST request to partial update Person partially : {}, {}",
+            id,
+            personDTO
+        );
         if (personDTO.getId() == null) {
-            throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
+            throw new BadRequestAlertException(
+                "Invalid id",
+                ENTITY_NAME,
+                "idnull"
+            );
         }
         if (!Objects.equals(id, personDTO.getId())) {
-            throw new BadRequestAlertException("Invalid ID", ENTITY_NAME, "idinvalid");
+            throw new BadRequestAlertException(
+                "Invalid ID",
+                ENTITY_NAME,
+                "idinvalid"
+            );
         }
 
         if (!personRepository.existsById(id)) {
-            throw new BadRequestAlertException("Entity not found", ENTITY_NAME, "idnotfound");
+            throw new BadRequestAlertException(
+                "Entity not found",
+                ENTITY_NAME,
+                "idnotfound"
+            );
         }
 
         Optional<PersonDTO> result = personService.partialUpdate(personDTO);
 
         return ResponseUtil.wrapOrNotFound(
             result,
-            HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, personDTO.getId().toString())
+            HeaderUtil.createEntityUpdateAlert(
+                applicationName,
+                true,
+                ENTITY_NAME,
+                personDTO.getId().toString()
+            )
         );
     }
 
@@ -137,7 +200,13 @@ public class PersonResource {
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of people in body.
      */
     @GetMapping("")
-    public List<PersonDTO> getAllPeople(@RequestParam(name = "eagerload", required = false, defaultValue = "true") boolean eagerload) {
+    public List<PersonDTO> getAllPeople(
+        @RequestParam(
+            name = "eagerload",
+            required = false,
+            defaultValue = "true"
+        ) boolean eagerload
+    ) {
         log.debug("REST request to get all People");
         return personService.findAll();
     }
@@ -166,7 +235,24 @@ public class PersonResource {
         log.debug("REST request to delete Person : {}", id);
         personService.delete(id);
         return ResponseEntity.noContent()
-            .headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString()))
+            .headers(
+                HeaderUtil.createEntityDeletionAlert(
+                    applicationName,
+                    true,
+                    ENTITY_NAME,
+                    id.toString()
+                )
+            )
             .build();
+    }
+
+    @GetMapping("/{userId}/by-user")
+    public ResponseEntity<PersonDTO> getPersonByUserId(
+        @PathVariable Long userId
+    ) {
+        Optional<PersonDTO> personDTO = personService.findByUserId(userId);
+        return personDTO
+            .map(ResponseEntity::ok)
+            .orElseGet(() -> ResponseEntity.notFound().build());
     }
 }

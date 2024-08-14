@@ -16,19 +16,25 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
- * Service Implementation for managing {@link com.mycompany.myapp.domain.Person}.
+ * Service Implementation for managing
+ * {@link com.mycompany.myapp.domain.Person}.
  */
 @Service
 @Transactional
 public class PersonService {
 
-    private static final Logger log = LoggerFactory.getLogger(PersonService.class);
+    private static final Logger log = LoggerFactory.getLogger(
+        PersonService.class
+    );
 
     private final PersonRepository personRepository;
 
     private final PersonMapper personMapper;
 
-    public PersonService(PersonRepository personRepository, PersonMapper personMapper) {
+    public PersonService(
+        PersonRepository personRepository,
+        PersonMapper personMapper
+    ) {
         this.personRepository = personRepository;
         this.personMapper = personMapper;
     }
@@ -87,7 +93,11 @@ public class PersonService {
     @Transactional(readOnly = true)
     public List<PersonDTO> findAll() {
         log.debug("Request to get all People");
-        return personRepository.findAll().stream().map(personMapper::toDto).collect(Collectors.toCollection(LinkedList::new));
+        return personRepository
+            .findAll()
+            .stream()
+            .map(personMapper::toDto)
+            .collect(Collectors.toCollection(LinkedList::new));
     }
 
     /**
@@ -96,7 +106,9 @@ public class PersonService {
      * @return the list of entities.
      */
     public Page<PersonDTO> findAllWithEagerRelationships(Pageable pageable) {
-        return personRepository.findAllWithEagerRelationships(pageable).map(personMapper::toDto);
+        return personRepository
+            .findAllWithEagerRelationships(pageable)
+            .map(personMapper::toDto);
     }
 
     /**
@@ -108,7 +120,9 @@ public class PersonService {
     @Transactional(readOnly = true)
     public Optional<PersonDTO> findOne(Long id) {
         log.debug("Request to get Person : {}", id);
-        return personRepository.findOneWithEagerRelationships(id).map(personMapper::toDto);
+        return personRepository
+            .findOneWithEagerRelationships(id)
+            .map(personMapper::toDto);
     }
 
     /**
@@ -119,5 +133,11 @@ public class PersonService {
     public void delete(Long id) {
         log.debug("Request to delete Person : {}", id);
         personRepository.deleteById(id);
+    }
+
+    public Optional<PersonDTO> findByUserId(Long userId) {
+        return personRepository
+            .findOneByUserId(userId)
+            .map(personMapper::toDto);
     }
 }

@@ -17,7 +17,9 @@ export const Brand = () => (
     <span className="brand-title">
       <Translate contentKey="global.title">Seaport</Translate>
     </span>
-    <span className="navbar-version">{VERSION.toLowerCase().startsWith('v') ? VERSION : `v${VERSION}`}</span>
+    <span className="navbar-version">
+      {VERSION.toLowerCase().startsWith('v') ? VERSION : `v${VERSION}`}
+    </span>
   </NavbarBrand>
 );
 
@@ -27,6 +29,20 @@ export const Home = () => (
       <FontAwesomeIcon icon="home" />
       <span>
         <Translate contentKey="global.menu.home">Home</Translate>
+      </span>
+    </NavLink>
+  </NavItem>
+);
+export const PersonalPage = () => (
+  <NavItem>
+    <NavLink
+      tag={Link}
+      to="/personalpageforward"
+      className="d-flex align-items-center"
+    >
+      <FontAwesomeIcon icon="home" />
+      <span>
+        <Translate contentKey="global.menu.personalpage">Home</Translate>
       </span>
     </NavLink>
   </NavItem>

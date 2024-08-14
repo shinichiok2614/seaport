@@ -1,9 +1,13 @@
 package com.mycompany.myapp.service;
 
 import com.mycompany.myapp.domain.Comment;
+import com.mycompany.myapp.domain.Person;
 import com.mycompany.myapp.repository.CommentRepository;
+import com.mycompany.myapp.repository.PersonRepository;
 import com.mycompany.myapp.service.dto.CommentDTO;
+import com.mycompany.myapp.service.dto.PersonDTO;
 import com.mycompany.myapp.service.mapper.CommentMapper;
+import com.mycompany.myapp.service.mapper.PersonMapper;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
@@ -16,7 +20,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
- * Service Implementation for managing {@link com.mycompany.myapp.domain.Comment}.
+ * Service Implementation for managing
+ * {@link com.mycompany.myapp.domain.Comment}.
  */
 @Service
 @Transactional
@@ -27,15 +32,20 @@ public class CommentService {
     );
 
     private final CommentRepository commentRepository;
-
+    private final PersonRepository personRepository;
+    private final PersonMapper personMapper;
     private final CommentMapper commentMapper;
 
     public CommentService(
         CommentRepository commentRepository,
-        CommentMapper commentMapper
+        CommentMapper commentMapper,
+        PersonRepository personRepository,
+        PersonMapper personMapper
     ) {
         this.commentRepository = commentRepository;
         this.commentMapper = commentMapper;
+        this.personRepository = personRepository;
+        this.personMapper = personMapper;
     }
 
     /**
@@ -140,7 +150,24 @@ public class CommentService {
         return commentRepository
             .findAllByPostId(id)
             .stream()
-            .map(commentMapper::toDto)
+            // .map(commentMapper::toDto)
+            .map(comment -> {
+                CommentDTO commentDTO = commentMapper.toDto(comment);
+
+                // Lấy userId từ comment và tìm Person tương ứng
+                Long userId = comment.getComment().getId();
+                Optional<Person> personOpt = personRepository.findOneByUserId(
+                    userId
+                );
+
+                // Gán PersonDTO vào CommentDTO nếu có
+                personOpt.ifPresent(person -> {
+                    PersonDTO personDTO = personMapper.toDto(person);
+                    commentDTO.setPerson(personDTO);
+                });
+
+                return commentDTO;
+            })
             .collect(Collectors.toCollection(LinkedList::new));
     }
 }

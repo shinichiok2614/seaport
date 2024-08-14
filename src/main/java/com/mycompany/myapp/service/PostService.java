@@ -165,7 +165,7 @@ public class PostService {
                 postDTO.setApprovedAt(post.getApprovedAt());
                 postDTO.setModifiedAt(post.getModifiedAt());
 
-                Optional<Person> personOpt = personRepository.findOneByUserId(
+                Optional<Person> personOpt = personRepository.findOneByUserId( //userid->personid
                     post.getPost().getId()
                 );
                 personOpt.ifPresent(person -> {
@@ -193,7 +193,7 @@ public class PostService {
     //             .collect(Collectors.toList());
     // }
     @Transactional(readOnly = true)
-    public List<PostDTO> findAllByPersonId(Long personId) {
+    public List<PostDTO> findAllByPersonId(Long personId) { //personid->userid
         // Lấy Optional của PersonDTO từ personRepository
         Optional<PersonDTO> persondtoOptional = personRepository
             .findOneWithEagerRelationships(personId)

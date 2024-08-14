@@ -2,7 +2,12 @@ import axios from 'axios';
 import { createAsyncThunk, isFulfilled, isPending } from '@reduxjs/toolkit';
 import { ASC } from 'app/shared/util/pagination.constants';
 import { cleanEntity } from 'app/shared/util/entity-utils';
-import { IQueryParams, createEntitySlice, EntityState, serializeAxiosError } from 'app/shared/reducers/reducer.utils';
+import {
+  IQueryParams,
+  createEntitySlice,
+  EntityState,
+  serializeAxiosError,
+} from 'app/shared/reducers/reducer.utils';
 import { IPerson, defaultValue } from 'app/shared/model/person.model';
 
 const initialState: EntityState<IPerson> = {
@@ -36,6 +41,15 @@ export const getEntity = createAsyncThunk(
   { serializeError: serializeAxiosError },
 );
 
+export const getPersonByUser = createAsyncThunk(
+  'person/fetch_entity_by_user',
+  async (id: string | number) => {
+    const requestUrl = `${apiUrl}/${id}/by-user`;
+    return axios.get<IPerson>(requestUrl);
+  },
+  { serializeError: serializeAxiosError },
+);
+
 export const createEntity = createAsyncThunk(
   'person/create_entity',
   async (entity: IPerson, thunkAPI) => {
@@ -49,7 +63,10 @@ export const createEntity = createAsyncThunk(
 export const updateEntity = createAsyncThunk(
   'person/update_entity',
   async (entity: IPerson, thunkAPI) => {
-    const result = await axios.put<IPerson>(`${apiUrl}/${entity.id}`, cleanEntity(entity));
+    const result = await axios.put<IPerson>(
+      `${apiUrl}/${entity.id}`,
+      cleanEntity(entity),
+    );
     thunkAPI.dispatch(getEntities({}));
     return result;
   },
@@ -59,7 +76,10 @@ export const updateEntity = createAsyncThunk(
 export const partialUpdateEntity = createAsyncThunk(
   'person/partial_update_entity',
   async (entity: IPerson, thunkAPI) => {
-    const result = await axios.patch<IPerson>(`${apiUrl}/${entity.id}`, cleanEntity(entity));
+    const result = await axios.patch<IPerson>(
+      `${apiUrl}/${entity.id}`,
+      cleanEntity(entity),
+    );
     thunkAPI.dispatch(getEntities({}));
     return result;
   },
@@ -105,26 +125,48 @@ export const PersonSlice = createEntitySlice({
             }
             const order = action.meta.arg.sort.split(',')[1];
             const predicate = action.meta.arg.sort.split(',')[0];
-            return order === ASC ? (a[predicate] < b[predicate] ? -1 : 1) : b[predicate] < a[predicate] ? -1 : 1;
+            return order === ASC
+              ? a[predicate] < b[predicate]
+                ? -1
+                : 1
+              : b[predicate] < a[predicate]
+                ? -1
+                : 1;
           }),
         };
       })
-      .addMatcher(isFulfilled(createEntity, updateEntity, partialUpdateEntity), (state, action) => {
-        state.updating = false;
-        state.loading = false;
-        state.updateSuccess = true;
-        state.entity = action.payload.data;
-      })
-      .addMatcher(isPending(getEntities, getEntity), state => {
+      .addMatcher(
+        isFulfilled(
+          createEntity,
+          updateEntity,
+          partialUpdateEntity,
+          getPersonByUser,
+        ),
+        (state, action) => {
+          state.updating = false;
+          state.loading = false;
+          state.updateSuccess = true;
+          state.entity = action.payload.data;
+        },
+      )
+      .addMatcher(isPending(getEntities, getEntity, getPersonByUser), state => {
         state.errorMessage = null;
         state.updateSuccess = false;
         state.loading = true;
       })
-      .addMatcher(isPending(createEntity, updateEntity, partialUpdateEntity, deleteEntity), state => {
-        state.errorMessage = null;
-        state.updateSuccess = false;
-        state.updating = true;
-      });
+      .addMatcher(
+        isPending(
+          createEntity,
+          updateEntity,
+          partialUpdateEntity,
+          deleteEntity,
+        ),
+        state => {
+          state.errorMessage = null;
+          state.updateSuccess = false;
+          state.updating = true;
+        },
+      );
   },
 });
 

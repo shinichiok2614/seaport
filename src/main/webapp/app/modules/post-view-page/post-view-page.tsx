@@ -36,6 +36,7 @@ import {
   convertDateTimeToServer,
   displayDefaultDateTime,
 } from 'app/shared/util/date-utils';
+import CommentForm from './comment-form';
 
 export const PostViewPage = () => {
   const dispatch = useAppDispatch();
@@ -58,6 +59,7 @@ export const PostViewPage = () => {
   const postEntity = useAppSelector(state => state.post.entity);
   const postloading = useAppSelector(state => state.post.loading);
   const currentUser = useAppSelector(state => state.authentication.account);
+
   const [newComment, setNewComment] = useState('');
   useEffect(() => {
     dispatch(getEntityByPerson(id));
@@ -119,7 +121,7 @@ export const PostViewPage = () => {
           commentList={commentList}
           loading={commentListloading}
         />
-        <div className="PostViewPage22">
+        {/* <div className="PostViewPage22">
           <ValidatedForm defaultValues={defaultValues()} onSubmit={saveEntity}>
             <ValidatedField
               label={translate('seaportApp.comment.description')}
@@ -148,7 +150,12 @@ export const PostViewPage = () => {
               <Translate contentKey="entity.action.save">Save</Translate>
             </Button>
           </ValidatedForm>
-        </div>
+        </div> */}
+        <CommentForm
+          defaultValues={defaultValues}
+          saveEntity={saveEntity}
+          commentupdating={commentupdating}
+        />
       </div>
       <div className="PostViewPage3">right</div>
     </div>
