@@ -20,6 +20,7 @@
 
 .PersonalPage-profile-header {
   width: 60%;
+  min-width: 800px;
   display: flex;
   align-items: center;
   margin-bottom: 20px;
@@ -58,7 +59,8 @@
   font-size: 14px;
 }
 
-.profile-bio {
+/* .profile-bio {
+  min-width: 800px;
   margin-top: 20px;
   font-size: 18px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -66,4 +68,45 @@
   border: 1px solid #ddd;
   padding: 16px;
   margin: 16px 0;
+  } */
+
+.profile-bio {
+  width: 60%;
+  min-width: 800px;
+  margin-top: 20px;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.profile-bio div {
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+  font-size: 18px;
+  color: #555;
+  transition: color 0.3s ease;
+}
+
+.profile-bio div:last-child {
+  margin-bottom: 0;
+}
+
+.profile-bio .fa-icon {
+  margin-right: 20px;
+  color: #007bff;
+  font-size: 20px;
+  transition:
+    transform 0.3s ease,
+    color 0.3s ease;
+}
+
+.profile-bio div:hover .fa-icon {
+  color: #0056b3;
+  transform: scale(1.1);
+}
+
+.profile-bio div:hover {
+  color: #007bff;
 }

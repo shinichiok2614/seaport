@@ -1,0 +1,24 @@
+.paragraph-container {
+  /* text-align: center; */
+  width: 100%;
+}
+
+.image-container {
+  display: flex;
+  justify-content: center;
+}
+
+.centered-image {
+  margin: auto;
+  max-width: 100%;
+  height: auto;
+}
+
+.caption-container {
+  text-align: center;
+  font-weight: bold;
+  margin-top: 30px;
+  color: rgb(103, 103, 103);
+  font-style: italic;
+  margin-bottom: 10px;
+}

@@ -15,9 +15,9 @@ const PersonalPageForward = () => {
     if (currentUser.person && !currentUserLoading) {
       navigate(`/personalpage/${currentUser.person.id}`);
     }
-    // if (currentUser.person==null&&!currentUserLoading) {
-    //   navigate(`/personalupdatepage/new`);
-    // }
+    if (currentUser.person == null && !currentUserLoading) {
+      navigate(`/personalupdatepage/new`);
+    }
   }, [currentUser, navigate, currentUserLoading]);
 
   return null;

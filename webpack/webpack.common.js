@@ -34,11 +34,14 @@ const getTsLoaderRule = env => {
 
 module.exports = async options => {
   const development = options.env === 'development';
-  const languagesHash = await hashElement(path.resolve(__dirname, '../src/main/webapp/i18n'), {
-    algo: 'md5',
-    encoding: 'hex',
-    files: { include: ['*.json'] },
-  });
+  const languagesHash = await hashElement(
+    path.resolve(__dirname, '../src/main/webapp/i18n'),
+    {
+      algo: 'md5',
+      encoding: 'hex',
+      files: { include: ['*.json'] },
+    },
+  );
 
   return merge(
     {
@@ -50,7 +53,10 @@ module.exports = async options => {
           // 2. Add your config as buildDependency to get cache invalidation on config change
           config: [
             __filename,
-            path.resolve(__dirname, `webpack.${development ? 'dev' : 'prod'}.js`),
+            path.resolve(
+              __dirname,
+              `webpack.${development ? 'dev' : 'prod'}.js`,
+            ),
             path.resolve(__dirname, 'environment.js'),
             path.resolve(__dirname, 'utils.js'),
             path.resolve(__dirname, '../postcss.config.js'),
@@ -118,13 +124,19 @@ module.exports = async options => {
               globOptions: { ignore: ['**/index.html'] },
             },
             {
-              from: path.join(path.dirname(require.resolve('axios/package.json')), 'dist/axios.min.js'),
+              from: path.join(
+                path.dirname(require.resolve('axios/package.json')),
+                'dist/axios.min.js',
+              ),
               to: 'swagger-ui/',
             },
             { from: './src/main/webapp/swagger-ui/', to: 'swagger-ui/' },
             { from: './src/main/webapp/content/', to: 'content/' },
             { from: './src/main/webapp/favicon.ico', to: 'favicon.ico' },
-            { from: './src/main/webapp/manifest.webapp', to: 'manifest.webapp' },
+            {
+              from: './src/main/webapp/manifest.webapp',
+              to: 'manifest.webapp',
+            },
             // jhipster-needle-add-assets-to-webpack - JHipster will add/remove third-party resources in this array
             { from: './src/main/webapp/robots.txt', to: 'robots.txt' },
           ],
@@ -138,7 +150,14 @@ module.exports = async options => {
         new MergeJsonWebpackPlugin({
           output: {
             groupBy: [
-              { pattern: './src/main/webapp/i18n/en/*.json', fileName: './i18n/en.json' },
+              {
+                pattern: './src/main/webapp/i18n/en/*.json',
+                fileName: './i18n/en.json',
+              },
+              {
+                pattern: './src/main/webapp/i18n/vi/*.json',
+                fileName: './i18n/vi.json',
+              },
               // jhipster-needle-i18n-language-webpack - JHipster will add/remove languages in this array
             ],
           },

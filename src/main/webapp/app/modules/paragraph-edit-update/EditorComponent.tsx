@@ -2,20 +2,26 @@ import React, { useEffect, useRef } from 'react';
 import EditorJS from '@editorjs/editorjs';
 import Header from '@editorjs/header';
 import List from '@editorjs/list';
-
-const EditorComponent = ({ data, onChange, readOnly = false }) => {
+import './editor-component.css';
+const EditorComponent = ({
+  data,
+  onChange,
+  readOnly = false,
+  holder = 'editorjs',
+}) => {
   const editorInstance = useRef(null);
 
   useEffect(() => {
     if (!editorInstance.current) {
       editorInstance.current = new EditorJS({
-        holder: 'editorjs',
+        holder: holder,
+        // holder: 'editorjs',
         tools: {
           header: Header,
           list: List,
         },
         data,
-        readOnly, // Add this line to set the editor in read-only mode
+        readOnly,
         onReady: () => {
           console.log('Editor.js is ready to work!');
         },
@@ -40,9 +46,9 @@ const EditorComponent = ({ data, onChange, readOnly = false }) => {
           );
       }
     };
-  }, []);
+  }, [holder]);
 
-  return <div id="editorjs" />;
+  return <div id={holder} className="editor-container" />;
 };
 
 export default EditorComponent;

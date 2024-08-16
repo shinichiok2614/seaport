@@ -10,6 +10,7 @@ const AUTH_TOKEN_KEY = 'jhi-authenticationToken';
 
 export const initialState = {
   loading: false,
+  // loading2: true,
   isAuthenticated: false,
   loginSuccess: false,
   loginError: false, // Errors returned from server side
@@ -35,9 +36,13 @@ export const getSession = (): AppThunk => async (dispatch, getState) => {
   }
 };
 
-export const getAccount = createAsyncThunk('authentication/get_account', async () => axios.get<any>('api/account'), {
-  serializeError: serializeAxiosError,
-});
+export const getAccount = createAsyncThunk(
+  'authentication/get_account',
+  async () => axios.get<any>('api/account'),
+  {
+    serializeError: serializeAxiosError,
+  },
+);
 
 interface IAuthParams {
   username: string;
@@ -53,10 +58,16 @@ export const authenticate = createAsyncThunk(
   },
 );
 
-export const login: (username: string, password: string, rememberMe?: boolean) => AppThunk =
+export const login: (
+  username: string,
+  password: string,
+  rememberMe?: boolean,
+) => AppThunk =
   (username, password, rememberMe = false) =>
   async dispatch => {
-    const result = await dispatch(authenticate({ username, password, rememberMe }));
+    const result = await dispatch(
+      authenticate({ username, password, rememberMe }),
+    );
     const response = result.payload as AxiosResponse;
     const bearerToken = response?.headers?.authorization;
     if (bearerToken && bearerToken.slice(0, 7) === 'Bearer ') {
@@ -134,17 +145,22 @@ export const AuthenticationSlice = createSlice({
       .addCase(getAccount.rejected, (state, action) => ({
         ...state,
         loading: false,
+        // loading2: false,
         isAuthenticated: false,
         sessionHasBeenFetched: true,
         showModalLogin: true,
         errorMessage: action.error.message,
       }))
       .addCase(getAccount.fulfilled, (state, action) => {
-        const isAuthenticated = action.payload && action.payload.data && action.payload.data.activated;
+        const isAuthenticated =
+          action.payload &&
+          action.payload.data &&
+          action.payload.data.activated;
         return {
           ...state,
           isAuthenticated,
           loading: false,
+          // loading2: false,
           sessionHasBeenFetched: true,
           account: action.payload.data,
         };
@@ -154,11 +170,13 @@ export const AuthenticationSlice = createSlice({
       })
       .addCase(getAccount.pending, state => {
         state.loading = true;
+        // state.loading2 = true;
       });
   },
 });
 
-export const { logoutSession, authError, clearAuth } = AuthenticationSlice.actions;
+export const { logoutSession, authError, clearAuth } =
+  AuthenticationSlice.actions;
 
 // Reducer
 export default AuthenticationSlice.reducer;

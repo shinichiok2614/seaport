@@ -53,7 +53,7 @@ export const createEntity = createAsyncThunk(
   'paragraph/create_entity',
   async (entity: IParagraph, thunkAPI) => {
     const result = await axios.post<IParagraph>(apiUrl, cleanEntity(entity));
-    thunkAPI.dispatch(getEntities({}));
+    // thunkAPI.dispatch(getEntities({}));
     return result;
   },
   { serializeError: serializeAxiosError },
@@ -66,7 +66,7 @@ export const updateEntity = createAsyncThunk(
       `${apiUrl}/${entity.id}`,
       cleanEntity(entity),
     );
-    thunkAPI.dispatch(getEntities({}));
+    // thunkAPI.dispatch(getEntities({}));
     return result;
   },
   { serializeError: serializeAxiosError },

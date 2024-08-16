@@ -110,7 +110,7 @@ const PostForm: React.FC<IPostFormProps> = ({
                 </option>
               ))}
             </ValidatedField>
-            <div className="PostEditPage-create-update">
+            {/* <div className="PostEditPage-create-update">
               <ValidatedField
                 label={translate('seaportApp.post.createdAt')}
                 id="post-createdAt"
@@ -157,7 +157,7 @@ const PostForm: React.FC<IPostFormProps> = ({
                     </option>
                   ))
                 : null}
-            </ValidatedField>
+            </ValidatedField> */}
             <Button
               tag={Link}
               id="cancel-save"

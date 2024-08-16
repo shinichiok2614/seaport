@@ -38,7 +38,6 @@ import {
   reset,
   updateEntity,
 } from 'app/entities/post/post.reducer';
-import './PostEditPage.css';
 import {
   getEntities,
   getEntitiesByPost,
@@ -52,6 +51,7 @@ import {
 import { APP_DATE_FORMAT } from 'app/config/constants';
 import PostForm from './post-form';
 import ParagraphTable from './paragraph-table';
+import './PostEditPage.css';
 
 export const ParagraphEditPage = () => {
   const dispatch = useAppDispatch();
@@ -110,7 +110,7 @@ export const ParagraphEditPage = () => {
       category: categories.find(
         it => it.id.toString() === values.category?.toString(),
       ),
-      post: users.find(it => it.id.toString() === values.post?.toString()),
+      post: currentUser.id === 1 ? postEntity.post : currentUser, // Điều kiện kiểm tra id của currentUser
     };
 
     if (isNew) {
@@ -123,8 +123,8 @@ export const ParagraphEditPage = () => {
   const defaultValues = () =>
     isNew
       ? {
-          createdAt: displayDefaultDateTime(),
-          updateAt: displayDefaultDateTime(),
+          createdAt: new Date().toISOString(),
+          updateAt: new Date().toISOString(),
           approvedAt: displayDefaultDateTime(),
           modifiedAt: displayDefaultDateTime(),
           post: currentUser.id,
@@ -217,43 +217,47 @@ export const ParagraphEditPage = () => {
         defaultValues={defaultValues}
         loading={loading}
       />
-      <h2 id="paragraph-heading" data-cy="ParagraphHeading">
-        <Translate contentKey="seaportApp.paragraph.home.title">
-          Paragraphs
-        </Translate>
-        <div className="d-flex justify-content-end">
-          <Button
-            className="me-2"
-            color="info"
-            onClick={handleSyncList}
-            disabled={paragraphloading}
-          >
-            <FontAwesomeIcon icon="sync" spin={loading} />{' '}
-            <Translate contentKey="seaportApp.paragraph.home.refreshListLabel">
-              Refresh List
+      <Row className="justify-content-center">
+        <Col md="8">
+          <h2 id="paragraph-heading" data-cy="ParagraphHeading">
+            <Translate contentKey="seaportApp.paragraph.home.title">
+              Paragraphs
             </Translate>
-          </Button>
-          <Link
-            to={`/paragrapheditupdatepage/new?postId=${id}`}
-            className="btn btn-primary jh-create-entity"
-            id="jh-create-entity"
-            data-cy="entityCreateButton"
-          >
-            <FontAwesomeIcon icon="plus" />
-            &nbsp;
-            <Translate contentKey="seaportApp.paragraph.home.createLabel">
-              Create new Paragraph
-            </Translate>
-          </Link>
-        </div>
-      </h2>
-      <ParagraphTable
-        paragraphList={paragraphList}
-        openFile={openFile}
-        loading={paragraphloading}
-        handleSyncList={handleSyncList}
-        postId={id}
-      />
+            <div className="d-flex justify-content-end">
+              <Button
+                className="me-2"
+                color="info"
+                onClick={handleSyncList}
+                disabled={paragraphloading}
+              >
+                <FontAwesomeIcon icon="sync" spin={loading} />{' '}
+                <Translate contentKey="seaportApp.paragraph.home.refreshListLabel">
+                  Refresh List
+                </Translate>
+              </Button>
+              <Link
+                to={`/paragrapheditupdatepage/new?postId=${id}`}
+                className="btn btn-primary jh-create-entity"
+                id="jh-create-entity"
+                data-cy="entityCreateButton"
+              >
+                <FontAwesomeIcon icon="plus" />
+                &nbsp;
+                <Translate contentKey="seaportApp.paragraph.home.createLabel">
+                  Create new Paragraph
+                </Translate>
+              </Link>
+            </div>
+          </h2>
+          <ParagraphTable
+            paragraphList={paragraphList}
+            openFile={openFile}
+            loading={paragraphloading}
+            handleSyncList={handleSyncList}
+            postId={id}
+          />
+        </Col>
+      </Row>
     </div>
   );
 };

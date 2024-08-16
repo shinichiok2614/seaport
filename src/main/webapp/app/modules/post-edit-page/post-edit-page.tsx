@@ -55,7 +55,9 @@ export const PostEditPage = () => {
   const updateSuccess = useAppSelector(state => state.post.updateSuccess);
   const statusValues = Object.keys(Status);
 
-  const handleClose = () => {};
+  const handleClose = () => {
+    navigate(`/personlistpost/${currentUser.id}`);
+  };
   // useEffect(() => {dispatch(getPersonByUser(currentUser.id));}, [currentUser]);
   useEffect(() => {
     if (isNew) {
@@ -110,8 +112,8 @@ export const PostEditPage = () => {
   const defaultValues = () =>
     isNew
       ? {
-          createdAt: displayDefaultDateTime(),
-          updateAt: displayDefaultDateTime(),
+          createdAt: new Date().toISOString(),
+          updateAt: new Date().toISOString(),
           approvedAt: displayDefaultDateTime(),
           modifiedAt: displayDefaultDateTime(),
           post: currentUser.id,

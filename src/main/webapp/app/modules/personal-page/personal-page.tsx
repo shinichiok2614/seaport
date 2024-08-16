@@ -9,6 +9,14 @@ import { useAppDispatch, useAppSelector } from 'app/config/store';
 import { getEntity as getPerson } from 'app/entities/person/person.reducer';
 import { getEntitiesByPerson } from 'app/entities/post/post.reducer';
 import PostCardView from 'app/component/post-card-view/post-card-view';
+import {
+  faPhone,
+  faGlobe,
+  faMapMarkerAlt,
+  faCalendarAlt,
+  faUser,
+} from '@fortawesome/free-solid-svg-icons';
+
 import './personal-page.css';
 
 export const PersonalPage = () => {
@@ -23,6 +31,7 @@ export const PersonalPage = () => {
   const personEntity = useAppSelector(state => state.person.entity);
   const postList = useAppSelector(state => state.post.entities);
   const postloading = useAppSelector(state => state.post.loading);
+  const currentUser = useAppSelector(state => state.authentication.account);
   const [activeTab, setActiveTab] = useState('about');
 
   return (
@@ -51,15 +60,25 @@ export const PersonalPage = () => {
         <div className="PersonalPage12">
           <div className="PersonalPage221">
             <h2>{personEntity.name}</h2>
-            <Button
-              tag={Link}
-              to={`/personalupdatepage/${personEntity.id}`}
-              replace
-              color="primary"
-            >
-              <FontAwesomeIcon icon="pencil-alt" />{' '}
-              <Translate contentKey="entity.action.edit">Edit</Translate>
-            </Button>
+            {personEntity.id === currentUser.person?.id && (
+              <Button
+                tag={Link}
+                to={`/personalupdatepage/${personEntity.id}`}
+                replace
+                color=""
+              >
+                <FontAwesomeIcon icon="pencil-alt" />{' '}
+                <Translate contentKey="entity.action.edit">Edit</Translate>
+              </Button>
+            )}
+            {/* {personEntity.id === currentUser.person?.id && (
+              <Button tag={Link} to={`/postpage/new`} replace color="primary">
+                <FontAwesomeIcon icon="pencil-alt" />{' '}
+                <Translate contentKey="seaportApp.post.home.createLabel">
+                  Create new Post
+                </Translate>{' '}
+              </Button>
+            )} */}
           </div>
           <div className="profile-stats">
             <span>
@@ -102,22 +121,57 @@ export const PersonalPage = () => {
       </div>
       {activeTab === 'about' && (
         <div className="profile-bio">
-          <div>{personEntity.bio}</div>
-          <div>{personEntity.phone}</div>
-          <div>{personEntity.country}</div>
-          <div>{personEntity.address}</div>
+          <div>
+            <FontAwesomeIcon icon={faUser} /> {personEntity.bio}
+          </div>
+          <div>
+            <FontAwesomeIcon icon={faPhone} /> {personEntity.phone}
+          </div>
+          <div>
+            <FontAwesomeIcon icon={faGlobe} /> {personEntity.country}
+          </div>
+          <div>
+            <FontAwesomeIcon icon={faMapMarkerAlt} /> {personEntity.address}
+          </div>
+          {/* &nbsp; */}
           {personEntity.createdAt && (
-            <TextFormat
-              value={personEntity.createdAt}
-              type="date"
-              format={APP_DATE_FORMAT}
-            />
+            <div>
+              <FontAwesomeIcon icon={faCalendarAlt} />{' '}
+              <TextFormat
+                value={personEntity.createdAt}
+                type="date"
+                format={APP_DATE_FORMAT}
+              />
+            </div>
           )}
         </div>
       )}
-
+      &nbsp;
       {activeTab === 'posts' && (
         <div className="posts">
+          {personEntity.id === currentUser.person?.id &&
+            currentUser.person?.isAuthor && (
+              <Button tag={Link} to={`/postpage/new`} replace color="primary">
+                <FontAwesomeIcon icon="pencil-alt" />{' '}
+                <Translate contentKey="seaportApp.post.home.createLabel">
+                  Create new Post
+                </Translate>{' '}
+              </Button>
+            )}
+          {personEntity.id === currentUser.person?.id &&
+            currentUser.person?.isAuthor && (
+              <Button
+                tag={Link}
+                to={`/personlistpost/${currentUser.person?.id}`}
+                replace
+                color="primary"
+              >
+                <FontAwesomeIcon icon="pencil-alt" />{' '}
+                <Translate contentKey="seaportApp.post.home.listpost">
+                  List Post
+                </Translate>{' '}
+              </Button>
+            )}
           {postList.map((post, i) => (
             <PostCardView key={`entity-${i}`} post={post} hideRemark={true} />
           ))}
