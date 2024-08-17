@@ -33,83 +33,84 @@ const PostForm: React.FC<IPostFormProps> = ({
   const statusValues = Object.keys(Status);
 
   return (
-    <div>
-      {loading ? (
-        <p>Loading...</p>
-      ) : (
-        <ValidatedForm defaultValues={defaultValues()} onSubmit={saveEntity}>
-          <ValidatedField
-            id="post-category"
-            name="category"
-            data-cy="category"
-            label={translate('seaportApp.post.category')}
-            type="select"
-          >
-            <option value="" key="0" />
-            {categories
-              ? categories.map(otherEntity => (
-                  <option value={otherEntity.id} key={otherEntity.id}>
-                    {otherEntity.name}
-                  </option>
-                ))
-              : null}
-          </ValidatedField>
-          <ValidatedField
-            label={translate('seaportApp.post.name')}
-            id="post-name"
-            name="name"
-            data-cy="name"
-            type="text"
-            validate={{
-              required: {
-                value: true,
-                message: translate('entity.validation.required'),
-              },
-            }}
-          />
-          <ValidatedField
-            label={translate('seaportApp.post.summary')}
-            id="post-summary"
-            name="summary"
-            data-cy="summary"
-            type="textarea"
-            validate={{
-              required: {
-                value: true,
-                message: translate('entity.validation.required'),
-              },
-            }}
-          />
-          <ValidatedBlobField
-            label={translate('seaportApp.post.image')}
-            id="post-image"
-            name="image"
-            data-cy="image"
-            isImage
-            accept="image/*"
-            validate={{
-              required: {
-                value: true,
-                message: translate('entity.validation.required'),
-              },
-            }}
-          />
-          <ValidatedField
-            label={translate('seaportApp.post.status')}
-            id="post-status"
-            name="status"
-            data-cy="status"
-            type="select"
-            defaultValue={statusValues[1]}
-            disabled
-          >
-            {statusValues.map(status => (
-              <option value={status} key={status}>
-                {translate('seaportApp.Status.' + status)}
-              </option>
-            ))}
-          </ValidatedField>
-          {/* <div className="PostEditPage-create-update">
+    <Row className="justify-content-center">
+      <Col md="8">
+        {loading ? (
+          <p>Loading...</p>
+        ) : (
+          <ValidatedForm defaultValues={defaultValues()} onSubmit={saveEntity}>
+            <ValidatedField
+              id="post-category"
+              name="category"
+              data-cy="category"
+              label={translate('seaportApp.post.category')}
+              type="select"
+            >
+              <option value="" key="0" />
+              {categories
+                ? categories.map(otherEntity => (
+                    <option value={otherEntity.id} key={otherEntity.id}>
+                      {otherEntity.name}
+                    </option>
+                  ))
+                : null}
+            </ValidatedField>
+            <ValidatedField
+              label={translate('seaportApp.post.name')}
+              id="post-name"
+              name="name"
+              data-cy="name"
+              type="text"
+              validate={{
+                required: {
+                  value: true,
+                  message: translate('entity.validation.required'),
+                },
+              }}
+            />
+            <ValidatedField
+              label={translate('seaportApp.post.summary')}
+              id="post-summary"
+              name="summary"
+              data-cy="summary"
+              type="textarea"
+              validate={{
+                required: {
+                  value: true,
+                  message: translate('entity.validation.required'),
+                },
+              }}
+            />
+            <ValidatedBlobField
+              label={translate('seaportApp.post.image')}
+              id="post-image"
+              name="image"
+              data-cy="image"
+              isImage
+              accept="image/*"
+              validate={{
+                required: {
+                  value: true,
+                  message: translate('entity.validation.required'),
+                },
+              }}
+            />
+            <ValidatedField
+              label={translate('seaportApp.post.status')}
+              id="post-status"
+              name="status"
+              data-cy="status"
+              type="select"
+              defaultValue={statusValues[1]}
+              disabled
+            >
+              {statusValues.map(status => (
+                <option value={status} key={status}>
+                  {translate('seaportApp.Status.' + status)}
+                </option>
+              ))}
+            </ValidatedField>
+            {/* <div className="PostEditPage-create-update">
             <ValidatedField
               label={translate('seaportApp.post.createdAt')}
               id="post-createdAt"
@@ -157,35 +158,36 @@ const PostForm: React.FC<IPostFormProps> = ({
                 ))
               : null}
           </ValidatedField> */}
-          <Button
-            tag={Link}
-            id="cancel-save"
-            data-cy="entityCreateCancelButton"
-            to="/post"
-            replace
-            color="info"
-          >
-            <FontAwesomeIcon icon="arrow-left" />
+            <Button
+              tag={Link}
+              id="cancel-save"
+              data-cy="entityCreateCancelButton"
+              to="/post"
+              replace
+              color="info"
+            >
+              <FontAwesomeIcon icon="arrow-left" />
+              &nbsp;
+              <span className="d-none d-md-inline">
+                <Translate contentKey="entity.action.back">Back</Translate>
+              </span>
+            </Button>
             &nbsp;
-            <span className="d-none d-md-inline">
-              <Translate contentKey="entity.action.back">Back</Translate>
-            </span>
-          </Button>
-          &nbsp;
-          <Button
-            color="primary"
-            id="save-entity"
-            data-cy="entityCreateSaveButton"
-            type="submit"
-            disabled={updating}
-          >
-            <FontAwesomeIcon icon="save" />
-            &nbsp;
-            <Translate contentKey="entity.action.save">Save</Translate>
-          </Button>
-        </ValidatedForm>
-      )}
-    </div>
+            <Button
+              color="primary"
+              id="save-entity"
+              data-cy="entityCreateSaveButton"
+              type="submit"
+              disabled={updating}
+            >
+              <FontAwesomeIcon icon="save" />
+              &nbsp;
+              <Translate contentKey="entity.action.save">Save</Translate>
+            </Button>
+          </ValidatedForm>
+        )}
+      </Col>
+    </Row>
   );
 };
 

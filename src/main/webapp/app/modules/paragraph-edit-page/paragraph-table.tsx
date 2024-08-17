@@ -547,7 +547,7 @@ import React, { useEffect, useState } from 'react';
 import { Translate } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Link } from 'react-router-dom';
-import { Button } from 'reactstrap';
+import { Button, Col, Row } from 'reactstrap';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import './ParagraphTable.css';
@@ -568,81 +568,93 @@ const ParagraphTable = ({ paragraphList, openFile, loading, postId }) => {
   }, [paragraphList]);
 
   return (
-    <div className="ParagraphTable">
-      {paragraphList && paragraphList.length > 0
-        ? paragraphList.map(paragraph => (
-            <div key={`entity-${paragraph.id}`} className="paragraph-container">
-              <div className="btn-group flex-btn-group-container">
-                <Button
-                  tag={Link}
-                  to={`/paragrapheditupdatepage/${paragraph.id}?postId=${postId}`}
-                  color="primary"
-                  size="sm"
-                  data-cy="entityEditButton"
+    <div>
+      <Row className="justify-content-center">
+        <Col md="8">
+          {paragraphList && paragraphList.length > 0
+            ? paragraphList.map(paragraph => (
+                <div
+                  key={`entity-${paragraph.id}`}
+                  className="paragraph-container"
                 >
-                  <FontAwesomeIcon icon="pencil-alt" />{' '}
-                  <span className="d-none d-md-inline">
-                    <Translate contentKey="entity.action.edit">Edit</Translate>
-                  </span>
-                </Button>
-                <Button
-                  onClick={() =>
-                    (window.location.href = `/paragraphdelete/${paragraph.id}?postId=${postId}`)
-                  }
-                  color="danger"
-                  size="sm"
-                  data-cy="entityDeleteButton"
-                >
-                  <FontAwesomeIcon icon="trash" />{' '}
-                  <span className="d-none d-md-inline">
-                    <Translate contentKey="entity.action.delete">
-                      Delete
-                    </Translate>
-                  </span>
-                </Button>
-              </div>
-              {paragraph.image && paragraph.imageContentType && (
-                <div className="image-container">
-                  <a
-                    onClick={openFile(
-                      paragraph.imageContentType,
-                      paragraph.image,
-                    )}
+                  <div className="btn-group flex-btn-group-container">
+                    <Button
+                      tag={Link}
+                      to={`/paragrapheditupdatepage/${paragraph.id}?postId=${postId}`}
+                      color="primary"
+                      size="sm"
+                      data-cy="entityEditButton"
+                    >
+                      <FontAwesomeIcon icon="pencil-alt" />{' '}
+                      <span className="d-none d-md-inline">
+                        <Translate contentKey="entity.action.edit">
+                          Edit
+                        </Translate>
+                      </span>
+                    </Button>
+                    <Button
+                      onClick={() =>
+                        (window.location.href = `/paragraphdelete/${paragraph.id}?postId=${postId}`)
+                      }
+                      color="danger"
+                      size="sm"
+                      data-cy="entityDeleteButton"
+                    >
+                      <FontAwesomeIcon icon="trash" />{' '}
+                      <span className="d-none d-md-inline">
+                        <Translate contentKey="entity.action.delete">
+                          Delete
+                        </Translate>
+                      </span>
+                    </Button>
+                  </div>
+                  {paragraph.image && paragraph.imageContentType && (
+                    <div className="image-container">
+                      <a
+                        onClick={openFile(
+                          paragraph.imageContentType,
+                          paragraph.image,
+                        )}
+                      >
+                        <img
+                          src={`data:${paragraph.imageContentType};base64,${paragraph.image}`}
+                          alt={paragraph.caption}
+                          className="centered-image"
+                        />
+                      </a>
+                    </div>
+                  )}
+                  <div className="caption-container">{paragraph.caption}</div>
+
+                  <div
+                    id={`editorjs-${paragraph.id}`}
+                    className="editor-container"
                   >
-                    <img
-                      src={`data:${paragraph.imageContentType};base64,${paragraph.image}`}
-                      alt={paragraph.caption}
-                      className="centered-image"
-                    />
-                  </a>
+                    {contentMap[paragraph.id] && (
+                      <CKEditor
+                        editor={ClassicEditor}
+                        data={contentMap[paragraph.id]} // Directly use content without parsing
+                        config={{
+                          toolbar: [], // Hide toolbar for read-only mode
+                        }}
+                        onReady={editor => {
+                          // Code runs when editor is ready
+                          editor.enableReadOnlyMode('read-only-mode');
+                        }}
+                      />
+                    )}
+                  </div>
+                </div>
+              ))
+            : !loading && (
+                <div className="alert alert-warning">
+                  <Translate contentKey="seaportApp.paragraph.home.notFound">
+                    No Paragraphs found
+                  </Translate>
                 </div>
               )}
-              <div className="caption-container">{paragraph.caption}</div>
-
-              <div id={`editorjs-${paragraph.id}`} className="editor-container">
-                {contentMap[paragraph.id] && (
-                  <CKEditor
-                    editor={ClassicEditor}
-                    data={contentMap[paragraph.id]} // Directly use content without parsing
-                    config={{
-                      toolbar: [], // Hide toolbar for read-only mode
-                    }}
-                    onReady={editor => {
-                      // Code runs when editor is ready
-                      editor.enableReadOnlyMode('read-only-mode');
-                    }}
-                  />
-                )}
-              </div>
-            </div>
-          ))
-        : !loading && (
-            <div className="alert alert-warning">
-              <Translate contentKey="seaportApp.paragraph.home.notFound">
-                No Paragraphs found
-              </Translate>
-            </div>
-          )}
+        </Col>
+      </Row>
     </div>
   );
 };

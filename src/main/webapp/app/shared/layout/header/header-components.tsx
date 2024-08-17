@@ -47,3 +47,17 @@ export const PersonalPage = () => (
     </NavLink>
   </NavItem>
 );
+export const PostApproveMenu = () => (
+  <NavItem>
+    <NavLink
+      tag={Link}
+      to="/postapprovepage"
+      className="d-flex align-items-center"
+    >
+      <FontAwesomeIcon icon="home" />
+      <span>
+        <Translate contentKey="global.menu.postapprovemenu">Home</Translate>
+      </span>
+    </NavLink>
+  </NavItem>
+);

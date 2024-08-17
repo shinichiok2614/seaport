@@ -9,13 +9,11 @@ import { APP_DATE_FORMAT } from 'app/config/constants';
 const PostCard = ({ post }) => {
   return (
     <tr data-cy="entityTable">
-      <td>
+      {/* <td>
         <Button tag={Link} to={`/post/${post.id}`} color="link" size="sm">
           {post.id}
         </Button>
-      </td>
-      <td>{post.name}</td>
-      <td>{post.summary}</td>
+      </td> */}
       <td>
         {post.image ? (
           <div>
@@ -34,6 +32,9 @@ const PostCard = ({ post }) => {
           </div>
         ) : null}
       </td>
+      <td>{post.name}</td>
+      <td>{post.summary}</td>
+
       <td>
         <Translate contentKey={`seaportApp.Status.${post.status}`} />
       </td>

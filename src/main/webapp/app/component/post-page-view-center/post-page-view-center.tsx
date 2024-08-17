@@ -14,6 +14,7 @@ export const PostPageViewCenter = ({
         <PostPageView postEntity={postEntity}></PostPageView>
       </div>
       <div className="PostPageViewCenter2">
+        <div className="PostPageViewCenter-summary">{postEntity.summary}</div>
         {paragraphList && paragraphList.length > 0
           ? paragraphList.map((paragraph, i) => (
               <ParagraphViewEachPostPage paragraph={paragraph} />

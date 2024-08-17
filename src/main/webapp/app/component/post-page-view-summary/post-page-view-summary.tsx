@@ -6,7 +6,7 @@ export const PostPageViewSummary = ({ postEntity }) => {
   return (
     <div className="post-page">
       {postEntity.category && <div>{postEntity.category.name}</div>}
-      <div>{postEntity.summary}</div>
+      {/* <div>{postEntity.summary}</div> */}
       <span>
         {postEntity.createdAt ? (
           <TextFormat

@@ -29,9 +29,13 @@ const PostList = ({ postList, sort, getSortIconByFieldName }) => {
         <Table responsive>
           <thead>
             <tr>
-              <th className="hand" onClick={sort('id')}>
+              {/* <th className="hand" onClick={sort('id')}>
                 <Translate contentKey="seaportApp.post.id">ID</Translate>{' '}
                 <FontAwesomeIcon icon={getSortIconByFieldName('id')} />
+              </th> */}
+              <th className="hand" onClick={sort('image')}>
+                <Translate contentKey="seaportApp.post.image">Image</Translate>{' '}
+                <FontAwesomeIcon icon={getSortIconByFieldName('image')} />
               </th>
               <th className="hand" onClick={sort('name')}>
                 <Translate contentKey="seaportApp.post.name">Name</Translate>{' '}
@@ -43,10 +47,7 @@ const PostList = ({ postList, sort, getSortIconByFieldName }) => {
                 </Translate>{' '}
                 <FontAwesomeIcon icon={getSortIconByFieldName('summary')} />
               </th>
-              <th className="hand" onClick={sort('image')}>
-                <Translate contentKey="seaportApp.post.image">Image</Translate>{' '}
-                <FontAwesomeIcon icon={getSortIconByFieldName('image')} />
-              </th>
+
               <th className="hand" onClick={sort('status')}>
                 <Translate contentKey="seaportApp.post.status">
                   Status

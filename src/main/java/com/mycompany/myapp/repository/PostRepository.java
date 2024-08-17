@@ -1,6 +1,7 @@
 package com.mycompany.myapp.repository;
 
 import com.mycompany.myapp.domain.Post;
+import com.mycompany.myapp.domain.enumeration.Status;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.data.domain.Page;
@@ -55,10 +56,18 @@ public interface PostRepository extends JpaRepository<Post, Long> {
     )
     Optional<Post> findOneWithToOneRelationships(@Param("id") Long id);
 
+    // @Query(
+    //     "SELECT p FROM Post p WHERE p.category.id = :categoryId ORDER BY p.createdAt DESC"
+    // )
+    // List<Post> findTop10ByCategoryIdOrderByCreatedAtDesc(
+    //     @Param("categoryId") Long categoryId
+    // );
+
     @Query(
-        "SELECT p FROM Post p WHERE p.category.id = :categoryId ORDER BY p.createdAt DESC"
+        "SELECT p FROM Post p WHERE p.category.id = :categoryId AND p.status = :status ORDER BY p.createdAt DESC"
     )
-    List<Post> findTop10ByCategoryIdOrderByCreatedAtDesc(
-        @Param("categoryId") Long categoryId
+    List<Post> findTop10ByCategoryIdAndStatusOrderByCreatedAtDesc(
+        @Param("categoryId") Long categoryId,
+        @Param("status") Status status
     );
 }

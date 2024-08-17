@@ -194,16 +194,18 @@ export const ParagraphEditPage = () => {
 
   return (
     <div>
-      <div>
-        <h2
-          id="seaportApp.post.home.createOrEditLabel"
-          data-cy="PostCreateUpdateHeading"
-        >
-          <Translate contentKey="seaportApp.post.home.createOrEditLabel">
-            Create or edit a Post
-          </Translate>
-        </h2>
-      </div>
+      <Row className="justify-content-center">
+        <Col md="8">
+          <h2
+            id="seaportApp.post.home.createOrEditLabel"
+            data-cy="PostCreateUpdateHeading"
+          >
+            <Translate contentKey="seaportApp.post.home.createOrEditLabel">
+              Create or edit a Post
+            </Translate>
+          </h2>
+        </Col>
+      </Row>
       <PostForm
         isNew={isNew}
         saveEntity={saveEntity}
@@ -212,36 +214,40 @@ export const ParagraphEditPage = () => {
         loading={loading}
       />
       <div>
-        <h2 id="paragraph-heading" data-cy="ParagraphHeading">
-          <Translate contentKey="seaportApp.paragraph.home.title">
-            Paragraphs
-          </Translate>
-          <div className="d-flex justify-content-end">
-            <Button
-              className="me-2"
-              color="info"
-              onClick={handleSyncList}
-              disabled={paragraphloading}
-            >
-              <FontAwesomeIcon icon="sync" spin={loading} />{' '}
-              <Translate contentKey="seaportApp.paragraph.home.refreshListLabel">
-                Refresh List
+        <Row className="justify-content-center">
+          <Col md="8">
+            <h2 id="paragraph-heading" data-cy="ParagraphHeading">
+              <Translate contentKey="seaportApp.paragraph.home.title">
+                Paragraphs
               </Translate>
-            </Button>
-            <Link
-              to={`/paragrapheditupdatepage/new?postId=${id}`}
-              className="btn btn-primary jh-create-entity"
-              id="jh-create-entity"
-              data-cy="entityCreateButton"
-            >
-              <FontAwesomeIcon icon="plus" />
-              &nbsp;
-              <Translate contentKey="seaportApp.paragraph.home.createLabel">
-                Create new Paragraph
-              </Translate>
-            </Link>
-          </div>
-        </h2>
+              <div className="d-flex justify-content-end">
+                <Button
+                  className="me-2"
+                  color="info"
+                  onClick={handleSyncList}
+                  disabled={paragraphloading}
+                >
+                  <FontAwesomeIcon icon="sync" spin={loading} />{' '}
+                  <Translate contentKey="seaportApp.paragraph.home.refreshListLabel">
+                    Refresh List
+                  </Translate>
+                </Button>
+                <Link
+                  to={`/paragrapheditupdatepage/new?postId=${id}`}
+                  className="btn btn-primary jh-create-entity"
+                  id="jh-create-entity"
+                  data-cy="entityCreateButton"
+                >
+                  <FontAwesomeIcon icon="plus" />
+                  &nbsp;
+                  <Translate contentKey="seaportApp.paragraph.home.createLabel">
+                    Create new Paragraph
+                  </Translate>
+                </Link>
+              </div>
+            </h2>
+          </Col>
+        </Row>
         <ParagraphTable
           paragraphList={paragraphList}
           openFile={openFile}

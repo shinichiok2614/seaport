@@ -13,13 +13,13 @@ export const PostPageView = ({ postEntity }) => {
   };
   return (
     <div className="PostPageView">
-      {postEntity.image && postEntity.imageContentType && (
+      {/* {postEntity.image && postEntity.imageContentType && (
         <img
           src={`data:${postEntity.imageContentType};base64,${postEntity.image}`}
           alt="Post Image"
           className="PostPageView1"
         />
-      )}
+      )} */}
       <div className="PostPageView2">{postEntity.name}</div>
       <div className="PostPageView3" onClick={handlePersonName}>
         {postEntity.person && (

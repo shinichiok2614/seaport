@@ -4,6 +4,7 @@ import com.mycompany.myapp.domain.Category;
 import com.mycompany.myapp.domain.Paragraph;
 import com.mycompany.myapp.domain.Person;
 import com.mycompany.myapp.domain.Post;
+import com.mycompany.myapp.domain.enumeration.Status;
 import com.mycompany.myapp.repository.CategoryRepository;
 import com.mycompany.myapp.repository.PersonRepository;
 import com.mycompany.myapp.repository.PostRepository;
@@ -158,8 +159,9 @@ public class CategoryService {
                 categoryDTO.setName(category.getName());
 
                 List<Post> posts =
-                    postRepository.findTop10ByCategoryIdOrderByCreatedAtDesc(
-                        category.getId()
+                    postRepository.findTop10ByCategoryIdAndStatusOrderByCreatedAtDesc(
+                        category.getId(),
+                        Status.APPROVED
                     );
                 List<PostDTO> postDTOs = posts
                     .stream()
