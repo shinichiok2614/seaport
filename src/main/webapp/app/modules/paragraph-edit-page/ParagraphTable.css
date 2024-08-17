@@ -1,6 +1,10 @@
+.ParagraphTable {
+  /* display: flex;
+  flex-direction: column;
+justify-content: space-between; */
+}
 .paragraph-container {
-  /* text-align: center; */
-  width: 100%;
+  max-width: 900px;
 }
 
 .image-container {

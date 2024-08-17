@@ -72,6 +72,8 @@
     "packaging": "jar"
   },
   "dependencies": {
+    "@ckeditor/ckeditor5-build-classic": "^43.0.0",
+    "@ckeditor/ckeditor5-react": "^9.0.0",
     "@editorjs/editorjs": "^2.30.4",
     "@editorjs/header": "^2.8.7",
     "@editorjs/list": "^1.10.0",

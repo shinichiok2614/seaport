@@ -30,7 +30,6 @@ import { ICategory } from 'app/shared/model/category.model';
 import { getEntities as getCategories } from 'app/entities/category/category.reducer';
 import { IUser } from 'app/shared/model/user.model';
 import { getUsers } from 'app/modules/administration/user-management/user-management.reducer';
-import { IPost } from 'app/shared/model/post.model';
 import { Status } from 'app/shared/model/enumerations/status.model';
 import {
   createEntity,
@@ -38,10 +37,7 @@ import {
   reset,
   updateEntity,
 } from 'app/entities/post/post.reducer';
-import {
-  getEntities,
-  getEntitiesByPost,
-} from 'app/entities/paragraph/paragraph.reducer';
+import { getEntitiesByPost } from 'app/entities/paragraph/paragraph.reducer';
 import { ASC, DESC } from 'app/shared/util/pagination.constants';
 import {
   faSort,
@@ -198,18 +194,16 @@ export const ParagraphEditPage = () => {
 
   return (
     <div>
-      <Row className="justify-content-center">
-        <Col md="8">
-          <h2
-            id="seaportApp.post.home.createOrEditLabel"
-            data-cy="PostCreateUpdateHeading"
-          >
-            <Translate contentKey="seaportApp.post.home.createOrEditLabel">
-              Create or edit a Post
-            </Translate>
-          </h2>
-        </Col>
-      </Row>
+      <div>
+        <h2
+          id="seaportApp.post.home.createOrEditLabel"
+          data-cy="PostCreateUpdateHeading"
+        >
+          <Translate contentKey="seaportApp.post.home.createOrEditLabel">
+            Create or edit a Post
+          </Translate>
+        </h2>
+      </div>
       <PostForm
         isNew={isNew}
         saveEntity={saveEntity}
@@ -217,47 +211,45 @@ export const ParagraphEditPage = () => {
         defaultValues={defaultValues}
         loading={loading}
       />
-      <Row className="justify-content-center">
-        <Col md="8">
-          <h2 id="paragraph-heading" data-cy="ParagraphHeading">
-            <Translate contentKey="seaportApp.paragraph.home.title">
-              Paragraphs
-            </Translate>
-            <div className="d-flex justify-content-end">
-              <Button
-                className="me-2"
-                color="info"
-                onClick={handleSyncList}
-                disabled={paragraphloading}
-              >
-                <FontAwesomeIcon icon="sync" spin={loading} />{' '}
-                <Translate contentKey="seaportApp.paragraph.home.refreshListLabel">
-                  Refresh List
-                </Translate>
-              </Button>
-              <Link
-                to={`/paragrapheditupdatepage/new?postId=${id}`}
-                className="btn btn-primary jh-create-entity"
-                id="jh-create-entity"
-                data-cy="entityCreateButton"
-              >
-                <FontAwesomeIcon icon="plus" />
-                &nbsp;
-                <Translate contentKey="seaportApp.paragraph.home.createLabel">
-                  Create new Paragraph
-                </Translate>
-              </Link>
-            </div>
-          </h2>
-          <ParagraphTable
-            paragraphList={paragraphList}
-            openFile={openFile}
-            loading={paragraphloading}
-            handleSyncList={handleSyncList}
-            postId={id}
-          />
-        </Col>
-      </Row>
+      <div>
+        <h2 id="paragraph-heading" data-cy="ParagraphHeading">
+          <Translate contentKey="seaportApp.paragraph.home.title">
+            Paragraphs
+          </Translate>
+          <div className="d-flex justify-content-end">
+            <Button
+              className="me-2"
+              color="info"
+              onClick={handleSyncList}
+              disabled={paragraphloading}
+            >
+              <FontAwesomeIcon icon="sync" spin={loading} />{' '}
+              <Translate contentKey="seaportApp.paragraph.home.refreshListLabel">
+                Refresh List
+              </Translate>
+            </Button>
+            <Link
+              to={`/paragrapheditupdatepage/new?postId=${id}`}
+              className="btn btn-primary jh-create-entity"
+              id="jh-create-entity"
+              data-cy="entityCreateButton"
+            >
+              <FontAwesomeIcon icon="plus" />
+              &nbsp;
+              <Translate contentKey="seaportApp.paragraph.home.createLabel">
+                Create new Paragraph
+              </Translate>
+            </Link>
+          </div>
+        </h2>
+        <ParagraphTable
+          paragraphList={paragraphList}
+          openFile={openFile}
+          loading={paragraphloading}
+          // handleSyncList={handleSyncList}
+          postId={id}
+        />
+      </div>
     </div>
   );
 };

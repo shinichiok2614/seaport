@@ -2,7 +2,8 @@ import React, { useEffect, useRef } from 'react';
 import EditorJS from '@editorjs/editorjs';
 import Header from '@editorjs/header';
 import List from '@editorjs/list';
-import './editor-component.css';
+// import MyCustomTool from './MyCustomTool';
+
 const EditorComponent = ({
   data,
   onChange,
@@ -15,10 +16,10 @@ const EditorComponent = ({
     if (!editorInstance.current) {
       editorInstance.current = new EditorJS({
         holder: holder,
-        // holder: 'editorjs',
         tools: {
           header: Header,
           list: List,
+          // myCustomTool: MyCustomTool,
         },
         data,
         readOnly,
@@ -48,7 +49,7 @@ const EditorComponent = ({
     };
   }, [holder]);
 
-  return <div id={holder} className="editor-container" />;
+  return <div id={holder} />;
 };
 
 export default EditorComponent;
