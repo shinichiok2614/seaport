@@ -22,6 +22,7 @@
 .medium img {
   /* height: 500px; */
   width: 100%;
+  border-radius: 8px;
 }
 
 .medium1 {
@@ -81,7 +82,10 @@
   font-weight: bold;
 }
 
-.medium7 {
+/* .medium7 {
+} */
+.medium7-body img {
   max-height: 150px;
   object-fit: contain;
+  border-radius: 8px;
 }

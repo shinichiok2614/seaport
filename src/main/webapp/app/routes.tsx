@@ -27,6 +27,7 @@ import PostApprovePageRemark from './modules/post-approve-page-remark/post-appro
 import PersonalPageForward from './modules/personal-page-forward/personal-page-forward';
 import PersonListPost from './component/person-list-post/person-list-post';
 import ParagraphDelete from './modules/paragraph-edit-page/paragraph-delete';
+import MessagePerson from './modules/message-person/message-person';
 
 const loading = <div>loading ...</div>;
 
@@ -58,6 +59,7 @@ const AppRoutes = () => {
         <Route path="personlistpost/:id" element={<PersonListPost />} />
         <Route path="posteditpage/:id" element={<PostEditPage />} />
         <Route path="paragrapheditpage/:id" element={<ParagraphEditPage />} />
+        <Route path="messageperson/" element={<MessagePerson />} />
         <Route
           path="paragrapheditupdatepage/:id"
           element={<ParagraphEditUpdate />}

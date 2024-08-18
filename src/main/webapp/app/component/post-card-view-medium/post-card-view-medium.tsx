@@ -46,11 +46,11 @@ const PostCardViewMedium = ({
         )}
         <div className="medium4">{post.summary}</div>
       </div>
-      <div>
+      <div className="medium7-body">
         {!hidePersonAvatar && (
           <img
             src={`data:${post.person.avatarContentType};base64,${post.person.avatar}`}
-            className="medium7"
+            // className="medium7"
             onClick={handlePersonName}
           />
         )}

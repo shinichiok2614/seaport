@@ -26,7 +26,9 @@ import tech.jhipster.web.util.ResponseUtil;
 @RequestMapping("/api/messages")
 public class MessageResource {
 
-    private static final Logger log = LoggerFactory.getLogger(MessageResource.class);
+    private static final Logger log = LoggerFactory.getLogger(
+        MessageResource.class
+    );
 
     private static final String ENTITY_NAME = "message";
 
@@ -37,7 +39,10 @@ public class MessageResource {
 
     private final MessageRepository messageRepository;
 
-    public MessageResource(MessageService messageService, MessageRepository messageRepository) {
+    public MessageResource(
+        MessageService messageService,
+        MessageRepository messageRepository
+    ) {
         this.messageService = messageService;
         this.messageRepository = messageRepository;
     }
@@ -50,14 +55,29 @@ public class MessageResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PostMapping("")
-    public ResponseEntity<MessageDTO> createMessage(@Valid @RequestBody MessageDTO messageDTO) throws URISyntaxException {
+    public ResponseEntity<MessageDTO> createMessage(
+        @Valid @RequestBody MessageDTO messageDTO
+    ) throws URISyntaxException {
         log.debug("REST request to save Message : {}", messageDTO);
         if (messageDTO.getId() != null) {
-            throw new BadRequestAlertException("A new message cannot already have an ID", ENTITY_NAME, "idexists");
+            throw new BadRequestAlertException(
+                "A new message cannot already have an ID",
+                ENTITY_NAME,
+                "idexists"
+            );
         }
         messageDTO = messageService.save(messageDTO);
-        return ResponseEntity.created(new URI("/api/messages/" + messageDTO.getId()))
-            .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, messageDTO.getId().toString()))
+        return ResponseEntity.created(
+            new URI("/api/messages/" + messageDTO.getId())
+        )
+            .headers(
+                HeaderUtil.createEntityCreationAlert(
+                    applicationName,
+                    true,
+                    ENTITY_NAME,
+                    messageDTO.getId().toString()
+                )
+            )
             .body(messageDTO);
     }
 
@@ -78,19 +98,38 @@ public class MessageResource {
     ) throws URISyntaxException {
         log.debug("REST request to update Message : {}, {}", id, messageDTO);
         if (messageDTO.getId() == null) {
-            throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
+            throw new BadRequestAlertException(
+                "Invalid id",
+                ENTITY_NAME,
+                "idnull"
+            );
         }
         if (!Objects.equals(id, messageDTO.getId())) {
-            throw new BadRequestAlertException("Invalid ID", ENTITY_NAME, "idinvalid");
+            throw new BadRequestAlertException(
+                "Invalid ID",
+                ENTITY_NAME,
+                "idinvalid"
+            );
         }
 
         if (!messageRepository.existsById(id)) {
-            throw new BadRequestAlertException("Entity not found", ENTITY_NAME, "idnotfound");
+            throw new BadRequestAlertException(
+                "Entity not found",
+                ENTITY_NAME,
+                "idnotfound"
+            );
         }
 
         messageDTO = messageService.update(messageDTO);
         return ResponseEntity.ok()
-            .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, messageDTO.getId().toString()))
+            .headers(
+                HeaderUtil.createEntityUpdateAlert(
+                    applicationName,
+                    true,
+                    ENTITY_NAME,
+                    messageDTO.getId().toString()
+                )
+            )
             .body(messageDTO);
     }
 
@@ -105,28 +144,52 @@ public class MessageResource {
      * or with status {@code 500 (Internal Server Error)} if the messageDTO couldn't be updated.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
-    @PatchMapping(value = "/{id}", consumes = { "application/json", "application/merge-patch+json" })
+    @PatchMapping(
+        value = "/{id}",
+        consumes = { "application/json", "application/merge-patch+json" }
+    )
     public ResponseEntity<MessageDTO> partialUpdateMessage(
         @PathVariable(value = "id", required = false) final Long id,
         @NotNull @RequestBody MessageDTO messageDTO
     ) throws URISyntaxException {
-        log.debug("REST request to partial update Message partially : {}, {}", id, messageDTO);
+        log.debug(
+            "REST request to partial update Message partially : {}, {}",
+            id,
+            messageDTO
+        );
         if (messageDTO.getId() == null) {
-            throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
+            throw new BadRequestAlertException(
+                "Invalid id",
+                ENTITY_NAME,
+                "idnull"
+            );
         }
         if (!Objects.equals(id, messageDTO.getId())) {
-            throw new BadRequestAlertException("Invalid ID", ENTITY_NAME, "idinvalid");
+            throw new BadRequestAlertException(
+                "Invalid ID",
+                ENTITY_NAME,
+                "idinvalid"
+            );
         }
 
         if (!messageRepository.existsById(id)) {
-            throw new BadRequestAlertException("Entity not found", ENTITY_NAME, "idnotfound");
+            throw new BadRequestAlertException(
+                "Entity not found",
+                ENTITY_NAME,
+                "idnotfound"
+            );
         }
 
         Optional<MessageDTO> result = messageService.partialUpdate(messageDTO);
 
         return ResponseUtil.wrapOrNotFound(
             result,
-            HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, messageDTO.getId().toString())
+            HeaderUtil.createEntityUpdateAlert(
+                applicationName,
+                true,
+                ENTITY_NAME,
+                messageDTO.getId().toString()
+            )
         );
     }
 
@@ -137,7 +200,13 @@ public class MessageResource {
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of messages in body.
      */
     @GetMapping("")
-    public List<MessageDTO> getAllMessages(@RequestParam(name = "eagerload", required = false, defaultValue = "true") boolean eagerload) {
+    public List<MessageDTO> getAllMessages(
+        @RequestParam(
+            name = "eagerload",
+            required = false,
+            defaultValue = "true"
+        ) boolean eagerload
+    ) {
         log.debug("REST request to get all Messages");
         return messageService.findAll();
     }
@@ -166,7 +235,20 @@ public class MessageResource {
         log.debug("REST request to delete Message : {}", id);
         messageService.delete(id);
         return ResponseEntity.noContent()
-            .headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString()))
+            .headers(
+                HeaderUtil.createEntityDeletionAlert(
+                    applicationName,
+                    true,
+                    ENTITY_NAME,
+                    id.toString()
+                )
+            )
             .build();
+    }
+
+    @GetMapping("/messages/")
+    public ResponseEntity<List<MessageDTO>> getMessagesByUserId() {
+        List<MessageDTO> messages = messageService.findMessagesByUserId();
+        return ResponseEntity.ok(messages);
     }
 }

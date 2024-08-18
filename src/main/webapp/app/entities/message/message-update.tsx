@@ -1,17 +1,33 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { Button, Row, Col, FormText } from 'reactstrap';
-import { isNumber, Translate, translate, ValidatedField, ValidatedForm, ValidatedBlobField } from 'react-jhipster';
+import {
+  isNumber,
+  Translate,
+  translate,
+  ValidatedField,
+  ValidatedForm,
+  ValidatedBlobField,
+} from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-import { convertDateTimeFromServer, convertDateTimeToServer, displayDefaultDateTime } from 'app/shared/util/date-utils';
+import {
+  convertDateTimeFromServer,
+  convertDateTimeToServer,
+  displayDefaultDateTime,
+} from 'app/shared/util/date-utils';
 import { mapIdList } from 'app/shared/util/entity-utils';
 import { useAppDispatch, useAppSelector } from 'app/config/store';
 
 import { IUser } from 'app/shared/model/user.model';
 import { getUsers } from 'app/modules/administration/user-management/user-management.reducer';
 import { IMessage } from 'app/shared/model/message.model';
-import { getEntity, updateEntity, createEntity, reset } from './message.reducer';
+import {
+  getEntity,
+  updateEntity,
+  createEntity,
+  reset,
+} from './message.reducer';
 
 export const MessageUpdate = () => {
   const dispatch = useAppDispatch();
@@ -58,7 +74,9 @@ export const MessageUpdate = () => {
       ...messageEntity,
       ...values,
       sender: users.find(it => it.id.toString() === values.sender?.toString()),
-      receiver: users.find(it => it.id.toString() === values.receiver?.toString()),
+      receiver: users.find(
+        it => it.id.toString() === values.receiver?.toString(),
+      ),
     };
 
     if (isNew) {
@@ -71,7 +89,7 @@ export const MessageUpdate = () => {
   const defaultValues = () =>
     isNew
       ? {
-          createdAt: displayDefaultDateTime(),
+          createdAt: new Date().toISOString(),
         }
       : {
           ...messageEntity,
@@ -84,8 +102,13 @@ export const MessageUpdate = () => {
     <div>
       <Row className="justify-content-center">
         <Col md="8">
-          <h2 id="seaportApp.message.home.createOrEditLabel" data-cy="MessageCreateUpdateHeading">
-            <Translate contentKey="seaportApp.message.home.createOrEditLabel">Create or edit a Message</Translate>
+          <h2
+            id="seaportApp.message.home.createOrEditLabel"
+            data-cy="MessageCreateUpdateHeading"
+          >
+            <Translate contentKey="seaportApp.message.home.createOrEditLabel">
+              Create or edit a Message
+            </Translate>
           </h2>
         </Col>
       </Row>
@@ -94,7 +117,10 @@ export const MessageUpdate = () => {
           {loading ? (
             <p>Loading...</p>
           ) : (
-            <ValidatedForm defaultValues={defaultValues()} onSubmit={saveEntity}>
+            <ValidatedForm
+              defaultValues={defaultValues()}
+              onSubmit={saveEntity}
+            >
               {!isNew ? (
                 <ValidatedField
                   name="id"
@@ -120,7 +146,7 @@ export const MessageUpdate = () => {
                 isImage
                 accept="image/*"
               />
-              <ValidatedField
+              {/* <ValidatedField
                 label={translate('seaportApp.message.createdAt')}
                 id="message-createdAt"
                 name="createdAt"
@@ -130,7 +156,7 @@ export const MessageUpdate = () => {
                 validate={{
                   required: { value: true, message: translate('entity.validation.required') },
                 }}
-              />
+              /> */}
               <ValidatedField
                 id="message-sender"
                 name="sender"
@@ -163,7 +189,14 @@ export const MessageUpdate = () => {
                     ))
                   : null}
               </ValidatedField>
-              <Button tag={Link} id="cancel-save" data-cy="entityCreateCancelButton" to="/message" replace color="info">
+              <Button
+                tag={Link}
+                id="cancel-save"
+                data-cy="entityCreateCancelButton"
+                to="/message"
+                replace
+                color="info"
+              >
                 <FontAwesomeIcon icon="arrow-left" />
                 &nbsp;
                 <span className="d-none d-md-inline">
@@ -171,7 +204,13 @@ export const MessageUpdate = () => {
                 </span>
               </Button>
               &nbsp;
-              <Button color="primary" id="save-entity" data-cy="entityCreateSaveButton" type="submit" disabled={updating}>
+              <Button
+                color="primary"
+                id="save-entity"
+                data-cy="entityCreateSaveButton"
+                type="submit"
+                disabled={updating}
+              >
                 <FontAwesomeIcon icon="save" />
                 &nbsp;
                 <Translate contentKey="entity.action.save">Save</Translate>

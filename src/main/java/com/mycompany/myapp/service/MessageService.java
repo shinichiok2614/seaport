@@ -22,13 +22,18 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public class MessageService {
 
-    private static final Logger log = LoggerFactory.getLogger(MessageService.class);
+    private static final Logger log = LoggerFactory.getLogger(
+        MessageService.class
+    );
 
     private final MessageRepository messageRepository;
 
     private final MessageMapper messageMapper;
 
-    public MessageService(MessageRepository messageRepository, MessageMapper messageMapper) {
+    public MessageService(
+        MessageRepository messageRepository,
+        MessageMapper messageMapper
+    ) {
         this.messageRepository = messageRepository;
         this.messageMapper = messageMapper;
     }
@@ -87,7 +92,11 @@ public class MessageService {
     @Transactional(readOnly = true)
     public List<MessageDTO> findAll() {
         log.debug("Request to get all Messages");
-        return messageRepository.findAll().stream().map(messageMapper::toDto).collect(Collectors.toCollection(LinkedList::new));
+        return messageRepository
+            .findAll()
+            .stream()
+            .map(messageMapper::toDto)
+            .collect(Collectors.toCollection(LinkedList::new));
     }
 
     /**
@@ -96,7 +105,9 @@ public class MessageService {
      * @return the list of entities.
      */
     public Page<MessageDTO> findAllWithEagerRelationships(Pageable pageable) {
-        return messageRepository.findAllWithEagerRelationships(pageable).map(messageMapper::toDto);
+        return messageRepository
+            .findAllWithEagerRelationships(pageable)
+            .map(messageMapper::toDto);
     }
 
     /**
@@ -108,7 +119,9 @@ public class MessageService {
     @Transactional(readOnly = true)
     public Optional<MessageDTO> findOne(Long id) {
         log.debug("Request to get Message : {}", id);
-        return messageRepository.findOneWithEagerRelationships(id).map(messageMapper::toDto);
+        return messageRepository
+            .findOneWithEagerRelationships(id)
+            .map(messageMapper::toDto);
     }
 
     /**
@@ -119,5 +132,14 @@ public class MessageService {
     public void delete(Long id) {
         log.debug("Request to delete Message : {}", id);
         messageRepository.deleteById(id);
+    }
+
+    public List<MessageDTO> findMessagesByUserId() {
+        List<Message> messages =
+            messageRepository.findBySenderOrReceiverIsCurrentUser();
+        return messages
+            .stream()
+            .map(messageMapper::toDto)
+            .collect(Collectors.toList());
     }
 }

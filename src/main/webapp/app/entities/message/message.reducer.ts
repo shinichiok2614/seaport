@@ -2,7 +2,12 @@ import axios from 'axios';
 import { createAsyncThunk, isFulfilled, isPending } from '@reduxjs/toolkit';
 import { ASC } from 'app/shared/util/pagination.constants';
 import { cleanEntity } from 'app/shared/util/entity-utils';
-import { IQueryParams, createEntitySlice, EntityState, serializeAxiosError } from 'app/shared/reducers/reducer.utils';
+import {
+  IQueryParams,
+  createEntitySlice,
+  EntityState,
+  serializeAxiosError,
+} from 'app/shared/reducers/reducer.utils';
 import { IMessage, defaultValue } from 'app/shared/model/message.model';
 
 const initialState: EntityState<IMessage> = {
@@ -22,6 +27,14 @@ export const getEntities = createAsyncThunk(
   'message/fetch_entity_list',
   async ({ sort }: IQueryParams) => {
     const requestUrl = `${apiUrl}?${sort ? `sort=${sort}&` : ''}cacheBuster=${new Date().getTime()}`;
+    return axios.get<IMessage[]>(requestUrl);
+  },
+  { serializeError: serializeAxiosError },
+);
+export const getEntitiesByUser = createAsyncThunk(
+  'message/fetch_entity_list_by_user',
+  async () => {
+    const requestUrl = `${apiUrl}/messages/`;
     return axios.get<IMessage[]>(requestUrl);
   },
   { serializeError: serializeAxiosError },
@@ -49,7 +62,10 @@ export const createEntity = createAsyncThunk(
 export const updateEntity = createAsyncThunk(
   'message/update_entity',
   async (entity: IMessage, thunkAPI) => {
-    const result = await axios.put<IMessage>(`${apiUrl}/${entity.id}`, cleanEntity(entity));
+    const result = await axios.put<IMessage>(
+      `${apiUrl}/${entity.id}`,
+      cleanEntity(entity),
+    );
     thunkAPI.dispatch(getEntities({}));
     return result;
   },
@@ -59,7 +75,10 @@ export const updateEntity = createAsyncThunk(
 export const partialUpdateEntity = createAsyncThunk(
   'message/partial_update_entity',
   async (entity: IMessage, thunkAPI) => {
-    const result = await axios.patch<IMessage>(`${apiUrl}/${entity.id}`, cleanEntity(entity));
+    const result = await axios.patch<IMessage>(
+      `${apiUrl}/${entity.id}`,
+      cleanEntity(entity),
+    );
     thunkAPI.dispatch(getEntities({}));
     return result;
   },
@@ -88,6 +107,10 @@ export const MessageSlice = createEntitySlice({
         state.loading = false;
         state.entity = action.payload.data;
       })
+      .addCase(getEntitiesByUser.fulfilled, (state, action) => {
+        state.loading = false;
+        state.entities = action.payload.data;
+      })
       .addCase(deleteEntity.fulfilled, state => {
         state.updating = false;
         state.updateSuccess = true;
@@ -105,26 +128,46 @@ export const MessageSlice = createEntitySlice({
             }
             const order = action.meta.arg.sort.split(',')[1];
             const predicate = action.meta.arg.sort.split(',')[0];
-            return order === ASC ? (a[predicate] < b[predicate] ? -1 : 1) : b[predicate] < a[predicate] ? -1 : 1;
+            return order === ASC
+              ? a[predicate] < b[predicate]
+                ? -1
+                : 1
+              : b[predicate] < a[predicate]
+                ? -1
+                : 1;
           }),
         };
       })
-      .addMatcher(isFulfilled(createEntity, updateEntity, partialUpdateEntity), (state, action) => {
-        state.updating = false;
-        state.loading = false;
-        state.updateSuccess = true;
-        state.entity = action.payload.data;
-      })
-      .addMatcher(isPending(getEntities, getEntity), state => {
-        state.errorMessage = null;
-        state.updateSuccess = false;
-        state.loading = true;
-      })
-      .addMatcher(isPending(createEntity, updateEntity, partialUpdateEntity, deleteEntity), state => {
-        state.errorMessage = null;
-        state.updateSuccess = false;
-        state.updating = true;
-      });
+      .addMatcher(
+        isFulfilled(createEntity, updateEntity, partialUpdateEntity),
+        (state, action) => {
+          state.updating = false;
+          state.loading = false;
+          state.updateSuccess = true;
+          state.entity = action.payload.data;
+        },
+      )
+      .addMatcher(
+        isPending(getEntities, getEntity, getEntitiesByUser),
+        state => {
+          state.errorMessage = null;
+          state.updateSuccess = false;
+          state.loading = true;
+        },
+      )
+      .addMatcher(
+        isPending(
+          createEntity,
+          updateEntity,
+          partialUpdateEntity,
+          deleteEntity,
+        ),
+        state => {
+          state.errorMessage = null;
+          state.updateSuccess = false;
+          state.updating = true;
+        },
+      );
   },
 });
 

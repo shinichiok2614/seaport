@@ -61,3 +61,17 @@ export const PostApproveMenu = () => (
     </NavLink>
   </NavItem>
 );
+export const MessageMenu = () => (
+  <NavItem>
+    <NavLink
+      tag={Link}
+      to="/messageperson"
+      className="d-flex align-items-center"
+    >
+      <FontAwesomeIcon icon="home" />
+      <span>
+        <Translate contentKey="global.menu.messageperson">Home</Translate>
+      </span>
+    </NavLink>
+  </NavItem>
+);

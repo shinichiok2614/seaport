@@ -10,6 +10,7 @@ import {
   Brand,
   PersonalPage,
   PostApproveMenu,
+  MessageMenu,
 } from './header-components';
 import { AdminMenu, EntitiesMenu, AccountMenu, LocaleMenu } from '../menus';
 import { useAppDispatch } from 'app/config/store';
@@ -67,6 +68,7 @@ const Header = (props: IHeaderProps) => {
             <Home />
             {props.isAdmin && <EntitiesMenu />}
             {props.isAuthenticated && <PersonalPage />}
+            {props.isAuthenticated && <MessageMenu />}
             {props.isAdmin && <PostApproveMenu />}
             {props.isAuthenticated && props.isAdmin && (
               <AdminMenu showOpenAPI={props.isOpenAPIEnabled} />

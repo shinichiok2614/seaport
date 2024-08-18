@@ -14,10 +14,14 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface MessageRepository extends JpaRepository<Message, Long> {
-    @Query("select message from Message message where message.sender.login = ?#{authentication.name}")
+    @Query(
+        "select message from Message message where message.sender.login = ?#{authentication.name}"
+    )
     List<Message> findBySenderIsCurrentUser();
 
-    @Query("select message from Message message where message.receiver.login = ?#{authentication.name}")
+    @Query(
+        "select message from Message message where message.receiver.login = ?#{authentication.name}"
+    )
     List<Message> findByReceiverIsCurrentUser();
 
     default Optional<Message> findOneWithEagerRelationships(Long id) {
@@ -38,9 +42,20 @@ public interface MessageRepository extends JpaRepository<Message, Long> {
     )
     Page<Message> findAllWithToOneRelationships(Pageable pageable);
 
-    @Query("select message from Message message left join fetch message.sender left join fetch message.receiver")
+    @Query(
+        "select message from Message message left join fetch message.sender left join fetch message.receiver"
+    )
     List<Message> findAllWithToOneRelationships();
 
-    @Query("select message from Message message left join fetch message.sender left join fetch message.receiver where message.id =:id")
+    @Query(
+        "select message from Message message left join fetch message.sender left join fetch message.receiver where message.id =:id"
+    )
     Optional<Message> findOneWithToOneRelationships(@Param("id") Long id);
+
+    // List<Message> findAllBySenderOrReceiver(Long senderId, Long receiverId);
+
+    @Query(
+        "select message from Message message where message.sender.login = ?#{authentication.name} or message.receiver.login = ?#{authentication.name}"
+    )
+    List<Message> findBySenderOrReceiverIsCurrentUser();
 }

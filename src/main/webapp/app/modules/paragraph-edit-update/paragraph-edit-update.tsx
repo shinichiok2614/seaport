@@ -162,6 +162,21 @@ export const ParagraphEditUpdate = () => {
                     const data = editor.getData();
                     setContent(data);
                   }}
+                  // config={{
+                  //   plugins: [...ClassicEditor.builtinPlugins],
+                  //   toolbar: [
+                  //     'fontSize',
+                  //     '|',
+                  //     'bold',
+                  //     'italic',
+                  //     '|',
+                  //     'undo',
+                  //     'redo',
+                  //   ],
+                  //   fontSize: {
+                  //     options: [9, 11, 13, 'default', 17, 19, 21],
+                  //   },
+                  // }}
                 />
               )}
               <Button
