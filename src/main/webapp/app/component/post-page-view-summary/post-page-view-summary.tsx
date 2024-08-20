@@ -5,8 +5,7 @@ import { TextFormat } from 'react-jhipster';
 export const PostPageViewSummary = ({ postEntity }) => {
   return (
     <div className="post-page">
-      {postEntity.category && <div>{postEntity.category.name}</div>}
-      {/* <div>{postEntity.summary}</div> */}
+      {/* {postEntity.category && <div>{postEntity.category.name}</div>}
       <span>
         {postEntity.createdAt ? (
           <TextFormat
@@ -15,7 +14,7 @@ export const PostPageViewSummary = ({ postEntity }) => {
             format={APP_DATE_FORMAT}
           />
         ) : null}
-      </span>
+      </span> */}
     </div>
   );
 };

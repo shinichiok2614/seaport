@@ -127,7 +127,7 @@ export const PostViewPage = () => {
           commentupdating={commentupdating}
         />
       </div>
-      <div className="PostViewPage3">right</div>
+      <div className="PostViewPage3"></div>
     </div>
   );
 };

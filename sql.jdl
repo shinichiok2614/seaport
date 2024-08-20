@@ -62,6 +62,12 @@ entity Message{
 entity Follow { //person
     createdAt Instant required
 }
+entity Room {
+    name String required // Có thể đặt tên cho room hoặc để trống nếu là chat riêng
+    isPrivate Boolean required // Đánh dấu đây là room riêng
+    createdAt Instant required
+    updateAt Instant required
+}
 relationship OneToOne{
     Person{user} to User{person} with builtInEntity
 }
@@ -76,6 +82,10 @@ relationship ManyToOne { //tất cả xử lý trên user, khi nào cần mới 
     Comment{comment(login)} to User with builtInEntity
     Message{sender(login)} to User with builtInEntity
     Message{receiver(login)} to User with builtInEntity
+    Message{room(name)} to Room // Mỗi tin nhắn thuộc về một room
+}
+relationship ManyToMany {
+    Room{users(login)} to User with builtInEntity// Mỗi room có thể có nhiều user
 }
 
 dto * with mapstruct
