@@ -10,11 +10,11 @@ const CategoryCardView = ({ category }) => {
 
   return (
     <div className="category">
-      <div className="category1">
-        <div className="category1-name" onClick={handleCategoryClick}>
-          {category.name}
-        </div>
+      {/* <div className="category1"> */}
+      <div className="category1" onClick={handleCategoryClick}>
+        {category.name}
       </div>
+      {/* </div> */}
       <div className="category2">
         {category.posts && category.posts.length > 0 ? (
           <>

@@ -111,3 +111,8 @@
   font-size: 0.8rem;
   color: #999;
 }
+.post12 img {
+  overfit: contain;
+  width: 100%;
+  border-radius: 8px;
+}

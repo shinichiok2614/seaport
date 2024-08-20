@@ -2,3 +2,14 @@
 .row2 {
   display: flex;
 }
+
+.row1 > *,
+.row2 > * {
+  flex: 1;
+  margin: 0 10px; /* Khoảng cách giữa các phần tử, có thể tùy chỉnh */
+}
+.post-list-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px; /* Khoảng cách giữa các hàng, có thể tùy chỉnh */
+}
