@@ -1,0 +1,12 @@
+.category {
+  display: flex;
+  justify-content: space-between;
+}
+.category1 {
+  width: 15%;
+  font-size: 30px;
+  font-weight: bold;
+}
+.category2 {
+  width: 85%;
+}

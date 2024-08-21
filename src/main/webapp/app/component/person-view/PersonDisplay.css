@@ -1,0 +1,68 @@
+.person-display {
+  width: 100%;
+}
+
+.cover-photo {
+  width: 100%;
+  height: 300px;
+  position: relative;
+}
+
+.cover-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.profile-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: -60px; /* Để đẩy avatar lên trên cover-photo */
+  position: relative;
+}
+
+.avatar-container {
+  position: relative;
+  margin-top: -60px; /* Đẩy avatar lên trên cover-photo */
+}
+
+.avatar-image {
+  width: 160px;
+  height: 160px;
+  border-radius: 50%;
+  border: 5px solid white;
+  box-shadow: 0 0 0 5px white;
+}
+
+.profile-info {
+  text-align: center;
+  padding: 20px;
+}
+
+.profile-name {
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.profile-bio {
+  margin-top: 10px;
+  font-size: 16px;
+  color: #666;
+}
+
+.profile-body {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.profile-body-left {
+  width: 300px;
+  margin-right: 20px;
+}
+
+.profile-content {
+  flex: 1;
+  max-width: 800px;
+}

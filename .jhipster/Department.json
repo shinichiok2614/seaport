@@ -1,0 +1,23 @@
+{
+  "annotations": {
+    "changelogDate": "20240820171911"
+  },
+  "applications": "*",
+  "dto": "mapstruct",
+  "fields": [
+    {
+      "fieldName": "name",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "image",
+      "fieldType": "byte[]",
+      "fieldTypeBlobContent": "image"
+    }
+  ],
+  "name": "Department",
+  "relationships": [],
+  "searchEngine": "no",
+  "service": "serviceClass"
+}

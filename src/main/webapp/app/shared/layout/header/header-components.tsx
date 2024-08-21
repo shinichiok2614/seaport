@@ -31,3 +31,33 @@ export const Home = () => (
     </NavLink>
   </NavItem>
 );
+export const PersonalMenu = () => (
+  <NavItem>
+    <NavLink tag={Link} to="/personalpageforward" className="d-flex align-items-center">
+      <FontAwesomeIcon icon="home" />
+      <span>
+        <Translate contentKey="global.menu.personalmenu">Home</Translate>
+      </span>
+    </NavLink>
+  </NavItem>
+);
+export const PostApproveMenu = () => (
+  <NavItem>
+    <NavLink tag={Link} to="/postapprovepage" className="d-flex align-items-center">
+      <FontAwesomeIcon icon="home" />
+      <span>
+        <Translate contentKey="global.menu.postapprovemenu">Home</Translate>
+      </span>
+    </NavLink>
+  </NavItem>
+);
+export const MessageMenu = () => (
+  <NavItem>
+    <NavLink tag={Link} to="/messageperson" className="d-flex align-items-center">
+      <FontAwesomeIcon icon="home" />
+      <span>
+        <Translate contentKey="global.menu.messageperson">Home</Translate>
+      </span>
+    </NavLink>
+  </NavItem>
+);

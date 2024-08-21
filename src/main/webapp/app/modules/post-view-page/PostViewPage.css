@@ -1,0 +1,32 @@
+.PostViewPage {
+  display: flex;
+  justify-content: space-between;
+}
+.PostViewPage1 {
+  width: 20%;
+  min-width: 200px;
+}
+.PostViewPage3 {
+  width: 20%;
+  min-width: 300px;
+}
+.PostViewPage2 {
+  min-width: 800px;
+  width: 50%;
+}
+.PostViewPage2-comment {
+  margin: 5px;
+  font-size: 20px;
+  font-weight: bold;
+}
+.PostViewPage22 {
+  box-shadow: 0 2px 4px #888888;
+  border-radius: 8px;
+  padding: 10px;
+}
+.PostPageViewCenter-summary {
+  font-weight: bold;
+  font-size: 20px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}

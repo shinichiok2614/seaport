@@ -7,7 +7,17 @@
       "jhipster-needle-menu-add-element": "JHipster will add additional menu entries here (do not translate!)",
       "entities": {
         "main": "Entities",
-        "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
+        "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)",
+        "person": "Person",
+        "department": "Department",
+        "category": "Category",
+        "post": "Post",
+        "paragraph": "Paragraph",
+        "comment": "Comment",
+        "message": "Message",
+        "room": "Room",
+        "roomMember": "Room Member",
+        "follow": "Follow"
       },
       "account": {
         "main": "Account",

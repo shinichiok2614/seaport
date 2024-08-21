@@ -14,6 +14,9 @@ public class UserDTO implements Serializable {
     private Long id;
 
     private String login;
+    
+
+
 
     public UserDTO() {
         // Empty constructor needed for Jackson.

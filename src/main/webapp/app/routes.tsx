@@ -14,6 +14,21 @@ import PrivateRoute from 'app/shared/auth/private-route';
 import ErrorBoundaryRoutes from 'app/shared/error/error-boundary-routes';
 import PageNotFound from 'app/shared/error/page-not-found';
 import { AUTHORITIES } from 'app/config/constants';
+import CategoryPage from './modules/category-page/category-page';
+import PostViewPage from './modules/post-view-page/post-view-page';
+import PostEditPage from './modules/post-edit-page/post-edit-page';
+import ParagraphEditPage from './modules/paragraph-edit-page/paragraph-edit-page';
+import ParagraphEditUpdate from './modules/paragraph-edit-update/paragraph-edit-update';
+import PersonalPage from './modules/personal-page/personal-page';
+import PersonUpdatePage from './modules/person-update-page/person-update-page';
+import PersonApprovePage from './modules/person-approve-author/person-approve-author';
+import PostApprovePage from './modules/post-approve-page/post-approve-page';
+import PostApprovePageRemark from './modules/post-approve-page-remark/post-approve-page-remark';
+import PersonalPageForward from './modules/personal-page-forward/personal-page-forward';
+import PersonListPost from './component/person-list-post/person-list-post';
+import ParagraphDelete from './modules/paragraph-edit-page/paragraph-delete';
+import MessagePerson from './modules/message-person/message-person';
+import MessagePersonRoomUpdate from './modules/message-person/message-person-room-update';
 
 const loading = <div>loading ...</div>;
 
@@ -31,6 +46,23 @@ const AppRoutes = () => {
     <div className="view-routes">
       <ErrorBoundaryRoutes>
         <Route index element={<Home />} />
+        <Route path="categorypage/:id" element={<CategoryPage />} />
+        <Route path="personalapprovepage/" element={<PersonApprovePage />} />
+        <Route path="personalupdatepage/:id" element={<PersonUpdatePage />} />
+        <Route path="personalupdatepage/new" element={<PersonUpdatePage />} />
+        <Route path="personalpageforward/" element={<PersonalPageForward />} />
+        <Route path="personalpage/:id" element={<PersonalPage />} />
+        <Route path="postpage/:id" element={<PostViewPage />} />
+        <Route path="postpage/new" element={<PostEditPage />} />
+        <Route path="personlistpost/:id" element={<PersonListPost />} />
+        <Route path="posteditpage/:id" element={<PostEditPage />} />
+        <Route path="paragrapheditpage/:id" element={<ParagraphEditPage />} />
+        <Route path="messageperson/" element={<MessagePerson />} />
+        <Route path="paragrapheditupdatepage/:id" element={<ParagraphEditUpdate />} />
+        <Route path="paragraphdelete/:id" element={<ParagraphDelete />} />
+        <Route path="postapprovepage/" element={<PostApprovePage />} />
+        <Route path="postapprovepageremark/:id" element={<PostApprovePageRemark />} />
+        <Route path="messagepersonroomupdate/:id" element={<MessagePersonRoomUpdate />} />
         <Route path="login" element={<Login />} />
         <Route path="logout" element={<Logout />} />
         <Route path="account">

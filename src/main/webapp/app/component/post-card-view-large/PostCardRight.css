@@ -1,0 +1,118 @@
+.post1 {
+  display: flex;
+  flex-direction: row;
+  border: 1px solid #ddd;
+  padding: 16px;
+  margin: 16px 0;
+  border-radius: 8px;
+  overflow: hidden;
+  max-height: 250px;
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+}
+.post1:hover {
+  background-color: #f0f0f0; /* Màu nền khi hover */
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+}
+.post11 {
+  flex: 1;
+  padding: 16px;
+}
+
+.post12 {
+  flex: 0 0 50%;
+  overflow: hidden;
+}
+
+.post121 {
+  width: 100%;
+  height: auto;
+  display: block;
+  margin: 10px;
+  border-radius: 8px;
+}
+
+.post111,
+.post112,
+.post113,
+.post114,
+/* .post115,
+.post116,
+.post117, */
+.post118,
+.post119,
+.post11-10,
+.post11-11 {
+  margin-bottom: 8px;
+}
+
+.post111 {
+  font-family: 'Merriweather', serif;
+  margin-top: 8px;
+  font-size: 0.9rem;
+  color: #007bff;
+  font-size: 1.5em;
+  font-weight: bold;
+}
+
+.post112 {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.post113 {
+  font-size: 0.9rem;
+  color: rgb(199, 70, 1);
+  font-style: italic;
+  font-size: 1.5em;
+  font-weight: bold;
+}
+
+.post114 {
+  font-size: 1rem;
+  color: #333;
+}
+
+.post115,
+.post116,
+.post117,
+.post118,
+.post119,
+.post11-10 {
+  font-size: 0.8rem;
+  color: #999;
+  display: flex;
+  align-items: center;
+}
+
+.post115 .fa,
+.post116 .fa,
+.post117 .fa,
+.post118 .fa,
+.post119 .fa,
+.post11-10 .fa {
+  margin-right: 4px;
+}
+
+.post115-body {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px;
+  color: #777;
+
+  /* background-color: #fafafa;
+  border-top: 1px solid #eee; */
+}
+.post11-11 {
+  font-size: 0.8rem;
+  color: #999;
+}
+.post12 img {
+  overfit: contain;
+  width: 100%;
+  border-radius: 8px;
+}
