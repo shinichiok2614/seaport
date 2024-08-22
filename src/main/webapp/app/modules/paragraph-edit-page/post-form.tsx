@@ -1,13 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Button, Row, Col } from 'reactstrap';
-import {
-  Translate,
-  translate,
-  ValidatedField,
-  ValidatedForm,
-  ValidatedBlobField,
-} from 'react-jhipster';
+import { Translate, translate, ValidatedField, ValidatedForm, ValidatedBlobField } from 'react-jhipster';
 import { useAppSelector } from 'app/config/store';
 import { IPost } from 'app/shared/model/post.model';
 import { Status } from 'app/shared/model/enumerations/status.model';
@@ -21,13 +15,7 @@ interface IPostFormProps {
   loading: boolean; // Thêm loading
 }
 
-const PostForm: React.FC<IPostFormProps> = ({
-  isNew,
-  saveEntity,
-  updating,
-  defaultValues,
-  loading,
-}) => {
+const PostForm: React.FC<IPostFormProps> = ({ isNew, saveEntity, updating, defaultValues, loading }) => {
   const categories = useAppSelector(state => state.category.entities);
   const users = useAppSelector(state => state.userManagement.users);
   const statusValues = Object.keys(Status);
@@ -158,14 +146,7 @@ const PostForm: React.FC<IPostFormProps> = ({
                 ))
               : null}
           </ValidatedField> */}
-            <Button
-              tag={Link}
-              id="cancel-save"
-              data-cy="entityCreateCancelButton"
-              to="/post"
-              replace
-              color="info"
-            >
+            <Button tag={Link} id="cancel-save" data-cy="entityCreateCancelButton" to="/post" replace color="info">
               <FontAwesomeIcon icon="arrow-left" />
               &nbsp;
               <span className="d-none d-md-inline">
@@ -173,13 +154,7 @@ const PostForm: React.FC<IPostFormProps> = ({
               </span>
             </Button>
             &nbsp;
-            <Button
-              color="primary"
-              id="save-entity"
-              data-cy="entityCreateSaveButton"
-              type="submit"
-              disabled={updating}
-            >
+            <Button color="primary" id="save-entity" data-cy="entityCreateSaveButton" type="submit" disabled={updating}>
               <FontAwesomeIcon icon="save" />
               &nbsp;
               <Translate contentKey="entity.action.save">Save</Translate>

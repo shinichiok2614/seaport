@@ -1,33 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation, useNavigate, useParams } from 'react-router-dom';
 import { Button, Row, Col, FormText } from 'reactstrap';
-import {
-  isNumber,
-  Translate,
-  translate,
-  ValidatedField,
-  ValidatedForm,
-  ValidatedBlobField,
-} from 'react-jhipster';
+import { isNumber, Translate, translate, ValidatedField, ValidatedForm, ValidatedBlobField } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-import {
-  convertDateTimeFromServer,
-  convertDateTimeToServer,
-  displayDefaultDateTime,
-} from 'app/shared/util/date-utils';
+import { convertDateTimeFromServer, convertDateTimeToServer, displayDefaultDateTime } from 'app/shared/util/date-utils';
 import { mapIdList } from 'app/shared/util/entity-utils';
 import { useAppDispatch, useAppSelector } from 'app/config/store';
 
 import { IPost } from 'app/shared/model/post.model';
 import { getEntities as getPosts } from 'app/entities/post/post.reducer';
 import { IParagraph } from 'app/shared/model/paragraph.model';
-import {
-  getEntity,
-  updateEntity,
-  createEntity,
-  reset,
-} from 'app/entities/paragraph/paragraph.reducer';
+import { getEntity, updateEntity, createEntity, reset } from 'app/entities/paragraph/paragraph.reducer';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 
@@ -120,13 +104,8 @@ export const ParagraphEditUpdate = () => {
     <div>
       <Row className="justify-content-center">
         <Col md="8">
-          <h2
-            id="seaportApp.paragraph.home.createOrEditLabel"
-            data-cy="ParagraphCreateUpdateHeading"
-          >
-            <Translate contentKey="seaportApp.paragraph.home.createOrEditLabel">
-              Create or edit a Paragraph
-            </Translate>
+          <h2 id="seaportApp.paragraph.home.createOrEditLabel" data-cy="ParagraphCreateUpdateHeading">
+            <Translate contentKey="seaportApp.paragraph.home.createOrEditLabel">Create or edit a Paragraph</Translate>
           </h2>
         </Col>
       </Row>
@@ -135,10 +114,7 @@ export const ParagraphEditUpdate = () => {
           {loading ? (
             <p>Loading...</p>
           ) : (
-            <ValidatedForm
-              defaultValues={defaultValues()}
-              onSubmit={saveEntity}
-            >
+            <ValidatedForm defaultValues={defaultValues()} onSubmit={saveEntity}>
               <ValidatedBlobField
                 label={translate('seaportApp.paragraph.image')}
                 id="paragraph-image"
@@ -179,13 +155,7 @@ export const ParagraphEditUpdate = () => {
                   // }}
                 />
               )}
-              <Button
-                color="primary"
-                id="save-entity"
-                data-cy="entityCreateSaveButton"
-                type="submit"
-                disabled={updating}
-              >
+              <Button color="primary" id="save-entity" data-cy="entityCreateSaveButton" type="submit" disabled={updating}>
                 <FontAwesomeIcon icon="save" />
                 &nbsp;
                 <Translate contentKey="entity.action.save">Save</Translate>

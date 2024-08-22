@@ -1,12 +1,6 @@
 import React from 'react';
 import { Button } from 'reactstrap';
-import {
-  ValidatedForm,
-  ValidatedField,
-  ValidatedBlobField,
-  translate,
-  Translate,
-} from 'react-jhipster';
+import { ValidatedForm, ValidatedField, ValidatedBlobField, translate, Translate } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const CommentForm = ({ defaultValues, saveEntity, commentupdating }) => {
@@ -28,13 +22,7 @@ const CommentForm = ({ defaultValues, saveEntity, commentupdating }) => {
           isImage
           accept="image/*"
         />
-        <Button
-          color="primary"
-          id="save-entity"
-          data-cy="entityCreateSaveButton"
-          type="submit"
-          disabled={commentupdating}
-        >
+        <Button color="primary" id="save-entity" data-cy="entityCreateSaveButton" type="submit" disabled={commentupdating}>
           <FontAwesomeIcon icon="save" />
           &nbsp;
           <Translate contentKey="entity.action.save">Save</Translate>

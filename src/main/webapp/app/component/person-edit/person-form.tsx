@@ -1,37 +1,17 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Button, Row, Col } from 'reactstrap';
-import {
-  Translate,
-  translate,
-  ValidatedField,
-  ValidatedForm,
-  ValidatedBlobField,
-} from 'react-jhipster';
+import { Translate, translate, ValidatedField, ValidatedForm, ValidatedBlobField } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { displayDefaultDateTime } from 'app/shared/util/date-utils';
 import './PersonForm.css';
-const PersonForm = ({
-  isNew,
-  users,
-  departments,
-  personEntity,
-  loading,
-  updating,
-  defaultValues,
-  saveEntity,
-}) => {
+const PersonForm = ({ isNew, users, departments, personEntity, loading, updating, defaultValues, saveEntity }) => {
   return (
     <div className="PersonForm">
       <Row className="justify-content-center">
         <Col md="8">
-          <h2
-            id="seaportApp.person.home.createOrEditLabel"
-            data-cy="PersonCreateUpdateHeading"
-          >
-            <Translate contentKey="seaportApp.person.home.createOrEditLabel">
-              Create or edit a Person
-            </Translate>
+          <h2 id="seaportApp.person.home.createOrEditLabel" data-cy="PersonCreateUpdateHeading">
+            <Translate contentKey="seaportApp.person.home.createOrEditLabel">Create or edit a Person</Translate>
           </h2>
         </Col>
       </Row>
@@ -95,13 +75,7 @@ const PersonForm = ({
                 }}
               />
               <div className="PersonForm-customize">Customize your intro</div>
-              <ValidatedField
-                label={translate('seaportApp.person.bio')}
-                id="person-bio"
-                name="bio"
-                data-cy="bio"
-                type="textarea"
-              />
+              <ValidatedField label={translate('seaportApp.person.bio')} id="person-bio" name="bio" data-cy="bio" type="textarea" />
               <ValidatedField
                 label={translate('seaportApp.person.phone')}
                 id="person-phone"
@@ -213,14 +187,7 @@ const PersonForm = ({
                     ))
                   : null}
               </ValidatedField>
-              <Button
-                tag={Link}
-                id="cancel-save"
-                data-cy="entityCreateCancelButton"
-                to="/person"
-                replace
-                color="info"
-              >
+              <Button tag={Link} id="cancel-save" data-cy="entityCreateCancelButton" to="/person" replace color="info">
                 <FontAwesomeIcon icon="arrow-left" />
                 &nbsp;
                 <span className="d-none d-md-inline">
@@ -228,13 +195,7 @@ const PersonForm = ({
                 </span>
               </Button>
               &nbsp;
-              <Button
-                color="primary"
-                id="save-entity"
-                data-cy="entityCreateSaveButton"
-                type="submit"
-                disabled={updating}
-              >
+              <Button color="primary" id="save-entity" data-cy="entityCreateSaveButton" type="submit" disabled={updating}>
                 <FontAwesomeIcon icon="save" />
                 &nbsp;
                 <Translate contentKey="entity.action.save">Save</Translate>

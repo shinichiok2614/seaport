@@ -35,10 +35,12 @@ public class RoomMemberService {
     private final RoomMemberMapper roomMemberMapper;
     private final PersonMapper personMapper;
 
-    public RoomMemberService(RoomMemberRepository roomMemberRepository,
-            RoomMemberMapper roomMemberMapper,
-            PersonRepository personRepository,
-            PersonMapper personMapper) {
+    public RoomMemberService(
+        RoomMemberRepository roomMemberRepository,
+        RoomMemberMapper roomMemberMapper,
+        PersonRepository personRepository,
+        PersonMapper personMapper
+    ) {
         this.roomMemberRepository = roomMemberRepository;
         this.roomMemberMapper = roomMemberMapper;
         this.personRepository = personRepository;
@@ -81,14 +83,14 @@ public class RoomMemberService {
         log.debug("Request to partially update RoomMember : {}", roomMemberDTO);
 
         return roomMemberRepository
-                .findById(roomMemberDTO.getId())
-                .map(existingRoomMember -> {
-                    roomMemberMapper.partialUpdate(existingRoomMember, roomMemberDTO);
+            .findById(roomMemberDTO.getId())
+            .map(existingRoomMember -> {
+                roomMemberMapper.partialUpdate(existingRoomMember, roomMemberDTO);
 
-                    return existingRoomMember;
-                })
-                .map(roomMemberRepository::save)
-                .map(roomMemberMapper::toDto);
+                return existingRoomMember;
+            })
+            .map(roomMemberRepository::save)
+            .map(roomMemberMapper::toDto);
     }
 
     /**
@@ -99,8 +101,7 @@ public class RoomMemberService {
     @Transactional(readOnly = true)
     public List<RoomMemberDTO> findAll() {
         log.debug("Request to get all RoomMembers");
-        return roomMemberRepository.findAll().stream().map(roomMemberMapper::toDto)
-                .collect(Collectors.toCollection(LinkedList::new));
+        return roomMemberRepository.findAll().stream().map(roomMemberMapper::toDto).collect(Collectors.toCollection(LinkedList::new));
     }
 
     /**
@@ -138,16 +139,18 @@ public class RoomMemberService {
         // return roomMemberRepository.findByRoommemberIsCurrentUserWithRoom().stream()
         // .map(roomMemberMapper::toDto).collect(Collectors.toCollection(LinkedList::new));
         List<RoomMember> rooms = roomMemberRepository.findByRoommemberIsCurrentUserWithRoom();
-        List<RoomMemberDTO> roomMemberDTOs = rooms.stream().map(room -> {
-            RoomMemberDTO dto = roomMemberMapper.toDto(room);
-            Optional<Person> personOpt = personRepository.findOneByUserId(
-                    room.getRoommember().getId());
-            personOpt.ifPresent(person -> {
-                PersonDTO personDTO = personMapper.toDto(person);
-                dto.setPersonDTO(personDTO);
-            });
-            return dto;
-        }).collect(Collectors.toList());
+        List<RoomMemberDTO> roomMemberDTOs = rooms
+            .stream()
+            .map(room -> {
+                RoomMemberDTO dto = roomMemberMapper.toDto(room);
+                Optional<Person> personOpt = personRepository.findOneByUserId(room.getRoommember().getId());
+                personOpt.ifPresent(person -> {
+                    PersonDTO personDTO = personMapper.toDto(person);
+                    dto.setPersonDTO(personDTO);
+                });
+                return dto;
+            })
+            .collect(Collectors.toList());
         return roomMemberDTOs;
     }
 }

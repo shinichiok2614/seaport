@@ -122,8 +122,6 @@ public class PersonService {
     }
 
     public Optional<PersonDTO> findByUserId(Long userId) {
-        return personRepository
-                .findOneByUserId(userId)
-                .map(personMapper::toDto);
+        return personRepository.findOneByUserId(userId).map(personMapper::toDto);
     }
 }

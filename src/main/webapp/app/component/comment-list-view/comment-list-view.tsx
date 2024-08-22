@@ -14,14 +14,10 @@ const CommentListView = ({ commentList, loading }) => {
     <div>
       <div className="table-responsive">
         {commentList && commentList.length > 0
-          ? commentList.map((comment, i) => (
-              <CommentTableRow key={`entity-${i}`} comment={comment} />
-            ))
+          ? commentList.map((comment, i) => <CommentTableRow key={`entity-${i}`} comment={comment} />)
           : !loading && (
               <div className="alert alert-warning">
-                <Translate contentKey="seaportApp.comment.home.notFound">
-                  No Comments found
-                </Translate>
+                <Translate contentKey="seaportApp.comment.home.notFound">No Comments found</Translate>
               </div>
             )}
       </div>

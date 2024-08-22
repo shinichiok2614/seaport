@@ -7,9 +7,7 @@ const PersonalPageForward = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const currentUser = useAppSelector(state => state.authentication.account);
-  const currentUserLoading = useAppSelector(
-    state => state.authentication.loading,
-  );
+  const currentUserLoading = useAppSelector(state => state.authentication.loading);
 
   useEffect(() => {
     if (currentUser.person && !currentUserLoading) {

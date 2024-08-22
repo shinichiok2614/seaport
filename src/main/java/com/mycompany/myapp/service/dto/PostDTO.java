@@ -52,7 +52,7 @@ public class PostDTO implements Serializable {
     private Long userId;
     private Long personId;
     private String personName;
-    
+
     public PersonDTO getPerson() {
         return person;
     }
@@ -84,6 +84,7 @@ public class PostDTO implements Serializable {
     public void setPersonName(String personName) {
         this.personName = personName;
     }
+
     public Long getId() {
         return id;
     }

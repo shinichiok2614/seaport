@@ -1,4 +1,4 @@
-import './home.scss';
+0import './home.scss';
 
 import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
@@ -10,6 +10,7 @@ import WeatherComponent from 'app/component/WeatherComponent/WeatherComponent';
 import { getEntityWithPost } from 'app/entities/category/category.reducer';
 import CategoryCardView from 'app/component/category-card-view/category-card-view';
 import CategoryTitle from 'app/component/category-header/category-header';
+import LazyLoad from 'react-lazyload'
 
 export const Home = () => {
   const dispatch = useAppDispatch();
@@ -19,7 +20,11 @@ export const Home = () => {
   useEffect(() => {
     dispatch(getEntityWithPost());
   }, []);
-
+const Loading = () => (
+  <div className="post loading">
+    <h5>Loading...</h5>
+  </div>
+)
   return (
     <div className="home">
       <div className="left">
@@ -28,10 +33,12 @@ export const Home = () => {
         </div>
         {categoryList.length > 0
           ? categoryList.map((category, i) => (
+            <LazyLoad key={category.id} placeholder={<Loading />}>
               <CategoryCardView
                 key={category.id}
                 category={category}
               ></CategoryCardView>
+            </LazyLoad>
             ))
           : !loading && (
               <div className="alert alert-warning">

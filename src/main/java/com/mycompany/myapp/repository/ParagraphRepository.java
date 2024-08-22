@@ -39,5 +39,4 @@ public interface ParagraphRepository extends JpaRepository<Paragraph, Long> {
     Optional<Paragraph> findOneWithToOneRelationships(@Param("id") Long id);
 
     List<Paragraph> findAllByParagraphId(Long postId);
-
 }

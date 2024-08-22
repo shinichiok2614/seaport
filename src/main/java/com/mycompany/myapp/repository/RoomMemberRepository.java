@@ -43,7 +43,9 @@ public interface RoomMemberRepository extends JpaRepository<RoomMember, Long> {
     )
     Optional<RoomMember> findOneWithToOneRelationships(@Param("id") Long id);
 
-    @Query("select roomMember from RoomMember roomMember left join fetch roomMember.room where roomMember.roommember.login = ?#{authentication.name}")
+    @Query(
+        "select roomMember from RoomMember roomMember left join fetch roomMember.room where roomMember.roommember.login = ?#{authentication.name}"
+    )
     // @Query("select roomMember from RoomMember roomMember left join fetch roomMember.room r left join fetch roomMember.roommember u left join fetch u.person p where u.login = ?#{authentication.name}")
     List<RoomMember> findByRoommemberIsCurrentUserWithRoom();
 }

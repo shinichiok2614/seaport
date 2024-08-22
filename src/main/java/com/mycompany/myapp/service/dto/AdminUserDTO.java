@@ -18,6 +18,7 @@ public class AdminUserDTO implements Serializable {
 
     private Long id;
     private PersonDTO person;
+
     @NotBlank
     @Pattern(regexp = Constants.LOGIN_REGEX)
     @Size(min = 1, max = 50)

@@ -39,5 +39,4 @@ public interface PersonRepository extends JpaRepository<Person, Long> {
     Optional<Person> findOneWithToOneRelationships(@Param("id") Long id);
 
     Optional<Person> findOneByUserId(Long id);
-
 }

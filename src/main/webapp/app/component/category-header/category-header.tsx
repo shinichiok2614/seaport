@@ -13,11 +13,7 @@ const CategoryTitle = ({ categories }) => {
   return (
     <div className="category-title-container">
       {categories.map(category => (
-        <div
-          key={category.id}
-          className="category-card"
-          onClick={() => handleCategoryName(category)}
-        >
+        <div key={category.id} className="category-card" onClick={() => handleCategoryName(category)}>
           {category.name}
         </div>
       ))}

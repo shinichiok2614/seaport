@@ -11,33 +11,18 @@ const PostListViewEach = ({ postList }) => {
         <>
           <div className="row1">
             {postList.slice(0, 1).map((post, i) => (
-              <PostCardViewMedium
-                key={`entity-${i}`}
-                post={post}
-                hideImage={true}
-                hidePersonAvatar={false}
-              />
+              <PostCardViewMedium key={`entity-${i}`} post={post} hideImage={true} hidePersonAvatar={false} />
             ))}
             {postList.slice(1, 3).map((post, i) => (
               <PostCardViewMedium key={`entity-${i}`} post={post} />
             ))}
             {postList.slice(3, 4).map((post, i) => (
-              <PostCardViewMedium
-                key={`entity-${i}`}
-                post={post}
-                hideImage={true}
-                hidePersonAvatar={false}
-              />
+              <PostCardViewMedium key={`entity-${i}`} post={post} hideImage={true} hidePersonAvatar={false} />
             ))}
           </div>
           <div className="row2">
             {postList.slice(4, 8).map((post, i) => (
-              <PostCardViewMedium
-                key={`entity-${i}`}
-                post={post}
-                hideImage={true}
-                hidePersonAvatar={false}
-              />
+              <PostCardViewMedium key={`entity-${i}`} post={post} hideImage={true} hidePersonAvatar={false} />
             ))}
           </div>
           <div className="row3">
@@ -48,9 +33,7 @@ const PostListViewEach = ({ postList }) => {
         </>
       ) : (
         <div>
-          <Translate contentKey="seaportApp.post.home.notFound">
-            No Posts found
-          </Translate>
+          <Translate contentKey="seaportApp.post.home.notFound">No Posts found</Translate>
         </div>
       )}
     </div>

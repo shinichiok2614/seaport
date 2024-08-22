@@ -32,5 +32,4 @@ public interface RoomMemberMapper extends EntityMapper<RoomMemberDTO, RoomMember
     @Mapping(target = "isPrivate", source = "isPrivate")
     @Mapping(target = "createdAt", source = "createdAt")
     RoomDTO toDtoRoomName(Room room);
-
 }

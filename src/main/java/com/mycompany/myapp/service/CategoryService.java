@@ -13,7 +13,6 @@ import com.mycompany.myapp.service.dto.PostDTO;
 import com.mycompany.myapp.service.mapper.CategoryMapper;
 import com.mycompany.myapp.service.mapper.PersonMapper;
 import com.mycompany.myapp.service.mapper.PostMapper;
-
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
@@ -40,12 +39,14 @@ public class CategoryService {
     private final PersonRepository personRepository;
     private final PersonMapper personMapper;
 
-    public CategoryService(CategoryRepository categoryRepository,
-            CategoryMapper categoryMapper,
-            PostRepository postRepository,
-            PostMapper postMapper,
-            PersonRepository personRepository,
-            PersonMapper personMapper) {
+    public CategoryService(
+        CategoryRepository categoryRepository,
+        CategoryMapper categoryMapper,
+        PostRepository postRepository,
+        PostMapper postMapper,
+        PersonRepository personRepository,
+        PersonMapper personMapper
+    ) {
         this.categoryRepository = categoryRepository;
         this.categoryMapper = categoryMapper;
         this.postRepository = postRepository;
@@ -90,14 +91,14 @@ public class CategoryService {
         log.debug("Request to partially update Category : {}", categoryDTO);
 
         return categoryRepository
-                .findById(categoryDTO.getId())
-                .map(existingCategory -> {
-                    categoryMapper.partialUpdate(existingCategory, categoryDTO);
+            .findById(categoryDTO.getId())
+            .map(existingCategory -> {
+                categoryMapper.partialUpdate(existingCategory, categoryDTO);
 
-                    return existingCategory;
-                })
-                .map(categoryRepository::save)
-                .map(categoryMapper::toDto);
+                return existingCategory;
+            })
+            .map(categoryRepository::save)
+            .map(categoryMapper::toDto);
     }
 
     /**
@@ -108,8 +109,7 @@ public class CategoryService {
     @Transactional(readOnly = true)
     public List<CategoryDTO> findAll() {
         log.debug("Request to get all Categories");
-        return categoryRepository.findAll().stream().map(categoryMapper::toDto)
-                .collect(Collectors.toCollection(LinkedList::new));
+        return categoryRepository.findAll().stream().map(categoryMapper::toDto).collect(Collectors.toCollection(LinkedList::new));
     }
 
     /**
@@ -134,7 +134,7 @@ public class CategoryService {
         categoryRepository.deleteById(id);
     }
 
-     @Transactional(readOnly = true)
+    @Transactional(readOnly = true)
     public List<CategoryDTO> findAllWithPosts() {
         List<Category> categories = categoryRepository.findAll();
 
@@ -145,11 +145,7 @@ public class CategoryService {
                 categoryDTO.setId(category.getId());
                 categoryDTO.setName(category.getName());
 
-                List<Post> posts =
-                    postRepository.findTop10ByCategoryIdAndStatusOrderByCreatedAtDesc(
-                        category.getId(),
-                        Status.APPROVED
-                    );
+                List<Post> posts = postRepository.findTop10ByCategoryIdAndStatusOrderByCreatedAtDesc(category.getId(), Status.APPROVED);
                 List<PostDTO> postDTOs = posts
                     .stream()
                     .map(post -> {
@@ -163,10 +159,7 @@ public class CategoryService {
                         postDTO.setCreatedAt(post.getCreatedAt());
                         postDTO.setView(post.getView());
 
-                        Optional<Person> personOpt =
-                            personRepository.findOneByUserId(
-                                post.getPost().getId()
-                            );
+                        Optional<Person> personOpt = personRepository.findOneByUserId(post.getPost().getId());
                         personOpt.ifPresent(person -> {
                             PersonDTO personDTO = personMapper.toDto(person);
                             postDTO.setPerson(personDTO);

@@ -3,18 +3,10 @@ import { Link, useNavigate } from 'react-router-dom';
 import { Button } from 'reactstrap';
 import { Translate, TextFormat, openFile, byteSize } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {
-  faCalendarAlt,
-  faCommentDots,
-  faEye,
-} from '@fortawesome/free-solid-svg-icons';
+import { faCalendarAlt, faCommentDots, faEye } from '@fortawesome/free-solid-svg-icons';
 import './PostCardMedium.css';
 
-const PostCardViewMedium = ({
-  post,
-  hideImage = false,
-  hidePersonAvatar = true,
-}) => {
+const PostCardViewMedium = ({ post, hideImage = false, hidePersonAvatar = true }) => {
   if (!post) {
     return <p>Loading...</p>;
   }
@@ -28,13 +20,7 @@ const PostCardViewMedium = ({
   return (
     <div className="medium">
       <div>
-        {!hideImage && (
-          <div className="medium1">
-            {post.image && (
-              <img src={`data:${post.imageContentType};base64,${post.image}`} />
-            )}
-          </div>
-        )}
+        {!hideImage && <div className="medium1">{post.image && <img src={`data:${post.imageContentType};base64,${post.image}`} />}</div>}
         {post.category && <div className="medium2">{post.category.name}</div>}
         <div className="medium3" onClick={handlePostName}>
           {post.name}
@@ -62,11 +48,7 @@ const PostCardViewMedium = ({
             <div>
               <FontAwesomeIcon icon={faCalendarAlt} />
               <span>
-                <TextFormat
-                  type="date"
-                  value={post.createdAt}
-                  format="YYYY-MM-DD"
-                />
+                <TextFormat type="date" value={post.createdAt} format="YYYY-MM-DD" />
               </span>
             </div>
           )}

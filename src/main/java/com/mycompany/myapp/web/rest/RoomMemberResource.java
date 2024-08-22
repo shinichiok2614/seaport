@@ -168,10 +168,10 @@ public class RoomMemberResource {
         log.debug("REST request to delete RoomMember : {}", id);
         roomMemberService.delete(id);
         return ResponseEntity.noContent()
-                .headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString()))
-                .build();
+            .headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString()))
+            .build();
     }
-    
+
     @GetMapping("/currentuser")
     public List<RoomMemberDTO> getAllRoomMembersCurrentUser() {
         log.debug("REST request to get all getAllRoomMembersCurrentUser");

@@ -3,11 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { Button } from 'reactstrap';
 import { Translate, TextFormat, openFile, byteSize } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {
-  faCalendarAlt,
-  faCommentDots,
-  faEye,
-} from '@fortawesome/free-solid-svg-icons';
+import { faCalendarAlt, faCommentDots, faEye } from '@fortawesome/free-solid-svg-icons';
 import './PostCardRight.css';
 
 const PostCardViewRight = ({ post }) => {
@@ -46,11 +42,7 @@ const PostCardViewRight = ({ post }) => {
             <div className="116">
               <FontAwesomeIcon icon={faCalendarAlt} />
               <span>
-                <TextFormat
-                  type="date"
-                  value={post.createdAt}
-                  format="YYYY-MM-DD"
-                />
+                <TextFormat type="date" value={post.createdAt} format="YYYY-MM-DD" />
               </span>
             </div>
           )}
@@ -85,12 +77,7 @@ const PostCardViewRight = ({ post }) => {
         <div className="post11-11">{post.remark}</div> */}
       </div>
       <div className="post12" onClick={handlePostName}>
-        {post.image && (
-          <img
-            src={`data:${post.imageContentType};base64,${post.image}`}
-            alt="Post Image"
-          />
-        )}
+        {post.image && <img src={`data:${post.imageContentType};base64,${post.image}`} alt="Post Image" />}
       </div>
     </div>
   );

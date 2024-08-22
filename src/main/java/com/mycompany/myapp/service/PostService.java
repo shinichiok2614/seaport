@@ -9,7 +9,6 @@ import com.mycompany.myapp.service.dto.PersonDTO;
 import com.mycompany.myapp.service.dto.PostDTO;
 import com.mycompany.myapp.service.mapper.PersonMapper;
 import com.mycompany.myapp.service.mapper.PostMapper;
-
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
@@ -37,10 +36,7 @@ public class PostService {
     private final PersonRepository personRepository;
     private final PersonMapper personMapper;
 
-    public PostService(PostRepository postRepository,
-            PostMapper postMapper,
-            PersonRepository personRepository,
-            PersonMapper personMapper) {
+    public PostService(PostRepository postRepository, PostMapper postMapper, PersonRepository personRepository, PersonMapper personMapper) {
         this.postRepository = postRepository;
         this.postMapper = postMapper;
         this.personRepository = personRepository;
@@ -83,14 +79,14 @@ public class PostService {
         log.debug("Request to partially update Post : {}", postDTO);
 
         return postRepository
-                .findById(postDTO.getId())
-                .map(existingPost -> {
-                    postMapper.partialUpdate(existingPost, postDTO);
+            .findById(postDTO.getId())
+            .map(existingPost -> {
+                postMapper.partialUpdate(existingPost, postDTO);
 
-                    return existingPost;
-                })
-                .map(postRepository::save)
-                .map(postMapper::toDto);
+                return existingPost;
+            })
+            .map(postRepository::save)
+            .map(postMapper::toDto);
     }
 
     /**
@@ -101,8 +97,7 @@ public class PostService {
     @Transactional(readOnly = true)
     public List<PostDTO> findAll() {
         log.debug("Request to get all Posts");
-        return postRepository.findAll().stream().map(postMapper::toDto)
-                .collect(Collectors.toCollection(LinkedList::new));
+        return postRepository.findAll().stream().map(postMapper::toDto).collect(Collectors.toCollection(LinkedList::new));
     }
 
     /**
@@ -139,36 +134,37 @@ public class PostService {
     @Transactional(readOnly = true)
     public Optional<PostDTO> findOneWithPerson(Long id) {
         return postRepository
-                .findById(id)
-                .map(post -> {
-                    PostDTO postDTO = new PostDTO();
-                    postDTO.setId(post.getId());
-                    postDTO.setName(post.getName());
-                    postDTO.setCreatedAt(post.getCreatedAt());
-                    postDTO.setSummary(post.getSummary());
-                    postDTO.setImage(post.getImage());
-                    postDTO.setImageContentType(post.getImageContentType());
-                    postDTO.setStatus(post.getStatus());
-                    postDTO.setView(post.getView());
-                    postDTO.setRemark(post.getRemark());
-                    postDTO.setUpdateAt(post.getUpdateAt());
-                    postDTO.setApprovedAt(post.getApprovedAt());
-                    postDTO.setModifiedAt(post.getModifiedAt());
+            .findById(id)
+            .map(post -> {
+                PostDTO postDTO = new PostDTO();
+                postDTO.setId(post.getId());
+                postDTO.setName(post.getName());
+                postDTO.setCreatedAt(post.getCreatedAt());
+                postDTO.setSummary(post.getSummary());
+                postDTO.setImage(post.getImage());
+                postDTO.setImageContentType(post.getImageContentType());
+                postDTO.setStatus(post.getStatus());
+                postDTO.setView(post.getView());
+                postDTO.setRemark(post.getRemark());
+                postDTO.setUpdateAt(post.getUpdateAt());
+                postDTO.setApprovedAt(post.getApprovedAt());
+                postDTO.setModifiedAt(post.getModifiedAt());
 
-                    Optional<Person> personOpt = personRepository.findOneByUserId( // userid->personid
-                            post.getPost().getId());
-                    personOpt.ifPresent(person -> {
-                        PersonDTO personDTO = personMapper.toDto(person); // lấy kq user và tìm person tương ứng
-                        postDTO.setPerson(personDTO);
-                    });
-                    if (post.getCategory() != null) {
-                        CategoryDTO categoryDTO = new CategoryDTO();
-                        categoryDTO.setId(post.getCategory().getId());
-                        categoryDTO.setName(post.getCategory().getName());
-                        postDTO.setCategory(categoryDTO);
-                    }
-                    return postDTO;
+                Optional<Person> personOpt = personRepository.findOneByUserId( // userid->personid
+                    post.getPost().getId()
+                );
+                personOpt.ifPresent(person -> {
+                    PersonDTO personDTO = personMapper.toDto(person); // lấy kq user và tìm person tương ứng
+                    postDTO.setPerson(personDTO);
                 });
+                if (post.getCategory() != null) {
+                    CategoryDTO categoryDTO = new CategoryDTO();
+                    categoryDTO.setId(post.getCategory().getId());
+                    categoryDTO.setName(post.getCategory().getName());
+                    postDTO.setCategory(categoryDTO);
+                }
+                return postDTO;
+            });
     }
 
     // @Transactional(readOnly = true)
@@ -186,9 +182,7 @@ public class PostService {
     @Transactional(readOnly = true)
     public List<PostDTO> findAllByPersonId(Long personId) { // personid->userid
         // Lấy Optional của PersonDTO từ personRepository
-        Optional<PersonDTO> persondtoOptional = personRepository
-                .findOneWithEagerRelationships(personId)
-                .map(personMapper::toDto);
+        Optional<PersonDTO> persondtoOptional = personRepository.findOneWithEagerRelationships(personId).map(personMapper::toDto);
 
         // Kiểm tra nếu persondtoOptional có giá trị
         if (persondtoOptional.isPresent()) {
@@ -196,11 +190,7 @@ public class PostService {
             Long userId = persondto.getUser().getId();
 
             // Tìm tất cả các Post liên quan đến userId và chuyển đổi chúng sang DTO
-            return postRepository
-                    .findAllByUserId(userId)
-                    .stream()
-                    .map(postMapper::toDto)
-                    .collect(Collectors.toList());
+            return postRepository.findAllByUserId(userId).stream().map(postMapper::toDto).collect(Collectors.toList());
         } else {
             // Trường hợp không tìm thấy Person, có thể trả về danh sách trống hoặc xử lý
             // khác

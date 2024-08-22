@@ -5,10 +5,7 @@ import { Translate } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { useAppDispatch, useAppSelector } from 'app/config/store';
-import {
-  deleteEntity,
-  getEntity,
-} from 'app/entities/paragraph/paragraph.reducer';
+import { deleteEntity, getEntity } from 'app/entities/paragraph/paragraph.reducer';
 // import { getEntity, deleteEntity } from './paragraph.reducer';
 
 export const ParagraphDelete = () => {
@@ -47,15 +44,10 @@ export const ParagraphDelete = () => {
   return (
     <Modal isOpen toggle={handleClose}>
       <ModalHeader toggle={handleClose} data-cy="paragraphDeleteDialogHeading">
-        <Translate contentKey="entity.delete.title">
-          Confirm delete operation
-        </Translate>
+        <Translate contentKey="entity.delete.title">Confirm delete operation</Translate>
       </ModalHeader>
       <ModalBody id="seaportApp.paragraph.delete.question">
-        <Translate
-          contentKey="seaportApp.paragraph.delete.question"
-          interpolate={{ id: paragraphEntity.id }}
-        >
+        <Translate contentKey="seaportApp.paragraph.delete.question" interpolate={{ id: paragraphEntity.id }}>
           Are you sure you want to delete this Paragraph?
         </Translate>
       </ModalBody>
@@ -65,12 +57,7 @@ export const ParagraphDelete = () => {
           &nbsp;
           <Translate contentKey="entity.action.cancel">Cancel</Translate>
         </Button>
-        <Button
-          id="jhi-confirm-delete-paragraph"
-          data-cy="entityConfirmDeleteButton"
-          color="danger"
-          onClick={confirmDelete}
-        >
+        <Button id="jhi-confirm-delete-paragraph" data-cy="entityConfirmDeleteButton" color="danger" onClick={confirmDelete}>
           <FontAwesomeIcon icon="trash" />
           &nbsp;
           <Translate contentKey="entity.action.delete">Delete</Translate>

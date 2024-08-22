@@ -1,16 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { Button, Row, Col, Form, FormGroup, Input } from 'reactstrap';
-import {
-  Translate,
-  openFile,
-  byteSize,
-  TextFormat,
-  ValidatedForm,
-  ValidatedField,
-  translate,
-  ValidatedBlobField,
-} from 'react-jhipster';
+import { Translate, openFile, byteSize, TextFormat, ValidatedForm, ValidatedField, translate, ValidatedBlobField } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { APP_DATE_FORMAT, APP_LOCAL_DATE_FORMAT } from 'app/config/constants';
@@ -32,10 +23,7 @@ import {
 } from 'app/entities/comment/comment.reducer';
 
 import './PostViewPage.css';
-import {
-  convertDateTimeToServer,
-  displayDefaultDateTime,
-} from 'app/shared/util/date-utils';
+import { convertDateTimeToServer, displayDefaultDateTime } from 'app/shared/util/date-utils';
 import CommentForm from './comment-form';
 
 export const PostViewPage = () => {
@@ -52,9 +40,7 @@ export const PostViewPage = () => {
   const commentEntity = useAppSelector(state => state.comment.entity);
   const commentloading = useAppSelector(state => state.comment.loading);
   const commentupdating = useAppSelector(state => state.comment.updating);
-  const commentupdateSuccess = useAppSelector(
-    state => state.comment.updateSuccess,
-  );
+  const commentupdateSuccess = useAppSelector(state => state.comment.updateSuccess);
 
   const postEntity = useAppSelector(state => state.post.entity);
   const postloading = useAppSelector(state => state.post.loading);
@@ -112,20 +98,10 @@ export const PostViewPage = () => {
         <PostPageViewSummary postEntity={postEntity}></PostPageViewSummary>
       </div>
       <div className="PostViewPage2">
-        <PostPageViewCenter
-          postEntity={postEntity}
-          paragraphList={paragraphList}
-        ></PostPageViewCenter>
+        <PostPageViewCenter postEntity={postEntity} paragraphList={paragraphList}></PostPageViewCenter>
         <div className="PostViewPage2-comment">Comments: </div>
-        <CommentListView
-          commentList={commentList}
-          loading={commentListloading}
-        />
-        <CommentForm
-          defaultValues={defaultValues}
-          saveEntity={saveEntity}
-          commentupdating={commentupdating}
-        />
+        <CommentListView commentList={commentList} loading={commentListloading} />
+        <CommentForm defaultValues={defaultValues} saveEntity={saveEntity} commentupdating={commentupdating} />
       </div>
       <div className="PostViewPage3"></div>
     </div>

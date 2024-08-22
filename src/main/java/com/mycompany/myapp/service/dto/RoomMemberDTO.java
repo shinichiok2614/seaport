@@ -30,7 +30,6 @@ public class RoomMemberDTO implements Serializable {
     public void setPersonDTO(PersonDTO personDTO) {
         this.personDTO = personDTO;
     }
-    
 
     public Long getId() {
         return id;

@@ -57,9 +57,8 @@ public class PostResource {
         }
         postDTO = postService.save(postDTO);
         return ResponseEntity.created(new URI("/api/posts/" + postDTO.getId()))
-                .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME,
-                        postDTO.getId().toString()))
-                .body(postDTO);
+            .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, postDTO.getId().toString()))
+            .body(postDTO);
     }
 
     /**
@@ -74,8 +73,9 @@ public class PostResource {
      */
     @PutMapping("/{id}")
     public ResponseEntity<PostDTO> updatePost(
-            @PathVariable(value = "id", required = false) final Long id,
-            @Valid @RequestBody PostDTO postDTO) throws URISyntaxException {
+        @PathVariable(value = "id", required = false) final Long id,
+        @Valid @RequestBody PostDTO postDTO
+    ) throws URISyntaxException {
         log.debug("REST request to update Post : {}, {}", id, postDTO);
         if (postDTO.getId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
@@ -90,9 +90,8 @@ public class PostResource {
 
         postDTO = postService.update(postDTO);
         return ResponseEntity.ok()
-                .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME,
-                        postDTO.getId().toString()))
-                .body(postDTO);
+            .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, postDTO.getId().toString()))
+            .body(postDTO);
     }
 
     /**
@@ -108,8 +107,9 @@ public class PostResource {
      */
     @PatchMapping(value = "/{id}", consumes = { "application/json", "application/merge-patch+json" })
     public ResponseEntity<PostDTO> partialUpdatePost(
-            @PathVariable(value = "id", required = false) final Long id,
-            @NotNull @RequestBody PostDTO postDTO) throws URISyntaxException {
+        @PathVariable(value = "id", required = false) final Long id,
+        @NotNull @RequestBody PostDTO postDTO
+    ) throws URISyntaxException {
         log.debug("REST request to partial update Post partially : {}, {}", id, postDTO);
         if (postDTO.getId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
@@ -125,8 +125,9 @@ public class PostResource {
         Optional<PostDTO> result = postService.partialUpdate(postDTO);
 
         return ResponseUtil.wrapOrNotFound(
-                result,
-                HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, postDTO.getId().toString()));
+            result,
+            HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, postDTO.getId().toString())
+        );
     }
 
     /**
@@ -136,8 +137,7 @@ public class PostResource {
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of posts in body.
      */
     @GetMapping("")
-    public List<PostDTO> getAllPosts(
-            @RequestParam(name = "eagerload", required = false, defaultValue = "true") boolean eagerload) {
+    public List<PostDTO> getAllPosts(@RequestParam(name = "eagerload", required = false, defaultValue = "true") boolean eagerload) {
         log.debug("REST request to get all Posts");
         return postService.findAll();
     }
@@ -166,25 +166,21 @@ public class PostResource {
         log.debug("REST request to delete Post : {}", id);
         postService.delete(id);
         return ResponseEntity.noContent()
-                .headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString()))
-                .build();
+            .headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString()))
+            .build();
     }
 
     @GetMapping("/{id}/by-person")
-    public ResponseEntity<PostDTO> getPostByPerson(
-            @PathVariable("id") Long id) {
+    public ResponseEntity<PostDTO> getPostByPerson(@PathVariable("id") Long id) {
         log.debug("REST request to get Post : {}", id);
         Optional<PostDTO> postDTO = postService.findOneWithPerson(id);
         return ResponseUtil.wrapOrNotFound(postDTO);
     }
 
-
     @GetMapping("/{id}/by-person-id")
-    public ResponseEntity<List<PostDTO>> getPostsByPerson(
-            @PathVariable("id") Long id) {
+    public ResponseEntity<List<PostDTO>> getPostsByPerson(@PathVariable("id") Long id) {
         log.debug("REST request to get Post : {}", id);
         List<PostDTO> postDTOs = postService.findAllByPersonId(id);
         return ResponseEntity.ok().body(postDTOs);
     }
-
 }

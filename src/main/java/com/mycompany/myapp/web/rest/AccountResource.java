@@ -46,11 +46,13 @@ public class AccountResource {
     private final PersonRepository personRepository;
     private final PersonMapper personMapper;
 
-    public AccountResource(UserRepository userRepository,
-            UserService userService,
-            MailService mailService,
-            PersonRepository personRepository,
-            PersonMapper personMapper) {
+    public AccountResource(
+        UserRepository userRepository,
+        UserService userService,
+        MailService mailService,
+        PersonRepository personRepository,
+        PersonMapper personMapper
+    ) {
         this.userRepository = userRepository;
         this.userService = userService;
         this.mailService = mailService;
@@ -104,23 +106,22 @@ public class AccountResource {
     @GetMapping("/account")
     public AdminUserDTO getAccount() {
         return userService
-                .getUserWithAuthorities()
-                // .map(AdminUserDTO::new)
-                .map(user -> {
-                    AdminUserDTO adminUserDTO = new AdminUserDTO(user);
+            .getUserWithAuthorities()
+            // .map(AdminUserDTO::new)
+            .map(user -> {
+                AdminUserDTO adminUserDTO = new AdminUserDTO(user);
 
-                    // Tìm Person tương ứng với User
-                    Optional<Person> personOpt = personRepository.findOneByUserId(
-                            user.getId());
-                    personOpt.ifPresent(person -> {
-                        PersonDTO personDTO = personMapper.toDto(person);
-                        // Thêm thông tin Person vào AdminUserDTO
-                        adminUserDTO.setPerson(personDTO);
-                    });
+                // Tìm Person tương ứng với User
+                Optional<Person> personOpt = personRepository.findOneByUserId(user.getId());
+                personOpt.ifPresent(person -> {
+                    PersonDTO personDTO = personMapper.toDto(person);
+                    // Thêm thông tin Person vào AdminUserDTO
+                    adminUserDTO.setPerson(personDTO);
+                });
 
-                    return adminUserDTO;
-                })
-                .orElseThrow(() -> new AccountResourceException("User could not be found"));
+                return adminUserDTO;
+            })
+            .orElseThrow(() -> new AccountResourceException("User could not be found"));
     }
 
     /**
@@ -135,7 +136,7 @@ public class AccountResource {
     @PostMapping("/account")
     public void saveAccount(@Valid @RequestBody AdminUserDTO userDTO) {
         String userLogin = SecurityUtils.getCurrentUserLogin()
-                .orElseThrow(() -> new AccountResourceException("Current user login not found"));
+            .orElseThrow(() -> new AccountResourceException("Current user login not found"));
         Optional<User> existingUser = userRepository.findOneByEmailIgnoreCase(userDTO.getEmail());
         if (existingUser.isPresent() && (!existingUser.orElseThrow().getLogin().equalsIgnoreCase(userLogin))) {
             throw new EmailAlreadyUsedException();
@@ -145,11 +146,12 @@ public class AccountResource {
             throw new AccountResourceException("User could not be found");
         }
         userService.updateUser(
-                userDTO.getFirstName(),
-                userDTO.getLastName(),
-                userDTO.getEmail(),
-                userDTO.getLangKey(),
-                userDTO.getImageUrl());
+            userDTO.getFirstName(),
+            userDTO.getLastName(),
+            userDTO.getEmail(),
+            userDTO.getLangKey(),
+            userDTO.getImageUrl()
+        );
     }
 
     /**
@@ -201,8 +203,7 @@ public class AccountResource {
         if (isPasswordLengthInvalid(keyAndPassword.getNewPassword())) {
             throw new InvalidPasswordException();
         }
-        Optional<User> user = userService.completePasswordReset(keyAndPassword.getNewPassword(),
-                keyAndPassword.getKey());
+        Optional<User> user = userService.completePasswordReset(keyAndPassword.getNewPassword(), keyAndPassword.getKey());
 
         if (!user.isPresent()) {
             throw new AccountResourceException("No user was found for this reset key");
@@ -210,8 +211,10 @@ public class AccountResource {
     }
 
     private static boolean isPasswordLengthInvalid(String password) {
-        return (StringUtils.isEmpty(password) ||
-                password.length() < ManagedUserVM.PASSWORD_MIN_LENGTH ||
-                password.length() > ManagedUserVM.PASSWORD_MAX_LENGTH);
+        return (
+            StringUtils.isEmpty(password) ||
+            password.length() < ManagedUserVM.PASSWORD_MIN_LENGTH ||
+            password.length() > ManagedUserVM.PASSWORD_MAX_LENGTH
+        );
     }
 }

@@ -14,10 +14,7 @@ const CommentTableRow = ({ comment }) => {
         {comment.person ? (
           <div>
             {comment.person.avatarContentType ? (
-              <img
-                src={`data:${comment.person.avatarContentType};base64,${comment.person.avatar}`}
-                style={{ maxHeight: '100px' }}
-              />
+              <img src={`data:${comment.person.avatarContentType};base64,${comment.person.avatar}`} style={{ maxHeight: '100px' }} />
             ) : null}
           </div>
         ) : null}
@@ -29,22 +26,13 @@ const CommentTableRow = ({ comment }) => {
           <div>
             {comment.imageContentType ? (
               <a onClick={openFile(comment.imageContentType, comment.image)}>
-                <img
-                  src={`data:${comment.imageContentType};base64,${comment.image}`}
-                  style={{ maxHeight: '100px' }}
-                />
+                <img src={`data:${comment.imageContentType};base64,${comment.image}`} style={{ maxHeight: '100px' }} />
               </a>
             ) : null}
           </div>
         ) : null}
         <div className="CommentTableRow2-createAt">
-          {comment.createdAt ? (
-            <TextFormat
-              type="date"
-              value={comment.createdAt}
-              format={APP_DATE_FORMAT}
-            />
-          ) : null}
+          {comment.createdAt ? <TextFormat type="date" value={comment.createdAt} format={APP_DATE_FORMAT} /> : null}
         </div>
       </div>
     </div>

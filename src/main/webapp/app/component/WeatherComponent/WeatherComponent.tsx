@@ -76,11 +76,7 @@ const WeatherComponent = () => {
   return (
     <div className="weather-component">
       <div>
-        <input
-          type="text"
-          placeholder="Enter city/town..."
-          onChange={e => setSearch(e.target.value)}
-        />
+        <input type="text" placeholder="Enter city/town..." onChange={e => setSearch(e.target.value)} />
         <button onClick={searchPressed}>Search</button>
       </div>
       {loading && <p>Loading weather data...</p>}
@@ -88,10 +84,7 @@ const WeatherComponent = () => {
       {weather && (
         <div className="weather-details">
           <h3>Weather in {weather.name}</h3>
-          <img
-            src={`https://openweathermap.org/img/wn/${weather.weather[0].icon}@2x.png`}
-            alt={weather.weather[0].description}
-          />
+          <img src={`https://openweathermap.org/img/wn/${weather.weather[0].icon}@2x.png`} alt={weather.weather[0].description} />
           <div className="weather-item">
             <FontAwesomeIcon icon={faTemperatureHigh} />
             <p>Temperature: {weather.main.temp}°C</p>
@@ -146,16 +139,11 @@ const WeatherComponent = () => {
           </div>
           <div className="weather-item">
             <FontAwesomeIcon icon={faSun} />
-            <p>
-              Sunrise:{' '}
-              {new Date(weather.sys.sunrise * 1000).toLocaleTimeString()}
-            </p>
+            <p>Sunrise: {new Date(weather.sys.sunrise * 1000).toLocaleTimeString()}</p>
           </div>
           <div className="weather-item">
             <FontAwesomeIcon icon={faSun} />
-            <p>
-              Sunset: {new Date(weather.sys.sunset * 1000).toLocaleTimeString()}
-            </p>
+            <p>Sunset: {new Date(weather.sys.sunset * 1000).toLocaleTimeString()}</p>
           </div>
         </div>
       )}

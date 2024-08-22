@@ -13,33 +13,20 @@ const PersonTable = ({ personList, loading, sort, getSortIconByFieldName }) => {
     setSearchTerm(event.target.value);
   };
 
-  const filteredPersonList = personList.filter(person =>
-    person.name.toLowerCase().includes(searchTerm.toLowerCase()),
-  );
+  const filteredPersonList = personList.filter(person => person.name.toLowerCase().includes(searchTerm.toLowerCase()));
 
   return (
     <div className="table-responsive">
       <div className="mb-3">
-        <Input
-          type="text"
-          placeholder="Search by name"
-          value={searchTerm}
-          onChange={handleSearchChange}
-        />
+        <Input type="text" placeholder="Search by name" value={searchTerm} onChange={handleSearchChange} />
       </div>
       {filteredPersonList && filteredPersonList.length > 0
         ? filteredPersonList.map((person, i) => (
-            <PersonCard
-              key={`entity-${i}`}
-              person={person}
-              getSortIconByFieldName={getSortIconByFieldName}
-            />
+            <PersonCard key={`entity-${i}`} person={person} getSortIconByFieldName={getSortIconByFieldName} />
           ))
         : !loading && (
             <div className="alert alert-warning">
-              <Translate contentKey="seaportApp.person.home.notFound">
-                No People found
-              </Translate>
+              <Translate contentKey="seaportApp.person.home.notFound">No People found</Translate>
             </div>
           )}
     </div>

@@ -573,10 +573,7 @@ const ParagraphTable = ({ paragraphList, openFile, loading, postId }) => {
         <Col md="8">
           {paragraphList && paragraphList.length > 0
             ? paragraphList.map(paragraph => (
-                <div
-                  key={`entity-${paragraph.id}`}
-                  className="paragraph-container"
-                >
+                <div key={`entity-${paragraph.id}`} className="paragraph-container">
                   <div className="btn-group flex-btn-group-container">
                     <Button
                       tag={Link}
@@ -587,35 +584,24 @@ const ParagraphTable = ({ paragraphList, openFile, loading, postId }) => {
                     >
                       <FontAwesomeIcon icon="pencil-alt" />{' '}
                       <span className="d-none d-md-inline">
-                        <Translate contentKey="entity.action.edit">
-                          Edit
-                        </Translate>
+                        <Translate contentKey="entity.action.edit">Edit</Translate>
                       </span>
                     </Button>
                     <Button
-                      onClick={() =>
-                        (window.location.href = `/paragraphdelete/${paragraph.id}?postId=${postId}`)
-                      }
+                      onClick={() => (window.location.href = `/paragraphdelete/${paragraph.id}?postId=${postId}`)}
                       color="danger"
                       size="sm"
                       data-cy="entityDeleteButton"
                     >
                       <FontAwesomeIcon icon="trash" />{' '}
                       <span className="d-none d-md-inline">
-                        <Translate contentKey="entity.action.delete">
-                          Delete
-                        </Translate>
+                        <Translate contentKey="entity.action.delete">Delete</Translate>
                       </span>
                     </Button>
                   </div>
                   {paragraph.image && paragraph.imageContentType && (
                     <div className="image-container">
-                      <a
-                        onClick={openFile(
-                          paragraph.imageContentType,
-                          paragraph.image,
-                        )}
-                      >
+                      <a onClick={openFile(paragraph.imageContentType, paragraph.image)}>
                         <img
                           src={`data:${paragraph.imageContentType};base64,${paragraph.image}`}
                           alt={paragraph.caption}
@@ -626,10 +612,7 @@ const ParagraphTable = ({ paragraphList, openFile, loading, postId }) => {
                   )}
                   <div className="caption-container">{paragraph.caption}</div>
 
-                  <div
-                    id={`editorjs-${paragraph.id}`}
-                    className="editor-container"
-                  >
+                  <div id={`editorjs-${paragraph.id}`} className="editor-container">
                     {contentMap[paragraph.id] && (
                       <CKEditor
                         editor={ClassicEditor}
@@ -648,9 +631,7 @@ const ParagraphTable = ({ paragraphList, openFile, loading, postId }) => {
               ))
             : !loading && (
                 <div className="alert alert-warning">
-                  <Translate contentKey="seaportApp.paragraph.home.notFound">
-                    No Paragraphs found
-                  </Translate>
+                  <Translate contentKey="seaportApp.paragraph.home.notFound">No Paragraphs found</Translate>
                 </div>
               )}
         </Col>

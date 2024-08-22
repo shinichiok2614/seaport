@@ -22,14 +22,9 @@ export const PostPageView = ({ postEntity }) => {
       )} */}
       <div className="PostPageView2">{postEntity.name}</div>
       <div className="PostPageView3" onClick={handlePersonName}>
+        {postEntity.person && <div className="PostPageView3-1">{postEntity.person.name}</div>}
         {postEntity.person && (
-          <div className="PostPageView3-1">{postEntity.person.name}</div>
-        )}
-        {postEntity.person && (
-          <img
-            src={`data:${postEntity.person.avatarContentType};base64,${postEntity.person.avatar}`}
-            alt="Avatar Image"
-          />
+          <img src={`data:${postEntity.person.avatarContentType};base64,${postEntity.person.avatar}`} alt="Avatar Image" />
         )}
       </div>
     </div>

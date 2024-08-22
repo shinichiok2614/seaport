@@ -15,15 +15,8 @@ import {
 } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-import {
-  convertDateTimeFromServer,
-  convertDateTimeToServer,
-  displayDefaultDateTime,
-} from 'app/shared/util/date-utils';
-import {
-  mapIdList,
-  overrideSortStateWithQueryParams,
-} from 'app/shared/util/entity-utils';
+import { convertDateTimeFromServer, convertDateTimeToServer, displayDefaultDateTime } from 'app/shared/util/date-utils';
+import { mapIdList, overrideSortStateWithQueryParams } from 'app/shared/util/entity-utils';
 import { useAppDispatch, useAppSelector } from 'app/config/store';
 
 import { ICategory } from 'app/shared/model/category.model';
@@ -31,19 +24,10 @@ import { getEntities as getCategories } from 'app/entities/category/category.red
 import { IUser } from 'app/shared/model/user.model';
 import { getUsers } from 'app/modules/administration/user-management/user-management.reducer';
 import { Status } from 'app/shared/model/enumerations/status.model';
-import {
-  createEntity,
-  getEntity,
-  reset,
-  updateEntity,
-} from 'app/entities/post/post.reducer';
+import { createEntity, getEntity, reset, updateEntity } from 'app/entities/post/post.reducer';
 import { getEntitiesByPost } from 'app/entities/paragraph/paragraph.reducer';
 import { ASC, DESC } from 'app/shared/util/pagination.constants';
-import {
-  faSort,
-  faSortDown,
-  faSortUp,
-} from '@fortawesome/free-solid-svg-icons';
+import { faSort, faSortDown, faSortUp } from '@fortawesome/free-solid-svg-icons';
 import { APP_DATE_FORMAT } from 'app/config/constants';
 import PostForm from './post-form';
 import ParagraphTable from './paragraph-table';
@@ -103,9 +87,7 @@ export const ParagraphEditPage = () => {
     const entity = {
       ...postEntity,
       ...values,
-      category: categories.find(
-        it => it.id.toString() === values.category?.toString(),
-      ),
+      category: categories.find(it => it.id.toString() === values.category?.toString()),
       post: currentUser.id === 1 ? postEntity.post : currentUser, // Điều kiện kiểm tra id của currentUser
     };
 
@@ -140,12 +122,7 @@ export const ParagraphEditPage = () => {
 
   const pageLocation = useLocation();
 
-  const [sortState, setSortState] = useState(
-    overrideSortStateWithQueryParams(
-      getSortState(pageLocation, 'id'),
-      pageLocation.search,
-    ),
-  );
+  const [sortState, setSortState] = useState(overrideSortStateWithQueryParams(getSortState(pageLocation, 'id'), pageLocation.search));
 
   const paragraphList = useAppSelector(state => state.paragraph.entities);
   const paragraphloading = useAppSelector(state => state.paragraph.loading);
@@ -196,41 +173,21 @@ export const ParagraphEditPage = () => {
     <div>
       <Row className="justify-content-center">
         <Col md="8">
-          <h2
-            id="seaportApp.post.home.createOrEditLabel"
-            data-cy="PostCreateUpdateHeading"
-          >
-            <Translate contentKey="seaportApp.post.home.createOrEditLabel">
-              Create or edit a Post
-            </Translate>
+          <h2 id="seaportApp.post.home.createOrEditLabel" data-cy="PostCreateUpdateHeading">
+            <Translate contentKey="seaportApp.post.home.createOrEditLabel">Create or edit a Post</Translate>
           </h2>
         </Col>
       </Row>
-      <PostForm
-        isNew={isNew}
-        saveEntity={saveEntity}
-        updating={updating}
-        defaultValues={defaultValues}
-        loading={loading}
-      />
+      <PostForm isNew={isNew} saveEntity={saveEntity} updating={updating} defaultValues={defaultValues} loading={loading} />
       <div>
         <Row className="justify-content-center">
           <Col md="8">
             <h2 id="paragraph-heading" data-cy="ParagraphHeading">
-              <Translate contentKey="seaportApp.paragraph.home.title">
-                Paragraphs
-              </Translate>
+              <Translate contentKey="seaportApp.paragraph.home.title">Paragraphs</Translate>
               <div className="d-flex justify-content-end">
-                <Button
-                  className="me-2"
-                  color="info"
-                  onClick={handleSyncList}
-                  disabled={paragraphloading}
-                >
+                <Button className="me-2" color="info" onClick={handleSyncList} disabled={paragraphloading}>
                   <FontAwesomeIcon icon="sync" spin={loading} />{' '}
-                  <Translate contentKey="seaportApp.paragraph.home.refreshListLabel">
-                    Refresh List
-                  </Translate>
+                  <Translate contentKey="seaportApp.paragraph.home.refreshListLabel">Refresh List</Translate>
                 </Button>
                 <Link
                   to={`/paragrapheditupdatepage/new?postId=${id}`}
@@ -240,9 +197,7 @@ export const ParagraphEditPage = () => {
                 >
                   <FontAwesomeIcon icon="plus" />
                   &nbsp;
-                  <Translate contentKey="seaportApp.paragraph.home.createLabel">
-                    Create new Paragraph
-                  </Translate>
+                  <Translate contentKey="seaportApp.paragraph.home.createLabel">Create new Paragraph</Translate>
                 </Link>
               </div>
             </h2>

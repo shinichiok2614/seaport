@@ -12,19 +12,11 @@ const PostList = ({ postList, sort, getSortIconByFieldName }) => {
     setSearchTerm(event.target.value);
   };
 
-  const filteredPostList = postList.filter(post =>
-    post.name.toLowerCase().includes(searchTerm.toLowerCase()),
-  );
+  const filteredPostList = postList.filter(post => post.name.toLowerCase().includes(searchTerm.toLowerCase()));
 
   return (
     <div className="table-responsive">
-      <Input
-        type="text"
-        placeholder="Search by name"
-        value={searchTerm}
-        onChange={handleSearchChange}
-        className="mb-3"
-      />
+      <Input type="text" placeholder="Search by name" value={searchTerm} onChange={handleSearchChange} className="mb-3" />
       {filteredPostList && filteredPostList.length > 0 ? (
         <Table responsive>
           <thead>
@@ -34,69 +26,48 @@ const PostList = ({ postList, sort, getSortIconByFieldName }) => {
                 <FontAwesomeIcon icon={getSortIconByFieldName('id')} />
               </th> */}
               <th className="hand" onClick={sort('image')}>
-                <Translate contentKey="seaportApp.post.image">Image</Translate>{' '}
-                <FontAwesomeIcon icon={getSortIconByFieldName('image')} />
+                <Translate contentKey="seaportApp.post.image">Image</Translate> <FontAwesomeIcon icon={getSortIconByFieldName('image')} />
               </th>
               <th className="hand" onClick={sort('name')}>
-                <Translate contentKey="seaportApp.post.name">Name</Translate>{' '}
-                <FontAwesomeIcon icon={getSortIconByFieldName('name')} />
+                <Translate contentKey="seaportApp.post.name">Name</Translate> <FontAwesomeIcon icon={getSortIconByFieldName('name')} />
               </th>
               <th className="hand" onClick={sort('summary')}>
-                <Translate contentKey="seaportApp.post.summary">
-                  Summary
-                </Translate>{' '}
+                <Translate contentKey="seaportApp.post.summary">Summary</Translate>{' '}
                 <FontAwesomeIcon icon={getSortIconByFieldName('summary')} />
               </th>
 
               <th className="hand" onClick={sort('status')}>
-                <Translate contentKey="seaportApp.post.status">
-                  Status
-                </Translate>{' '}
+                <Translate contentKey="seaportApp.post.status">Status</Translate>{' '}
                 <FontAwesomeIcon icon={getSortIconByFieldName('status')} />
               </th>
               <th className="hand" onClick={sort('view')}>
-                <Translate contentKey="seaportApp.post.view">View</Translate>{' '}
-                <FontAwesomeIcon icon={getSortIconByFieldName('view')} />
+                <Translate contentKey="seaportApp.post.view">View</Translate> <FontAwesomeIcon icon={getSortIconByFieldName('view')} />
               </th>
               <th className="hand" onClick={sort('remark')}>
-                <Translate contentKey="seaportApp.post.remark">
-                  Remark
-                </Translate>{' '}
+                <Translate contentKey="seaportApp.post.remark">Remark</Translate>{' '}
                 <FontAwesomeIcon icon={getSortIconByFieldName('remark')} />
               </th>
               <th className="hand" onClick={sort('createdAt')}>
-                <Translate contentKey="seaportApp.post.createdAt">
-                  Created At
-                </Translate>{' '}
+                <Translate contentKey="seaportApp.post.createdAt">Created At</Translate>{' '}
                 <FontAwesomeIcon icon={getSortIconByFieldName('createdAt')} />
               </th>
               <th className="hand" onClick={sort('updateAt')}>
-                <Translate contentKey="seaportApp.post.updateAt">
-                  Update At
-                </Translate>{' '}
+                <Translate contentKey="seaportApp.post.updateAt">Update At</Translate>{' '}
                 <FontAwesomeIcon icon={getSortIconByFieldName('updateAt')} />
               </th>
               <th className="hand" onClick={sort('approvedAt')}>
-                <Translate contentKey="seaportApp.post.approvedAt">
-                  Approved At
-                </Translate>{' '}
+                <Translate contentKey="seaportApp.post.approvedAt">Approved At</Translate>{' '}
                 <FontAwesomeIcon icon={getSortIconByFieldName('approvedAt')} />
               </th>
               <th className="hand" onClick={sort('modifiedAt')}>
-                <Translate contentKey="seaportApp.post.modifiedAt">
-                  Modified At
-                </Translate>{' '}
+                <Translate contentKey="seaportApp.post.modifiedAt">Modified At</Translate>{' '}
                 <FontAwesomeIcon icon={getSortIconByFieldName('modifiedAt')} />
               </th>
               <th>
-                <Translate contentKey="seaportApp.post.category">
-                  Category
-                </Translate>{' '}
-                <FontAwesomeIcon icon="sort" />
+                <Translate contentKey="seaportApp.post.category">Category</Translate> <FontAwesomeIcon icon="sort" />
               </th>
               <th>
-                <Translate contentKey="seaportApp.post.post">Post</Translate>{' '}
-                <FontAwesomeIcon icon="sort" />
+                <Translate contentKey="seaportApp.post.post">Post</Translate> <FontAwesomeIcon icon="sort" />
               </th>
               <th />
             </tr>
@@ -109,9 +80,7 @@ const PostList = ({ postList, sort, getSortIconByFieldName }) => {
         </Table>
       ) : (
         <div className="alert alert-warning">
-          <Translate contentKey="seaportApp.post.home.notFound">
-            No Posts found
-          </Translate>
+          <Translate contentKey="seaportApp.post.home.notFound">No Posts found</Translate>
         </div>
       )}
     </div>

@@ -9,13 +9,7 @@ import { APP_DATE_FORMAT } from 'app/config/constants';
 import CommentTableHeader from '../comment-list-header/comment-table-header';
 import CommentTableRow from '../comment-list-row/comment-table-row';
 
-const CommentList = ({
-  commentList,
-  loading,
-  sortState,
-  sort,
-  getSortIconByFieldName,
-}) => {
+const CommentList = ({ commentList, loading, sortState, sort, getSortIconByFieldName }) => {
   return (
     <div>
       <div className="table-responsive">
@@ -52,11 +46,7 @@ const CommentList = ({
                 <th />
               </tr>
             </thead> */}
-            <CommentTableHeader
-              sortState={sortState}
-              sort={sort}
-              getSortIconByFieldName={getSortIconByFieldName}
-            />
+            <CommentTableHeader sortState={sortState} sort={sort} getSortIconByFieldName={getSortIconByFieldName} />
             <tbody>
               {commentList.map((comment, i) => (
                 <CommentTableRow key={`entity-${i}`} comment={comment} />
@@ -120,9 +110,7 @@ const CommentList = ({
         ) : (
           !loading && (
             <div className="alert alert-warning">
-              <Translate contentKey="seaportApp.comment.home.notFound">
-                No Comments found
-              </Translate>
+              <Translate contentKey="seaportApp.comment.home.notFound">No Comments found</Translate>
             </div>
           )
         )}

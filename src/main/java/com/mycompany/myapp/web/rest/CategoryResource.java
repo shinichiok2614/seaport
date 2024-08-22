@@ -165,10 +165,10 @@ public class CategoryResource {
         log.debug("REST request to delete Category : {}", id);
         categoryService.delete(id);
         return ResponseEntity.noContent()
-                .headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString()))
-                .build();
+            .headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString()))
+            .build();
     }
-    
+
     @GetMapping("/categories-with-posts")
     public ResponseEntity<List<CategoryDTO>> getAllCategoriesWithPosts() {
         List<CategoryDTO> categories = categoryService.findAllWithPosts();

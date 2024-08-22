@@ -20,12 +20,7 @@ const PostListViewHome = ({ postList }) => {
           </div>
           <div className="secondary-posts">
             {postList.slice(1, 4).map((post, i) => (
-              <PostCardView
-                key={`entity-${i}`}
-                post={post}
-                hideImage={true}
-                hidesumary={true}
-              />
+              <PostCardView key={`entity-${i}`} post={post} hideImage={true} hidesumary={true} />
             ))}
           </div>
           <div className="tertiary-additional">
@@ -48,9 +43,7 @@ const PostListViewHome = ({ postList }) => {
         </>
       ) : (
         <div>
-          <Translate contentKey="seaportApp.post.home.notFound">
-            No Posts found
-          </Translate>
+          <Translate contentKey="seaportApp.post.home.notFound">No Posts found</Translate>
         </div>
       )}
     </div>

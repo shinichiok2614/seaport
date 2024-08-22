@@ -8,11 +8,7 @@ import { APP_DATE_FORMAT, APP_LOCAL_DATE_FORMAT } from 'app/config/constants';
 import { useAppDispatch, useAppSelector } from 'app/config/store';
 
 import PostPageView from 'app/component/post-page-view/post-page-view';
-import {
-  getEntity,
-  getEntityByPerson,
-  updateEntity,
-} from 'app/entities/post/post.reducer';
+import { getEntity, getEntityByPerson, updateEntity } from 'app/entities/post/post.reducer';
 import { getEntitiesByPost } from 'app/entities/paragraph/paragraph.reducer';
 import { ParagraphViewEachPostPage } from 'app/component/paragraph-view-each-postpage/paragraph-view-each-postpage';
 import CommentList from 'app/component/comment-list/comment-list';
@@ -105,18 +101,10 @@ export const PostApprovePageRemark = () => {
         <PostPageViewSummary postEntity={postEntity}></PostPageViewSummary>
       </div>
       <div className="PostViewPage2">
-        <PostPageViewCenter
-          postEntity={postEntity}
-          paragraphList={paragraphList}
-        ></PostPageViewCenter>
+        <PostPageViewCenter postEntity={postEntity} paragraphList={paragraphList}></PostPageViewCenter>
       </div>
       <div className="PostViewPage3">
-        <Input
-          type="textarea"
-          placeholder="Enter remark"
-          value={remark}
-          onChange={e => setRemark(e.target.value)}
-        />
+        <Input type="textarea" placeholder="Enter remark" value={remark} onChange={e => setRemark(e.target.value)} />
         {postEntity.status === 'PENDING' && (
           <>
             <Button color="success" onClick={handleApprove}>

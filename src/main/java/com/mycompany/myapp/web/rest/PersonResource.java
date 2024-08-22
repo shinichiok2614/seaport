@@ -166,16 +166,13 @@ public class PersonResource {
         log.debug("REST request to delete Person : {}", id);
         personService.delete(id);
         return ResponseEntity.noContent()
-                .headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString()))
-                .build();
+            .headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString()))
+            .build();
     }
-    
+
     @GetMapping("/{userId}/by-user")
-    public ResponseEntity<PersonDTO> getPersonByUserId(
-            @PathVariable Long userId) {
+    public ResponseEntity<PersonDTO> getPersonByUserId(@PathVariable Long userId) {
         Optional<PersonDTO> personDTO = personService.findByUserId(userId);
-        return personDTO
-                .map(ResponseEntity::ok)
-                .orElseGet(() -> ResponseEntity.notFound().build());
+        return personDTO.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 }

@@ -53,17 +53,15 @@ public class ParagraphResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PostMapping("")
-    public ResponseEntity<ParagraphDTO> createParagraph(@Valid @RequestBody ParagraphDTO paragraphDTO)
-            throws URISyntaxException {
+    public ResponseEntity<ParagraphDTO> createParagraph(@Valid @RequestBody ParagraphDTO paragraphDTO) throws URISyntaxException {
         log.debug("REST request to save Paragraph : {}", paragraphDTO);
         if (paragraphDTO.getId() != null) {
             throw new BadRequestAlertException("A new paragraph cannot already have an ID", ENTITY_NAME, "idexists");
         }
         paragraphDTO = paragraphService.save(paragraphDTO);
         return ResponseEntity.created(new URI("/api/paragraphs/" + paragraphDTO.getId()))
-                .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME,
-                        paragraphDTO.getId().toString()))
-                .body(paragraphDTO);
+            .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, paragraphDTO.getId().toString()))
+            .body(paragraphDTO);
     }
 
     /**
@@ -81,8 +79,9 @@ public class ParagraphResource {
      */
     @PutMapping("/{id}")
     public ResponseEntity<ParagraphDTO> updateParagraph(
-            @PathVariable(value = "id", required = false) final Long id,
-            @Valid @RequestBody ParagraphDTO paragraphDTO) throws URISyntaxException {
+        @PathVariable(value = "id", required = false) final Long id,
+        @Valid @RequestBody ParagraphDTO paragraphDTO
+    ) throws URISyntaxException {
         log.debug("REST request to update Paragraph : {}, {}", id, paragraphDTO);
         if (paragraphDTO.getId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
@@ -97,9 +96,8 @@ public class ParagraphResource {
 
         paragraphDTO = paragraphService.update(paragraphDTO);
         return ResponseEntity.ok()
-                .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME,
-                        paragraphDTO.getId().toString()))
-                .body(paragraphDTO);
+            .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, paragraphDTO.getId().toString()))
+            .body(paragraphDTO);
     }
 
     /**
@@ -120,8 +118,9 @@ public class ParagraphResource {
      */
     @PatchMapping(value = "/{id}", consumes = { "application/json", "application/merge-patch+json" })
     public ResponseEntity<ParagraphDTO> partialUpdateParagraph(
-            @PathVariable(value = "id", required = false) final Long id,
-            @NotNull @RequestBody ParagraphDTO paragraphDTO) throws URISyntaxException {
+        @PathVariable(value = "id", required = false) final Long id,
+        @NotNull @RequestBody ParagraphDTO paragraphDTO
+    ) throws URISyntaxException {
         log.debug("REST request to partial update Paragraph partially : {}, {}", id, paragraphDTO);
         if (paragraphDTO.getId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
@@ -137,9 +136,9 @@ public class ParagraphResource {
         Optional<ParagraphDTO> result = paragraphService.partialUpdate(paragraphDTO);
 
         return ResponseUtil.wrapOrNotFound(
-                result,
-                HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME,
-                        paragraphDTO.getId().toString()));
+            result,
+            HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, paragraphDTO.getId().toString())
+        );
     }
 
     /**
@@ -152,7 +151,8 @@ public class ParagraphResource {
      */
     @GetMapping("")
     public List<ParagraphDTO> getAllParagraphs(
-            @RequestParam(name = "eagerload", required = false, defaultValue = "true") boolean eagerload) {
+        @RequestParam(name = "eagerload", required = false, defaultValue = "true") boolean eagerload
+    ) {
         log.debug("REST request to get all Paragraphs");
         return paragraphService.findAll();
     }
@@ -182,13 +182,12 @@ public class ParagraphResource {
         log.debug("REST request to delete Paragraph : {}", id);
         paragraphService.delete(id);
         return ResponseEntity.noContent()
-                .headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString()))
-                .build();
+            .headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString()))
+            .build();
     }
 
     @GetMapping("/{id}/by-post")
-    public ResponseEntity<List<Paragraph>> getAllParagraphsByPostId(
-            @PathVariable("id") Long id) {
+    public ResponseEntity<List<Paragraph>> getAllParagraphsByPostId(@PathVariable("id") Long id) {
         log.debug("REST request to get Paragraph : {}", id);
         List<Paragraph> paragraphs = paragraphService.findAllByParagraphId(id);
         return ResponseEntity.ok().body(paragraphs);

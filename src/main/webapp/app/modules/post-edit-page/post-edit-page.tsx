@@ -1,21 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { Button, Row, Col, FormText } from 'reactstrap';
-import {
-  isNumber,
-  Translate,
-  translate,
-  ValidatedField,
-  ValidatedForm,
-  ValidatedBlobField,
-} from 'react-jhipster';
+import { isNumber, Translate, translate, ValidatedField, ValidatedForm, ValidatedBlobField } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-import {
-  convertDateTimeFromServer,
-  convertDateTimeToServer,
-  displayDefaultDateTime,
-} from 'app/shared/util/date-utils';
+import { convertDateTimeFromServer, convertDateTimeToServer, displayDefaultDateTime } from 'app/shared/util/date-utils';
 import { mapIdList } from 'app/shared/util/entity-utils';
 import { useAppDispatch, useAppSelector } from 'app/config/store';
 
@@ -26,12 +15,7 @@ import { IUser } from 'app/shared/model/user.model';
 import { getUsers } from 'app/modules/administration/user-management/user-management.reducer';
 import { IPost } from 'app/shared/model/post.model';
 import { Status } from 'app/shared/model/enumerations/status.model';
-import {
-  createEntity,
-  getEntity,
-  reset,
-  updateEntity,
-} from 'app/entities/post/post.reducer';
+import { createEntity, getEntity, reset, updateEntity } from 'app/entities/post/post.reducer';
 import './PostEditPage.css';
 
 export const PostEditPage = () => {
@@ -42,9 +26,7 @@ export const PostEditPage = () => {
   const { id } = useParams<'id'>();
   const isNew = id === undefined;
   const currentUser = useAppSelector(state => state.authentication.account);
-  const currentUserLoading = useAppSelector(
-    state => state.authentication.loading,
-  );
+  const currentUserLoading = useAppSelector(state => state.authentication.loading);
   const personEntity = useAppSelector(state => state.person.entity);
 
   const categories = useAppSelector(state => state.category.entities);
@@ -93,9 +75,7 @@ export const PostEditPage = () => {
     const entity = {
       ...postEntity,
       ...values,
-      category: categories.find(
-        it => it.id.toString() === values.category?.toString(),
-      ),
+      category: categories.find(it => it.id.toString() === values.category?.toString()),
       //   post: users.find(it => it.id.toString() === values.post?.toString()),
       post: currentUser,
     };
@@ -135,13 +115,8 @@ export const PostEditPage = () => {
     <div>
       <Row className="justify-content-center">
         <Col md="8">
-          <h2
-            id="seaportApp.post.home.createOrEditLabel"
-            data-cy="PostCreateUpdateHeading"
-          >
-            <Translate contentKey="seaportApp.post.home.createOrEditLabel">
-              Create or edit a Post
-            </Translate>
+          <h2 id="seaportApp.post.home.createOrEditLabel" data-cy="PostCreateUpdateHeading">
+            <Translate contentKey="seaportApp.post.home.createOrEditLabel">Create or edit a Post</Translate>
           </h2>
         </Col>
       </Row>
@@ -150,10 +125,7 @@ export const PostEditPage = () => {
           {loading ? (
             <p>Loading...</p>
           ) : (
-            <ValidatedForm
-              defaultValues={defaultValues()}
-              onSubmit={saveEntity}
-            >
+            <ValidatedForm defaultValues={defaultValues()} onSubmit={saveEntity}>
               {/* {!isNew ? (
                 <ValidatedField
                   name="id"
@@ -326,13 +298,7 @@ export const PostEditPage = () => {
                 </span>
               </Button>
               &nbsp; */}
-              <Button
-                color="primary"
-                id="save-entity"
-                data-cy="entityCreateSaveButton"
-                type="submit"
-                disabled={updating}
-              >
+              <Button color="primary" id="save-entity" data-cy="entityCreateSaveButton" type="submit" disabled={updating}>
                 <FontAwesomeIcon icon="save" />
                 &nbsp;
                 <Translate contentKey="entity.action.save">Save</Translate>

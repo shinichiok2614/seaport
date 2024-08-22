@@ -41,14 +41,8 @@ export const ParagraphViewEachPostPage = ({ paragraph }) => {
     <div className="ParagraphViewEachPostPage">
       {paragraph.image ? (
         <div className="ParagraphViewEachPostPage1">
-          {paragraph.imageContentType ? (
-            <img
-              src={`data:${paragraph.imageContentType};base64,${paragraph.image}`}
-            />
-          ) : null}
-          <div className="ParagraphViewEachPostPage1-cation">
-            {paragraph.caption}
-          </div>
+          {paragraph.imageContentType ? <img src={`data:${paragraph.imageContentType};base64,${paragraph.image}`} /> : null}
+          <div className="ParagraphViewEachPostPage1-cation">{paragraph.caption}</div>
         </div>
       ) : null}
       {/* <div>{paragraph.content}</div> */}

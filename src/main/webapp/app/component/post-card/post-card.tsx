@@ -19,10 +19,7 @@ const PostCard = ({ post }) => {
           <div>
             {post.imageContentType ? (
               <a onClick={() => openFile(post.imageContentType, post.image)}>
-                <img
-                  src={`data:${post.imageContentType};base64,${post.image}`}
-                  style={{ maxHeight: '30px' }}
-                />
+                <img src={`data:${post.imageContentType};base64,${post.image}`} style={{ maxHeight: '30px' }} />
                 &nbsp;
               </a>
             ) : null}
@@ -40,82 +37,27 @@ const PostCard = ({ post }) => {
       </td>
       <td>{post.view}</td>
       <td>{post.remark}</td>
-      <td>
-        {post.createdAt ? (
-          <TextFormat
-            type="date"
-            value={post.createdAt}
-            format={APP_DATE_FORMAT}
-          />
-        ) : null}
-      </td>
-      <td>
-        {post.updateAt ? (
-          <TextFormat
-            type="date"
-            value={post.updateAt}
-            format={APP_DATE_FORMAT}
-          />
-        ) : null}
-      </td>
-      <td>
-        {post.approvedAt ? (
-          <TextFormat
-            type="date"
-            value={post.approvedAt}
-            format={APP_DATE_FORMAT}
-          />
-        ) : null}
-      </td>
-      <td>
-        {post.modifiedAt ? (
-          <TextFormat
-            type="date"
-            value={post.modifiedAt}
-            format={APP_DATE_FORMAT}
-          />
-        ) : null}
-      </td>
-      <td>
-        {post.category ? (
-          <Link to={`/category/${post.category.id}`}>{post.category.name}</Link>
-        ) : (
-          ''
-        )}
-      </td>
+      <td>{post.createdAt ? <TextFormat type="date" value={post.createdAt} format={APP_DATE_FORMAT} /> : null}</td>
+      <td>{post.updateAt ? <TextFormat type="date" value={post.updateAt} format={APP_DATE_FORMAT} /> : null}</td>
+      <td>{post.approvedAt ? <TextFormat type="date" value={post.approvedAt} format={APP_DATE_FORMAT} /> : null}</td>
+      <td>{post.modifiedAt ? <TextFormat type="date" value={post.modifiedAt} format={APP_DATE_FORMAT} /> : null}</td>
+      <td>{post.category ? <Link to={`/category/${post.category.id}`}>{post.category.name}</Link> : ''}</td>
       <td>{post.post ? post.post.login : ''}</td>
       <td className="text-end">
         <div className="btn-group flex-btn-group-container">
-          <Button
-            tag={Link}
-            to={`/postapprovepageremark/${post.id}`}
-            color="info"
-            size="sm"
-            data-cy="entityDetailsButton"
-          >
+          <Button tag={Link} to={`/postapprovepageremark/${post.id}`} color="info" size="sm" data-cy="entityDetailsButton">
             <FontAwesomeIcon icon="eye" />{' '}
             <span className="d-none d-md-inline">
               <Translate contentKey="entity.action.view">View</Translate>
             </span>
           </Button>
-          <Button
-            tag={Link}
-            to={`/post/${post.id}/edit`}
-            color="primary"
-            size="sm"
-            data-cy="entityEditButton"
-          >
+          <Button tag={Link} to={`/post/${post.id}/edit`} color="primary" size="sm" data-cy="entityEditButton">
             <FontAwesomeIcon icon="pencil-alt" />{' '}
             <span className="d-none d-md-inline">
               <Translate contentKey="entity.action.edit">Edit</Translate>
             </span>
           </Button>
-          <Button
-            onClick={() => (window.location.href = `/post/${post.id}/delete`)}
-            color="danger"
-            size="sm"
-            data-cy="entityDeleteButton"
-          >
+          <Button onClick={() => (window.location.href = `/post/${post.id}/delete`)} color="danger" size="sm" data-cy="entityDeleteButton">
             <FontAwesomeIcon icon="trash" />{' '}
             <span className="d-none d-md-inline">
               <Translate contentKey="entity.action.delete">Delete</Translate>

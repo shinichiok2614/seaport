@@ -128,21 +128,10 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { Button, Row, Col, FormText } from 'reactstrap';
-import {
-  isNumber,
-  Translate,
-  translate,
-  ValidatedField,
-  ValidatedForm,
-  ValidatedBlobField,
-} from 'react-jhipster';
+import { isNumber, Translate, translate, ValidatedField, ValidatedForm, ValidatedBlobField } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-import {
-  convertDateTimeFromServer,
-  convertDateTimeToServer,
-  displayDefaultDateTime,
-} from 'app/shared/util/date-utils';
+import { convertDateTimeFromServer, convertDateTimeToServer, displayDefaultDateTime } from 'app/shared/util/date-utils';
 import { mapIdList } from 'app/shared/util/entity-utils';
 import { useAppDispatch, useAppSelector } from 'app/config/store';
 
@@ -152,12 +141,7 @@ import { IDepartment } from 'app/shared/model/department.model';
 import { getEntities as getDepartments } from 'app/entities/department/department.reducer';
 import { IPerson } from 'app/shared/model/person.model';
 import PersonForm from 'app/component/person-edit/person-form';
-import {
-  reset,
-  getEntity,
-  updateEntity,
-  createEntity,
-} from 'app/entities/person/person.reducer';
+import { reset, getEntity, updateEntity, createEntity } from 'app/entities/person/person.reducer';
 
 export const PersonUpdatePage = () => {
   const dispatch = useAppDispatch();
@@ -210,9 +194,7 @@ export const PersonUpdatePage = () => {
       ...personEntity,
       ...values,
       user: currentUser,
-      department: departments.find(
-        it => it.id.toString() === values.department?.toString(),
-      ),
+      department: departments.find(it => it.id.toString() === values.department?.toString()),
       isAuthor: false,
     };
 
@@ -243,13 +225,8 @@ export const PersonUpdatePage = () => {
     <div>
       <Row className="justify-content-center">
         <Col md="8">
-          <h2
-            id="seaportApp.person.home.createOrEditLabel"
-            data-cy="PersonCreateUpdateHeading"
-          >
-            <Translate contentKey="seaportApp.person.home.createOrEditLabel">
-              Create or edit a Person
-            </Translate>
+          <h2 id="seaportApp.person.home.createOrEditLabel" data-cy="PersonCreateUpdateHeading">
+            <Translate contentKey="seaportApp.person.home.createOrEditLabel">Create or edit a Person</Translate>
           </h2>
         </Col>
       </Row>
@@ -258,10 +235,7 @@ export const PersonUpdatePage = () => {
           {loading ? (
             <p>Loading...</p>
           ) : (
-            <ValidatedForm
-              defaultValues={defaultValues()}
-              onSubmit={saveEntity}
-            >
+            <ValidatedForm defaultValues={defaultValues()} onSubmit={saveEntity}>
               {/* {!isNew ? (
                 <ValidatedField
                   name="id"
@@ -313,13 +287,7 @@ export const PersonUpdatePage = () => {
                   },
                 }}
               />
-              <ValidatedField
-                label={translate('seaportApp.person.bio')}
-                id="person-bio"
-                name="bio"
-                data-cy="bio"
-                type="textarea"
-              />
+              <ValidatedField label={translate('seaportApp.person.bio')} id="person-bio" name="bio" data-cy="bio" type="textarea" />
               <ValidatedField
                 label={translate('seaportApp.person.phone')}
                 id="person-phone"
@@ -431,14 +399,7 @@ export const PersonUpdatePage = () => {
                     ))
                   : null}
               </ValidatedField>
-              <Button
-                tag={Link}
-                id="cancel-save"
-                data-cy="entityCreateCancelButton"
-                to="/"
-                replace
-                color="info"
-              >
+              <Button tag={Link} id="cancel-save" data-cy="entityCreateCancelButton" to="/" replace color="info">
                 <FontAwesomeIcon icon="arrow-left" />
                 &nbsp;
                 <span className="d-none d-md-inline">
@@ -446,13 +407,7 @@ export const PersonUpdatePage = () => {
                 </span>
               </Button>
               &nbsp;
-              <Button
-                color="primary"
-                id="save-entity"
-                data-cy="entityCreateSaveButton"
-                type="submit"
-                disabled={updating}
-              >
+              <Button color="primary" id="save-entity" data-cy="entityCreateSaveButton" type="submit" disabled={updating}>
                 <FontAwesomeIcon icon="save" />
                 &nbsp;
                 <Translate contentKey="entity.action.save">Save</Translate>

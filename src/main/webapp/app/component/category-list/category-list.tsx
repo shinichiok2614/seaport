@@ -5,12 +5,7 @@ import { Link } from 'react-router-dom';
 import { Button, Table } from 'reactstrap';
 import CategoryCard from '../category-card/category-card';
 
-const CategoryList = ({
-  loading,
-  categoryList,
-  sort,
-  getSortIconByFieldName,
-}) => {
+const CategoryList = ({ loading, categoryList, sort, getSortIconByFieldName }) => {
   return (
     <div>
       {categoryList && categoryList.length > 0 ? (
@@ -18,14 +13,10 @@ const CategoryList = ({
           <thead>
             <tr>
               <th className="hand" onClick={sort('id')}>
-                <Translate contentKey="seaportApp.category.id">ID</Translate>{' '}
-                <FontAwesomeIcon icon={getSortIconByFieldName('id')} />
+                <Translate contentKey="seaportApp.category.id">ID</Translate> <FontAwesomeIcon icon={getSortIconByFieldName('id')} />
               </th>
               <th className="hand" onClick={sort('name')}>
-                <Translate contentKey="seaportApp.category.name">
-                  Name
-                </Translate>{' '}
-                <FontAwesomeIcon icon={getSortIconByFieldName('name')} />
+                <Translate contentKey="seaportApp.category.name">Name</Translate> <FontAwesomeIcon icon={getSortIconByFieldName('name')} />
               </th>
               <th />
             </tr>
@@ -74,9 +65,7 @@ const CategoryList = ({
       ) : (
         !loading && (
           <div className="alert alert-warning">
-            <Translate contentKey="seaportApp.category.home.notFound">
-              No Categories found
-            </Translate>
+            <Translate contentKey="seaportApp.category.home.notFound">No Categories found</Translate>
           </div>
         )
       )}

@@ -1,15 +1,7 @@
 import React from 'react';
 import { TextFormat } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {
-  faPhone,
-  faMapMarkerAlt,
-  faGlobe,
-  faCalendarAlt,
-  faUser,
-  faBuilding,
-  faCheck,
-} from '@fortawesome/free-solid-svg-icons';
+import { faPhone, faMapMarkerAlt, faGlobe, faCalendarAlt, faUser, faBuilding, faCheck } from '@fortawesome/free-solid-svg-icons';
 import './ProfileMeta.css'; // Thêm file CSS để tạo kiểu
 
 const ProfileMeta = ({ personEntity, user, department }) => {
@@ -29,10 +21,7 @@ const ProfileMeta = ({ personEntity, user, department }) => {
       )}
       {personEntity.address && (
         <div className="profile-meta-item">
-          <FontAwesomeIcon
-            icon={faMapMarkerAlt}
-            className="profile-meta-icon"
-          />
+          <FontAwesomeIcon icon={faMapMarkerAlt} className="profile-meta-icon" />
           <span>{personEntity.address}</span>
         </div>
       )}
@@ -40,11 +29,7 @@ const ProfileMeta = ({ personEntity, user, department }) => {
         <div className="profile-meta-item">
           <FontAwesomeIcon icon={faCalendarAlt} className="profile-meta-icon" />
           <span>
-            <TextFormat
-              type="date"
-              value={personEntity.createdAt}
-              format="YYYY-MM-DD"
-            />
+            <TextFormat type="date" value={personEntity.createdAt} format="YYYY-MM-DD" />
           </span>
         </div>
       )}
@@ -52,11 +37,7 @@ const ProfileMeta = ({ personEntity, user, department }) => {
         <div className="profile-meta-item">
           <FontAwesomeIcon icon={faCalendarAlt} className="profile-meta-icon" />
           <span>
-            <TextFormat
-              type="date"
-              value={personEntity.updateAt}
-              format="YYYY-MM-DD"
-            />
+            <TextFormat type="date" value={personEntity.updateAt} format="YYYY-MM-DD" />
           </span>
         </div>
       )}
@@ -64,11 +45,7 @@ const ProfileMeta = ({ personEntity, user, department }) => {
         <div className="profile-meta-item">
           <FontAwesomeIcon icon={faCalendarAlt} className="profile-meta-icon" />
           <span>
-            <TextFormat
-              type="date"
-              value={personEntity.dateOfBirth}
-              format="YYYY-MM-DD"
-            />
+            <TextFormat type="date" value={personEntity.dateOfBirth} format="YYYY-MM-DD" />
           </span>
         </div>
       )}

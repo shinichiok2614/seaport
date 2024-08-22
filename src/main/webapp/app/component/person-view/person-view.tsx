@@ -10,29 +10,16 @@ const PersonDisplay = ({ personEntity, users, departments, postList }) => {
   }
 
   const user = users.find(u => u.id === personEntity.user) || {};
-  const department =
-    departments.find(d => d.id === personEntity.department) || {};
+  const department = departments.find(d => d.id === personEntity.department) || {};
 
   return (
     <div className="person-display">
       <div className="cover-photo">
-        {personEntity.cover ? (
-          <img
-            src={personEntity.cover}
-            alt={`${personEntity.name}'s cover`}
-            className="cover-image"
-          />
-        ) : null}
+        {personEntity.cover ? <img src={personEntity.cover} alt={`${personEntity.name}'s cover`} className="cover-image" /> : null}
       </div>
       <div className="profile-header">
         <div className="avatar-container">
-          {personEntity.avatar ? (
-            <img
-              src={personEntity.avatar}
-              alt={`${personEntity.name}'s avatar`}
-              className="avatar-image"
-            />
-          ) : null}
+          {personEntity.avatar ? <img src={personEntity.avatar} alt={`${personEntity.name}'s avatar`} className="avatar-image" /> : null}
         </div>
         <div className="profile-info">
           <div className="profile-name">{personEntity.name}</div>
@@ -41,11 +28,7 @@ const PersonDisplay = ({ personEntity, users, departments, postList }) => {
       </div>
       <div className="profile-body">
         <div className="profile-body-left">
-          <ProfileMeta
-            personEntity={personEntity}
-            user={user}
-            department={department}
-          />
+          <ProfileMeta personEntity={personEntity} user={user} department={department} />
         </div>
         <div className="profile-content">
           <PostListViewProfile postList={postList} />

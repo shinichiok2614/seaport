@@ -16,23 +16,16 @@ export const CategoryPage = () => {
     dispatch(getEntityWithPost());
   }, [dispatch]);
 
-  const selectedCategory = categoryList.find(
-    category => category.id.toString() === id,
-  );
+  const selectedCategory = categoryList.find(category => category.id.toString() === id);
 
   return (
     <div className="home">
       <div className="left">
         {selectedCategory ? (
-          <CategoryCardViewEach
-            key={selectedCategory.id}
-            category={selectedCategory}
-          />
+          <CategoryCardViewEach key={selectedCategory.id} category={selectedCategory} />
         ) : !loading ? (
           <div className="alert alert-warning">
-            <Translate contentKey="seaportApp.category.home.notFound">
-              No Categories found
-            </Translate>
+            <Translate contentKey="seaportApp.category.home.notFound">No Categories found</Translate>
           </div>
         ) : null}
       </div>
