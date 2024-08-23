@@ -4,8 +4,15 @@
 .MessagePersonRoomMember11 {
   width: 50%;
 }
+
+.MessagePersonRoomMember11-roommemberlist {
+  height: 500px; /* Chiều cao cố định */
+  overflow-y: auto; /* Kích hoạt cuộn dọc */
+  border: 1px solid #ccc; /* Thêm border để dễ nhìn */
+  padding: 10px; /* Khoảng cách bên trong */
+}
 .MessagePersonRoomMember1-messagelist {
-  width: 50%;
+  /* width: 50%; */
 }
 .MessagePersonRoomMember-message-list-container {
   height: 400px; /* Chiều cao cố định */

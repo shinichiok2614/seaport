@@ -1,5 +1,16 @@
 # seaport
 
+chỉnh postcomponent trang home nhẹ lại, gom 3 bài ngang thành 1 khối cho đẹp và nhẹ
+chỉnh trang personnal page chỉ hiện bài viết đã approved
+phát hiện badword trong post cho admin approve page
+trong comment
+dùng kafka để thông báo
+badword comment
+post approved
+post cancelled
+message
+message+websocket+kafka
+
 This application was generated using JHipster 8.6.0, you can find documentation and help at [https://www.jhipster.tech/documentation-archive/v8.6.0](https://www.jhipster.tech/documentation-archive/v8.6.0).
 
 ## Project Structure

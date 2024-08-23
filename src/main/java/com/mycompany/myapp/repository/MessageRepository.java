@@ -32,9 +32,20 @@ public interface MessageRepository extends JpaRepository<Message, Long> {
     )
     Page<Message> findAllWithToOneRelationships(Pageable pageable);
 
-    @Query("select message from Message message left join fetch message.sender left join fetch message.message")
+    @Query(
+        "select message from Message message left join fetch message.sender left join fetch message.message"
+    )
     List<Message> findAllWithToOneRelationships();
 
-    @Query("select message from Message message left join fetch message.sender left join fetch message.message where message.id =:id")
+    @Query(
+        "select message from Message message left join fetch message.sender left join fetch message.message where message.id =:id"
+    )
     Optional<Message> findOneWithToOneRelationships(@Param("id") Long id);
+
+    // @Query("select message from Message message left join fetch message.sender left join fetch message.message where message.message.id =:id")
+    @Query(
+        value = "SELECT * FROM message m WHERE m.message_id =:id",
+        nativeQuery = true
+    )
+    List<Message> findAllByMessageId(@Param("id") Long id);
 }
