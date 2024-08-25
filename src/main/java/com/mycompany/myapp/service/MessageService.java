@@ -16,7 +16,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
- * Service Implementation for managing {@link com.mycompany.myapp.domain.Message}.
+ * Service Implementation for managing
+ * {@link com.mycompany.myapp.domain.Message}.
  */
 @Service
 @Transactional
@@ -119,5 +120,9 @@ public class MessageService {
     public void delete(Long id) {
         log.debug("Request to delete Message : {}", id);
         messageRepository.deleteById(id);
+    }
+
+    public List<MessageDTO> findAllByMessageId(Long id) {
+        return messageRepository.findAllByMessageId(id).stream().map(messageMapper::toDto).collect(Collectors.toList());
     }
 }

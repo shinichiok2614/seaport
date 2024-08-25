@@ -26,7 +26,14 @@ export const getEntities = createAsyncThunk(
   },
   { serializeError: serializeAxiosError },
 );
-
+export const getEntitiesByRoom = createAsyncThunk(
+  'message/fetch_entity_list_by_room',
+  async (id: string | number) => {
+    const requestUrl = `${apiUrl}/by-room/${id}`;
+    return axios.get<IMessage[]>(requestUrl);
+  },
+  { serializeError: serializeAxiosError },
+);
 export const getEntity = createAsyncThunk(
   'message/fetch_entity',
   async (id: string | number) => {
@@ -40,7 +47,7 @@ export const createEntity = createAsyncThunk(
   'message/create_entity',
   async (entity: IMessage, thunkAPI) => {
     const result = await axios.post<IMessage>(apiUrl, cleanEntity(entity));
-    thunkAPI.dispatch(getEntities({}));
+    // thunkAPI.dispatch(getEntities({}));
     return result;
   },
   { serializeError: serializeAxiosError },
@@ -50,7 +57,7 @@ export const updateEntity = createAsyncThunk(
   'message/update_entity',
   async (entity: IMessage, thunkAPI) => {
     const result = await axios.put<IMessage>(`${apiUrl}/${entity.id}`, cleanEntity(entity));
-    thunkAPI.dispatch(getEntities({}));
+    // thunkAPI.dispatch(getEntities({}));
     return result;
   },
   { serializeError: serializeAxiosError },
@@ -60,7 +67,7 @@ export const partialUpdateEntity = createAsyncThunk(
   'message/partial_update_entity',
   async (entity: IMessage, thunkAPI) => {
     const result = await axios.patch<IMessage>(`${apiUrl}/${entity.id}`, cleanEntity(entity));
-    thunkAPI.dispatch(getEntities({}));
+    // thunkAPI.dispatch(getEntities({}));
     return result;
   },
   { serializeError: serializeAxiosError },
@@ -71,7 +78,7 @@ export const deleteEntity = createAsyncThunk(
   async (id: string | number, thunkAPI) => {
     const requestUrl = `${apiUrl}/${id}`;
     const result = await axios.delete<IMessage>(requestUrl);
-    thunkAPI.dispatch(getEntities({}));
+    // thunkAPI.dispatch(getEntities({}));
     return result;
   },
   { serializeError: serializeAxiosError },
@@ -87,6 +94,10 @@ export const MessageSlice = createEntitySlice({
       .addCase(getEntity.fulfilled, (state, action) => {
         state.loading = false;
         state.entity = action.payload.data;
+      })
+      .addCase(getEntitiesByRoom.fulfilled, (state, action) => {
+        state.loading = false;
+        state.entities = action.payload.data;
       })
       .addCase(deleteEntity.fulfilled, state => {
         state.updating = false;
@@ -115,7 +126,7 @@ export const MessageSlice = createEntitySlice({
         state.updateSuccess = true;
         state.entity = action.payload.data;
       })
-      .addMatcher(isPending(getEntities, getEntity), state => {
+      .addMatcher(isPending(getEntities, getEntity, getEntitiesByRoom), state => {
         state.errorMessage = null;
         state.updateSuccess = false;
         state.loading = true;

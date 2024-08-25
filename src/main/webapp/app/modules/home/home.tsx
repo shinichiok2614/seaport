@@ -1,4 +1,4 @@
-0import './home.scss';
+import './home.scss';
 
 import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
@@ -10,7 +10,7 @@ import WeatherComponent from 'app/component/WeatherComponent/WeatherComponent';
 import { getEntityWithPost } from 'app/entities/category/category.reducer';
 import CategoryCardView from 'app/component/category-card-view/category-card-view';
 import CategoryTitle from 'app/component/category-header/category-header';
-import LazyLoad from 'react-lazyload'
+import LazyLoad from 'react-lazyload';
 
 export const Home = () => {
   const dispatch = useAppDispatch();
@@ -18,13 +18,13 @@ export const Home = () => {
   const categoryList = useAppSelector(state => state.category.entities);
   const loading = useAppSelector(state => state.category.loading);
   useEffect(() => {
-    dispatch(getEntityWithPost());
+    // dispatch(getEntityWithPost());
   }, []);
-const Loading = () => (
-  <div className="post loading">
-    <h5>Loading...</h5>
-  </div>
-)
+  const Loading = () => (
+    <div className="post loading">
+      <h5>Loading...</h5>
+    </div>
+  );
   return (
     <div className="home">
       <div className="left">
@@ -33,18 +33,13 @@ const Loading = () => (
         </div>
         {categoryList.length > 0
           ? categoryList.map((category, i) => (
-            <LazyLoad key={category.id} placeholder={<Loading />}>
-              <CategoryCardView
-                key={category.id}
-                category={category}
-              ></CategoryCardView>
-            </LazyLoad>
+              <LazyLoad key={category.id} placeholder={<Loading />}>
+                <CategoryCardView key={category.id} category={category}></CategoryCardView>
+              </LazyLoad>
             ))
           : !loading && (
               <div className="alert alert-warning">
-                <Translate contentKey="seaportApp.category.home.notFound">
-                  No Categories found
-                </Translate>
+                <Translate contentKey="seaportApp.category.home.notFound">No Categories found</Translate>
               </div>
             )}
       </div>
@@ -53,10 +48,7 @@ const Loading = () => (
           {account?.login ? (
             <div>
               <Alert color="success">
-                <Translate
-                  contentKey="home.logged.message"
-                  interpolate={{ username: account.login }}
-                >
+                <Translate contentKey="home.logged.message" interpolate={{ username: account.login }}>
                   You are logged in as user {account.login}.
                 </Translate>
               </Alert>
@@ -64,34 +56,23 @@ const Loading = () => (
           ) : (
             <div>
               <Alert color="warning">
-                <Translate contentKey="global.messages.info.authenticated.prefix">
-                  If you want to{' '}
-                </Translate>
+                <Translate contentKey="global.messages.info.authenticated.prefix">If you want to </Translate>
 
                 <Link to="/login" className="alert-link">
-                  <Translate contentKey="global.messages.info.authenticated.link">
-                    {' '}
-                    sign in
-                  </Translate>
+                  <Translate contentKey="global.messages.info.authenticated.link"> sign in</Translate>
                 </Link>
                 <Translate contentKey="global.messages.info.authenticated.suffix">
                   , you can try the default accounts:
-                  <br />- Administrator (login=&quot;admin&quot; and
-                  password=&quot;admin&quot;)
-                  <br />- User (login=&quot;user&quot; and
-                  password=&quot;user&quot;).
+                  <br />- Administrator (login=&quot;admin&quot; and password=&quot;admin&quot;)
+                  <br />- User (login=&quot;user&quot; and password=&quot;user&quot;).
                 </Translate>
               </Alert>
 
               <Alert color="warning">
-                <Translate contentKey="global.messages.info.register.noaccount">
-                  You do not have an account yet?
-                </Translate>
+                <Translate contentKey="global.messages.info.register.noaccount">You do not have an account yet?</Translate>
                 &nbsp;
                 <Link to="/account/register" className="alert-link">
-                  <Translate contentKey="global.messages.info.register.link">
-                    Register a new account
-                  </Translate>
+                  <Translate contentKey="global.messages.info.register.link">Register a new account</Translate>
                 </Link>
               </Alert>
             </div>
