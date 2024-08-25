@@ -110,6 +110,8 @@
       "open": "Open",
       "save": "Save",
       "view": "View",
+      "join": "Join",
+      "invite": "Invite",
       "show": "Show {{otherEntity}}"
     },
     "detail": {

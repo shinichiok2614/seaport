@@ -26,7 +26,7 @@ export const MessagePersonRoomUpdate = () => {
   const updateSuccess = useAppSelector(state => state.room.updateSuccess);
 
   const handleClose = () => {
-    navigate('/room');
+    navigate('/messageperson');
   };
 
   useEffect(() => {

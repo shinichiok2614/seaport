@@ -5,7 +5,7 @@
   width: 50%;
 }
 .MessagePersonRoomMember11-roommemberlist {
-  height: 500%; /* Chiều cao cố định */
+  height: 500px; /* Chiều cao cố định */
   overflow-y: auto; /* Kích hoạt cuộn dọc */
   border: 1px solid #ccc; /* Thêm border để dễ nhìn */
   padding: 10px; /* Khoảng cách bên trong */

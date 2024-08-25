@@ -30,6 +30,7 @@ import ParagraphDelete from './modules/paragraph-edit-page/paragraph-delete';
 import MessagePerson from './modules/message-person/message-person';
 import MessagePersonRoomUpdate from './modules/message-person/message-person-room-update';
 import MessagePersonRoomMemberUpdate from './modules/message-person/message-person-room-member-update';
+import MessagePersonRoomMemberInvite from './modules/message-person/message-person-room-member-invite';
 
 const loading = <div>loading ...</div>;
 
@@ -39,10 +40,7 @@ const Account = Loadable({
 });
 
 const Admin = Loadable({
-  loader: () =>
-    import(
-      /* webpackChunkName: "administration" */ 'app/modules/administration'
-    ),
+  loader: () => import(/* webpackChunkName: "administration" */ 'app/modules/administration'),
   loading: () => loading,
 });
 const AppRoutes = () => {
@@ -62,24 +60,13 @@ const AppRoutes = () => {
         <Route path="posteditpage/:id" element={<PostEditPage />} />
         <Route path="paragrapheditpage/:id" element={<ParagraphEditPage />} />
         <Route path="messageperson/" element={<MessagePerson />} />
-        <Route
-          path="paragrapheditupdatepage/:id"
-          element={<ParagraphEditUpdate />}
-        />
+        <Route path="paragrapheditupdatepage/:id" element={<ParagraphEditUpdate />} />
         <Route path="paragraphdelete/:id" element={<ParagraphDelete />} />
         <Route path="postapprovepage/" element={<PostApprovePage />} />
-        <Route
-          path="postapprovepageremark/:id"
-          element={<PostApprovePageRemark />}
-        />
-        <Route
-          path="messagepersonroomupdate/:id"
-          element={<MessagePersonRoomUpdate />}
-        />
-        <Route
-          path="messagepersonroommemberupdate/:id"
-          element={<MessagePersonRoomMemberUpdate />}
-        />
+        <Route path="postapprovepageremark/:id" element={<PostApprovePageRemark />} />
+        <Route path="messagepersonroomupdate/:id" element={<MessagePersonRoomUpdate />} />
+        <Route path="messagepersonroommemberupdate/:id" element={<MessagePersonRoomMemberUpdate />} />
+        <Route path="messagepersonroommemberinvite/:id" element={<MessagePersonRoomMemberInvite />} />
         {/* <Route path="messagepersonroommemberupdate/new" element={<MessagePersonRoomMemberUpdate />} /> */}
         <Route path="login" element={<Login />} />
         <Route path="logout" element={<Logout />} />
@@ -87,9 +74,7 @@ const AppRoutes = () => {
           <Route
             path="*"
             element={
-              <PrivateRoute
-                hasAnyAuthorities={[AUTHORITIES.ADMIN, AUTHORITIES.USER]}
-              >
+              <PrivateRoute hasAnyAuthorities={[AUTHORITIES.ADMIN, AUTHORITIES.USER]}>
                 <Account />
               </PrivateRoute>
             }

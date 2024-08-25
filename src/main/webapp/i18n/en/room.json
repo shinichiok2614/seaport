@@ -5,6 +5,7 @@
         "title": "Rooms",
         "refreshListLabel": "Refresh list",
         "createLabel": "Create a new Room",
+        "createLabelPrivate": "Create Room Private",
         "createOrEditLabel": "Create or edit a Room",
         "notFound": "No Rooms found"
       },
