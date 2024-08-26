@@ -31,6 +31,15 @@ public class MessageDTO implements Serializable {
     private RoomMemberDTO sender;
 
     private RoomDTO message;
+    private PersonDTO personDTO;
+
+    public PersonDTO getPerson() {
+        return personDTO;
+    }
+
+    public void setPerson(PersonDTO personDTO) {
+        this.personDTO = personDTO;
+    }
 
     public Long getId() {
         return id;
@@ -121,13 +130,13 @@ public class MessageDTO implements Serializable {
     @Override
     public String toString() {
         return "MessageDTO{" +
-            "id=" + getId() +
-            ", content='" + getContent() + "'" +
-            ", image='" + getImage() + "'" +
-            ", isActive='" + getIsActive() + "'" +
-            ", createdAt='" + getCreatedAt() + "'" +
-            ", sender=" + getSender() +
-            ", message=" + getMessage() +
-            "}";
+                "id=" + getId() +
+                ", content='" + getContent() + "'" +
+                ", image='" + getImage() + "'" +
+                ", isActive='" + getIsActive() + "'" +
+                ", createdAt='" + getCreatedAt() + "'" +
+                ", sender=" + getSender() +
+                ", message=" + getMessage() +
+                "}";
     }
 }

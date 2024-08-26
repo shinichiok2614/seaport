@@ -1,9 +1,14 @@
 package com.mycompany.myapp.service;
 
 import com.mycompany.myapp.domain.Message;
+import com.mycompany.myapp.domain.Person;
+import com.mycompany.myapp.domain.RoomMember;
 import com.mycompany.myapp.repository.MessageRepository;
+import com.mycompany.myapp.repository.PersonRepository;
 import com.mycompany.myapp.service.dto.MessageDTO;
+import com.mycompany.myapp.service.dto.PersonDTO;
 import com.mycompany.myapp.service.mapper.MessageMapper;
+import com.mycompany.myapp.service.mapper.PersonMapper;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
@@ -26,12 +31,21 @@ public class MessageService {
     private static final Logger log = LoggerFactory.getLogger(MessageService.class);
 
     private final MessageRepository messageRepository;
+    private final PersonRepository personRepository;
 
     private final MessageMapper messageMapper;
+    private final PersonMapper personMapper;
 
-    public MessageService(MessageRepository messageRepository, MessageMapper messageMapper) {
+    public MessageService(
+        MessageRepository messageRepository,
+        MessageMapper messageMapper,
+        PersonRepository personRepository,
+        PersonMapper personMapper
+    ) {
         this.messageRepository = messageRepository;
         this.messageMapper = messageMapper;
+        this.personRepository = personRepository;
+        this.personMapper = personMapper;
     }
 
     /**
@@ -123,6 +137,28 @@ public class MessageService {
     }
 
     public List<MessageDTO> findAllByMessageId(Long id) {
-        return messageRepository.findAllByMessageId(id).stream().map(messageMapper::toDto).collect(Collectors.toList());
+        // return
+        // messageRepository.findAllByMessageId(id).stream().map(messageMapper::toDto).collect(Collectors.toList());
+        return messageRepository
+            .findAllByMessageId(id)
+            .stream()
+            .map(message -> {
+                MessageDTO messageDTO = messageMapper.toDto(message);
+
+                // Tìm RoomMember tương ứng với Message
+                RoomMember sender = message.getSender();
+                if (sender != null) {
+                    // Tìm Person tương ứng với RoomMember
+                    Optional<Person> personOpt = personRepository.findOneByUserId(sender.getRoommember().getId());
+                    personOpt.ifPresent(person -> {
+                        PersonDTO personDTO = personMapper.toDto(person);
+                        // Thêm thông tin Person vào MessageDTO
+                        messageDTO.setPerson(personDTO);
+                    });
+                }
+
+                return messageDTO;
+            })
+            .collect(Collectors.toList());
     }
 }
