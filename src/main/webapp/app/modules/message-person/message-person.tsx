@@ -12,6 +12,7 @@ import {
   getEntities as getAllRoomMember,
   deleteEntity as deleteRoomMember,
   getEntitiesByCurrentUser,
+  createEntity as createRoomMember,
 } from 'app/entities/room-member/room-member.reducer';
 import {
   createEntity as createMessage,
@@ -25,6 +26,7 @@ import { convertDateTimeToServer, displayDefaultDateTime } from 'app/shared/util
 import './MessagePersonRoomMember.css';
 import RoomMemberTable from './RoomMemberTable';
 import MessageListTable from './message-list-table';
+import { unwrapResult } from '@reduxjs/toolkit';
 
 export const MessagePersonRoomMember = () => {
   const dispatch = useAppDispatch();
@@ -151,13 +153,31 @@ export const MessagePersonRoomMember = () => {
   const [joined, setJoined] = useState<boolean>(false);
   const socketRef = useRef<WebSocket | null>(null);
   ////////////////////////////////////
-  const saveRoomPrivate = () => {
+  const saveRoomPrivate = async () => {
     const entity = {
       name: `RoomPrivate-${dayjs()}`,
       isPrivate: true,
       createdAt: dayjs(),
     };
-    dispatch(createRoom(entity));
+    // dispatch(createRoom(entity));
+    const actionResult = await dispatch(createRoom(entity));
+    const result = unwrapResult(actionResult);
+    alert(JSON.stringify(result));
+
+    const RoomMemberEntity = {
+      room: result.data,
+      roommember: currentUser,
+      name: currentUser.person.name,
+      joinedAt: dayjs(),
+      // ...roomMemberEntity,
+      // ...values,
+      // roommember: users.find(
+      //   it => it.id.toString() === values.roommember?.toString(),
+      // ),
+      // room: rooms.find(it => it.id.toString() === values.room?.toString()),
+    };
+
+    dispatch(createRoomMember(RoomMemberEntity));
   };
 
   const deleteRoomMember = () => {

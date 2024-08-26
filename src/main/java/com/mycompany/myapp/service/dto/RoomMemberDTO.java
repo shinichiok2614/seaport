@@ -3,6 +3,7 @@ package com.mycompany.myapp.service.dto;
 import jakarta.validation.constraints.*;
 import java.io.Serializable;
 import java.time.Instant;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -21,7 +22,18 @@ public class RoomMemberDTO implements Serializable {
     private UserDTO roommember;
 
     private RoomDTO room;
+
     private PersonDTO personDTO;
+
+    private List<RoomMemberDTO> listRoommemberDTO;
+
+    public void setListRoommemberDTO(List<RoomMemberDTO> additionalRoomMembers) {
+        this.listRoommemberDTO = additionalRoomMembers;
+    }
+
+    public List<RoomMemberDTO> getListRoommemberDTO() {
+        return listRoommemberDTO;
+    }
 
     public PersonDTO getPersonDTO() {
         return personDTO;

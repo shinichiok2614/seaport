@@ -48,7 +48,7 @@ export const createEntity = createAsyncThunk(
   'roomMember/create_entity',
   async (entity: IRoomMember, thunkAPI) => {
     const result = await axios.post<IRoomMember>(apiUrl, cleanEntity(entity));
-    thunkAPI.dispatch(getEntities({}));
+    // thunkAPI.dispatch(getEntities({}));
     return result;
   },
   { serializeError: serializeAxiosError },
@@ -58,7 +58,7 @@ export const updateEntity = createAsyncThunk(
   'roomMember/update_entity',
   async (entity: IRoomMember, thunkAPI) => {
     const result = await axios.put<IRoomMember>(`${apiUrl}/${entity.id}`, cleanEntity(entity));
-    thunkAPI.dispatch(getEntities({}));
+    // thunkAPI.dispatch(getEntities({}));
     return result;
   },
   { serializeError: serializeAxiosError },
@@ -68,7 +68,7 @@ export const partialUpdateEntity = createAsyncThunk(
   'roomMember/partial_update_entity',
   async (entity: IRoomMember, thunkAPI) => {
     const result = await axios.patch<IRoomMember>(`${apiUrl}/${entity.id}`, cleanEntity(entity));
-    thunkAPI.dispatch(getEntities({}));
+    // thunkAPI.dispatch(getEntities({}));
     return result;
   },
   { serializeError: serializeAxiosError },
@@ -79,7 +79,7 @@ export const deleteEntity = createAsyncThunk(
   async (id: string | number, thunkAPI) => {
     const requestUrl = `${apiUrl}/${id}`;
     const result = await axios.delete<IRoomMember>(requestUrl);
-    thunkAPI.dispatch(getEntities({}));
+    // thunkAPI.dispatch(getEntities({}));
     return result;
   },
   { serializeError: serializeAxiosError },

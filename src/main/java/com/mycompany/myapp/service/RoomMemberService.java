@@ -148,6 +148,25 @@ public class RoomMemberService {
                     PersonDTO personDTO = personMapper.toDto(person);
                     dto.setPersonDTO(personDTO);
                 });
+
+                List<RoomMember> membersInRoom = roomMemberRepository.findAllByRoomId(room.getRoom().getId());
+                List<RoomMemberDTO> additionalRoomMembersDTO = membersInRoom
+                    .stream()
+                    .map(member -> {
+                        RoomMemberDTO memberDTO = roomMemberMapper.toDto(member);
+                        // Thêm thông tin bổ sung nếu cần
+                        Optional<Person> personOpt1 = personRepository.findOneByUserId(member.getRoommember().getId());
+                        personOpt.ifPresent(person -> {
+                            PersonDTO personDTO = personMapper.toDto(person);
+                            memberDTO.setPersonDTO(personDTO);
+                        });
+                        return memberDTO;
+                    })
+                    .collect(Collectors.toList());
+
+                // Thêm thông tin bổ sung vào RoomMemberDTO hiện tại
+                dto.setListRoommemberDTO(additionalRoomMembersDTO);
+
                 return dto;
             })
             .collect(Collectors.toList());
