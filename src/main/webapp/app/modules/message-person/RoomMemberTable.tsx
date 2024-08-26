@@ -4,16 +4,16 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Translate, TextFormat } from 'react-jhipster';
 import { Link } from 'react-router-dom';
 
-const RoomMemberTable = ({ roomMemberList, loading, sort, getSortIconByFieldName, handleRoomMemberClick, joinRoom }) => (
+const RoomMemberTable = ({ roomMemberList, loading, sort, getSortIconByFieldName, handleRoomMemberClick, joinRoom, saveRoomPrivate }) => (
   <div className="MessagePersonRoomMember11">
     <h2 id="room-member-heading" data-cy="RoomMemberHeading">
       <div className="d-flex justify-content-end">
-        <Button className="me-2" color="info" onClick={() => handleRoomMemberClick()} disabled={loading}>
+        <Button className="me-2" color="info" disabled={loading}>
           <FontAwesomeIcon icon="sync" spin={loading} />{' '}
           <Translate contentKey="seaportApp.roomMember.home.refreshListLabel">Refresh List</Translate>
         </Button>
         <Button
-          onClick={() => handleRoomMemberClick()}
+          onClick={() => saveRoomPrivate()}
           className="btn btn-primary jh-create-entity"
           id="jh-create-entity"
           data-cy="entityCreateButton"

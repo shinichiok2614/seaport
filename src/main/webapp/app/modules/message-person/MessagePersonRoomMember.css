@@ -1,29 +1,79 @@
 .MessagePersonRoomMember1 {
   display: flex;
+  justify-content: space-between;
 }
+
 .MessagePersonRoomMember11 {
-  width: 50%;
+  width: 35%;
 }
+
 .MessagePersonRoomMember11-roommemberlist {
-  height: 500px; /* Chiều cao cố định */
-  overflow-y: auto; /* Kích hoạt cuộn dọc */
-  border: 1px solid #ccc; /* Thêm border để dễ nhìn */
-  padding: 10px; /* Khoảng cách bên trong */
+  height: 500px;
+  /* Chiều cao cố định */
+  overflow-y: auto;
+  /* Kích hoạt cuộn dọc */
+  border: 1px solid #ccc;
+  /* Thêm border để dễ nhìn */
+  padding: 10px;
+  /* Khoảng cách bên trong */
 }
+
 .MessagePersonRoomMember1-messagelist-body {
-  width: 50%;
+  width: 62%;
   /* display: flex; */
 }
+
 .MessagePersonRoomMember-message-list-container {
   width: 100%;
 }
+
 .MessagePersonRoomMember-message-list-container {
-  height: 400px; /* Chiều cao cố định */
-  overflow-y: auto; /* Kích hoạt cuộn dọc */
-  border: 1px solid #ccc; /* Thêm border để dễ nhìn */
-  padding: 10px; /* Khoảng cách bên trong */
+  height: 400px;
+  /* Chiều cao cố định */
+  overflow-y: auto;
+  /* Kích hoạt cuộn dọc */
+  border: 1px solid #ccc;
+  /* Thêm border để dễ nhìn */
+  padding: 10px;
+  /* Khoảng cách bên trong */
 }
+
 .MessagePersonRoomMember-message {
   /* width: 100%;
   display: flex; */
+}
+
+.MessageListTable-each {
+  display: flex;
+}
+
+.MessageListTable-2 {
+  display: flex;
+  flex-direction: column;
+}
+
+.MessageListTable-image {
+  width: 80px;
+  display: flex;
+  justify-content: center;
+}
+
+.MessageListTable-image img {
+  height: 40px;
+  border-radius: 50%;
+}
+
+.MessageListTable-content {
+  background-color: #c3c3c3;
+  border-radius: 8px;
+  padding: 6px;
+}
+
+.MessageListTable-right {
+  justify-content: flex-end;
+}
+
+.MessageListTable-createdAt {
+  color: #8f8f8f;
+  font-size: 12px;
 }

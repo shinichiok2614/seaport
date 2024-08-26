@@ -173,9 +173,15 @@ export const MessagePersonRoomMember = () => {
           getSortIconByFieldName={getSortIconByFieldName}
           handleRoomMemberClick={handleRoomMemberClick}
           joinRoom={joinRoom}
+          saveRoomPrivate={saveRoomPrivate}
         />
         <div className="MessagePersonRoomMember1-messagelist-body">
-          <MessageListTable messageList={messageList} sort={sort} getSortIconByFieldName={getSortIconByFieldName} />
+          <MessageListTable
+            messageList={messageList}
+            sort={sort}
+            getSortIconByFieldName={getSortIconByFieldName}
+            selectedRoomMemberId={selectedRoomMemberId}
+          />
           <div>
             <div>
               {messages.map((message, index) => (

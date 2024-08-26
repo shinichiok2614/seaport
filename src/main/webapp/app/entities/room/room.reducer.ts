@@ -40,7 +40,7 @@ export const createEntity = createAsyncThunk(
   'room/create_entity',
   async (entity: IRoom, thunkAPI) => {
     const result = await axios.post<IRoom>(apiUrl, cleanEntity(entity));
-    thunkAPI.dispatch(getEntities({}));
+    // thunkAPI.dispatch(getEntities({}));
     return result;
   },
   { serializeError: serializeAxiosError },
