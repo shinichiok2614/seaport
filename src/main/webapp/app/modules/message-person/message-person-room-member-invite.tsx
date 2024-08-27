@@ -109,13 +109,13 @@ export const MessagePersonRoomMemberInvite = () => {
                   validate={{ required: true }}
                 />
               ) : null}
-              <ValidatedField
+              {/* <ValidatedField
                 label={translate('seaportApp.roomMember.name')}
                 id="room-member-name"
                 name="name"
                 data-cy="name"
                 type="text"
-              />
+              /> */}
               <ValidatedField
                 label={translate('seaportApp.roomMember.joinedAt')}
                 id="room-member-joinedAt"
@@ -162,14 +162,14 @@ export const MessagePersonRoomMemberInvite = () => {
                     ))
                   : null}
               </ValidatedField> */}
-              <Button tag={Link} id="cancel-save" data-cy="entityCreateCancelButton" to="/room-member" replace color="info">
+              {/* <Button tag={Link} id="cancel-save" data-cy="entityCreateCancelButton" to="/room-member" replace color="info">
                 <FontAwesomeIcon icon="arrow-left" />
                 &nbsp;
                 <span className="d-none d-md-inline">
                   <Translate contentKey="entity.action.back">Back</Translate>
                 </span>
               </Button>
-              &nbsp;
+              &nbsp; */}
               <Button color="primary" id="save-entity" data-cy="entityCreateSaveButton" type="submit" disabled={updating}>
                 <FontAwesomeIcon icon="save" />
                 &nbsp;

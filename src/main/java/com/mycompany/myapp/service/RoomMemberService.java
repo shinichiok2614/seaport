@@ -156,9 +156,9 @@ public class RoomMemberService {
                         RoomMemberDTO memberDTO = roomMemberMapper.toDto(member);
                         // Thêm thông tin bổ sung nếu cần
                         Optional<Person> personOpt1 = personRepository.findOneByUserId(member.getRoommember().getId());
-                        personOpt.ifPresent(person -> {
-                            PersonDTO personDTO = personMapper.toDto(person);
-                            memberDTO.setPersonDTO(personDTO);
+                        personOpt1.ifPresent(person1 -> {
+                            PersonDTO personDTO1 = personMapper.toDto(person1);
+                            memberDTO.setPersonDTO(personDTO1);
                         });
                         return memberDTO;
                     })

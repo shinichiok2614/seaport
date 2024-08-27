@@ -23,10 +23,10 @@ import { createEntity as createRoom } from 'app/entities/room/room.reducer';
 import dayjs from 'dayjs';
 import { convertDateTimeToServer, displayDefaultDateTime } from 'app/shared/util/date-utils';
 
-import './MessagePersonRoomMember.css';
 import RoomMemberTable from './RoomMemberTable';
 import MessageListTable from './message-list-table';
 import { unwrapResult } from '@reduxjs/toolkit';
+import './MessagePersonRoomMember.css';
 
 export const MessagePersonRoomMember = () => {
   const dispatch = useAppDispatch();
@@ -37,9 +37,13 @@ export const MessagePersonRoomMember = () => {
   const [sortState, setSortState] = useState(overrideSortStateWithQueryParams(getSortState(pageLocation, 'id'), pageLocation.search));
 
   const roomMemberList = useAppSelector(state => state.roomMember.entities);
+  const updateSuccess = useAppSelector(state => state.roomMember.updateSuccess);
   const loading = useAppSelector(state => state.roomMember.loading);
   const currentUser = useAppSelector(state => state.authentication.account);
 
+  useEffect(() => {
+    dispatch(getEntitiesByCurrentUser());
+  }, [updateSuccess]);
   const getAllEntities = () => {
     dispatch(getEntitiesByCurrentUser());
   };
@@ -115,12 +119,13 @@ export const MessagePersonRoomMember = () => {
     }
   }, [selectedRoomId, selectedRoomMemberId, messageupdateSuccess]);
 
-  const handleRoomMemberClick = (roomMember, roommemberId, roomId) => {
-    setSelectedRoomMember(roomMember);
-    setSelectedRoomMemberId(roommemberId);
-    setUsername(roommemberId);
-    setSelectedRoomId(roomId);
-    setRoom(roomId);
+  const handleRoomMemberClick = async (roomMember, roommemberId, roomId) => {
+    await setSelectedRoomMember(roomMember);
+    await setSelectedRoomMemberId(roommemberId);
+    await setUsername(roommemberId);
+    await setSelectedRoomId(roomId);
+    await setRoom(roomId);
+    await joinRoom();
   };
   const joinRoom = () => {
     if (socketRef.current && room && username) {
@@ -169,20 +174,11 @@ export const MessagePersonRoomMember = () => {
       roommember: currentUser,
       name: currentUser.person.name,
       joinedAt: dayjs(),
-      // ...roomMemberEntity,
-      // ...values,
-      // roommember: users.find(
-      //   it => it.id.toString() === values.roommember?.toString(),
-      // ),
-      // room: rooms.find(it => it.id.toString() === values.room?.toString()),
     };
 
     dispatch(createRoomMember(RoomMemberEntity));
   };
 
-  const deleteRoomMember = () => {
-    // dispatch(deleteRoomMember(selectedRoomMemberId));
-  };
   return (
     <div className="MessagePersonRoomMember">
       <div className="MessagePersonRoomMember1">
