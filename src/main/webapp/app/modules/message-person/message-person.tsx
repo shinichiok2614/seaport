@@ -99,33 +99,50 @@ export const MessagePersonRoomMember = () => {
     // }
     socketRef.current = new WebSocket('ws://localhost:8000');
     //lich su chat
-    socketRef.current.onmessage = event => {
-      const { room: receivedRoom, text, username } = JSON.parse(event.data);
-      if (receivedRoom === room) {
-        setMessages(prevMessages => [...prevMessages, { text, username }]);
-      }
-    };
+    // socketRef.current.onmessage = event => {
+    //   const { room: receivedRoom, text, username } = JSON.parse(event.data);
+    //   if (receivedRoom === room) {
+    //     setMessages(prevMessages => [...prevMessages, { text, username }]);
+    //   }
+    // };
 
     return () => {
       if (socketRef.current) {
         socketRef.current.close();
       }
     };
-  }, [selectedRoomId, selectedRoomMemberId]);
+    // }, [selectedRoomId, selectedRoomMemberId]);
+  }, []);
 
   useEffect(() => {
     if (selectedRoomId) {
       dispatch(getAllMessageByRoom(selectedRoomId));
     }
+    // socketRef.current.onmessage = event => {
+    //   const { room: receivedRoom, text, username } = JSON.parse(event.data);
+    //   if (receivedRoom === room) {
+    //     setMessages(prevMessages => [...prevMessages, { text, username }]);
+    //   }
+    // };
+    socketRef.current.onmessage = event => {
+      const { room: receivedRoom, text, username, id } = JSON.parse(event.data);
+
+      if (receivedRoom === room) {
+        setMessages(prevMessages => {
+          // Loại bỏ các tin nhắn đã lưu thành công
+          const filteredMessages = prevMessages.filter(message => message.id !== id);
+          return [...filteredMessages, { text, username, id }];
+        });
+      }
+    };
   }, [selectedRoomId, selectedRoomMemberId, messageupdateSuccess]);
 
-  const handleRoomMemberClick = async (roomMember, roommemberId, roomId) => {
-    await setSelectedRoomMember(roomMember);
-    await setSelectedRoomMemberId(roommemberId);
-    await setUsername(roommemberId);
-    await setSelectedRoomId(roomId);
-    await setRoom(roomId);
-    await joinRoom();
+  const handleRoomMemberClick = (roomMember, roommemberId, roomId) => {
+    setSelectedRoomMember(roomMember);
+    setSelectedRoomMemberId(roommemberId);
+    setUsername(roommemberId);
+    setSelectedRoomId(roomId);
+    setRoom(roomId);
   };
   const joinRoom = () => {
     if (socketRef.current && room && username) {
@@ -133,9 +150,22 @@ export const MessagePersonRoomMember = () => {
       setJoined(true);
     }
   };
+  // const sendMessage = () => {
+  //   if (socketRef.current && inputValue && joined) {
+  //     socketRef.current.send(JSON.stringify({ type: 'message', room, text: inputValue, username }));
+  //     setInputValue('');
+  //     saveEntity();
+  //   }
+  // };
+  const [sentMessageIds, setSentMessageIds] = useState<Set<string>>(new Set());
   const sendMessage = () => {
     if (socketRef.current && inputValue && joined) {
-      socketRef.current.send(JSON.stringify({ type: 'message', room, text: inputValue, username }));
+      const messageId = dayjs().valueOf().toString(); // Tạo ID duy nhất cho tin nhắn này
+      socketRef.current.send(JSON.stringify({ type: 'message', room, text: inputValue, username, id: messageId }));
+
+      // Lưu ID của tin nhắn vào danh sách các tin nhắn đã gửi
+      setSentMessageIds(prevIds => new Set([...prevIds, messageId]));
+
       setInputValue('');
       saveEntity();
     }
@@ -151,7 +181,8 @@ export const MessagePersonRoomMember = () => {
     dispatch(createMessage(entity));
   };
   ////////////////////////////////////
-  const [messages, setMessages] = useState<{ text: string; username: string }[]>([]);
+  // const [messages, setMessages] = useState<{ text: string; username: string }[]>([]);
+  const [messages, setMessages] = useState<{ text: string; username: string; id: string }[]>([]);
   const [inputValue, setInputValue] = useState<string>('');
   const [room, setRoom] = useState<string>('');
   const [username, setUsername] = useState<string>('');
@@ -167,7 +198,7 @@ export const MessagePersonRoomMember = () => {
     // dispatch(createRoom(entity));
     const actionResult = await dispatch(createRoom(entity));
     const result = unwrapResult(actionResult);
-    alert(JSON.stringify(result));
+    // alert(JSON.stringify(result));
 
     const RoomMemberEntity = {
       room: result.data,
