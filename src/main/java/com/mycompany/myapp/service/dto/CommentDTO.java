@@ -32,6 +32,16 @@ public class CommentDTO implements Serializable {
 
     private PostDTO post;
 
+    private PersonDTO person;
+
+    public PersonDTO getPerson() {
+        return person;
+    }
+
+    public void setPerson(PersonDTO person) {
+        this.person = person;
+    }
+
     public Long getId() {
         return id;
     }

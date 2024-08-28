@@ -79,7 +79,12 @@
   text-decoration: none;
   color: #000;
 }
-
+.post-card-name-mini {
+  /* font-family: 'Merriweather', serif; */
+  text-decoration: none;
+  color: #000;
+  font-size: 20px;
+}
 .post-card-name:hover {
   /* text-decoration: underline; */
 }

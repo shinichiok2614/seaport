@@ -40,4 +40,6 @@ public interface CommentRepository extends JpaRepository<Comment, Long> {
 
     @Query("select comment from Comment comment left join fetch comment.comment left join fetch comment.post where comment.id =:id")
     Optional<Comment> findOneWithToOneRelationships(@Param("id") Long id);
+
+    List<Comment> findAllByPostId(Long postId);
 }

@@ -14,7 +14,7 @@ const CommentTableRow = ({ comment }) => {
         {comment.person ? (
           <div>
             {comment.person.avatarContentType ? (
-              <img src={`data:${comment.person.avatarContentType};base64,${comment.person.avatar}`} style={{ maxHeight: '100px' }} />
+              <img src={`data:${comment.person.avatarContentType};base64,${comment.person.avatar}`} style={{ maxHeight: '70px' }} />
             ) : null}
           </div>
         ) : null}

@@ -45,6 +45,7 @@ export const PostViewPage = () => {
   const postEntity = useAppSelector(state => state.post.entity);
   const postloading = useAppSelector(state => state.post.loading);
   const currentUser = useAppSelector(state => state.authentication.account);
+  const isAuthenticated = useAppSelector(state => state.authentication.isAuthenticated);
 
   const [newComment, setNewComment] = useState('');
   useEffect(() => {
@@ -101,7 +102,7 @@ export const PostViewPage = () => {
         <PostPageViewCenter postEntity={postEntity} paragraphList={paragraphList}></PostPageViewCenter>
         <div className="PostViewPage2-comment">Comments: </div>
         <CommentListView commentList={commentList} loading={commentListloading} />
-        <CommentForm defaultValues={defaultValues} saveEntity={saveEntity} commentupdating={commentupdating} />
+        {isAuthenticated && <CommentForm defaultValues={defaultValues} saveEntity={saveEntity} commentupdating={commentupdating} />}
       </div>
       <div className="PostViewPage3"></div>
     </div>

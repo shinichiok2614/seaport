@@ -1,9 +1,13 @@
 package com.mycompany.myapp.service;
 
 import com.mycompany.myapp.domain.Comment;
+import com.mycompany.myapp.domain.Person;
 import com.mycompany.myapp.repository.CommentRepository;
+import com.mycompany.myapp.repository.PersonRepository;
 import com.mycompany.myapp.service.dto.CommentDTO;
+import com.mycompany.myapp.service.dto.PersonDTO;
 import com.mycompany.myapp.service.mapper.CommentMapper;
+import com.mycompany.myapp.service.mapper.PersonMapper;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
@@ -25,12 +29,20 @@ public class CommentService {
     private static final Logger log = LoggerFactory.getLogger(CommentService.class);
 
     private final CommentRepository commentRepository;
-
+    private final PersonRepository personRepository;
+    private final PersonMapper personMapper;
     private final CommentMapper commentMapper;
 
-    public CommentService(CommentRepository commentRepository, CommentMapper commentMapper) {
+    public CommentService(
+        CommentRepository commentRepository,
+        CommentMapper commentMapper,
+        PersonRepository personRepository,
+        PersonMapper personMapper
+    ) {
         this.commentRepository = commentRepository;
         this.commentMapper = commentMapper;
+        this.personRepository = personRepository;
+        this.personMapper = personMapper;
     }
 
     /**
@@ -119,5 +131,30 @@ public class CommentService {
     public void delete(Long id) {
         log.debug("Request to delete Comment : {}", id);
         commentRepository.deleteById(id);
+    }
+
+    @Transactional(readOnly = true)
+    public List<CommentDTO> findAllByPostId(Long id) {
+        log.debug("Request to get all Comments");
+        return commentRepository
+            .findAllByPostId(id)
+            .stream()
+            // .map(commentMapper::toDto)
+            .map(comment -> {
+                CommentDTO commentDTO = commentMapper.toDto(comment);
+
+                // Lấy userId từ comment và tìm Person tương ứng
+                Long userId = comment.getComment().getId();
+                Optional<Person> personOpt = personRepository.findOneByUserId(userId);
+
+                // Gán PersonDTO vào CommentDTO nếu có
+                personOpt.ifPresent(person -> {
+                    PersonDTO personDTO = personMapper.toDto(person);
+                    commentDTO.setPerson(personDTO);
+                });
+
+                return commentDTO;
+            })
+            .collect(Collectors.toCollection(LinkedList::new));
     }
 }

@@ -169,4 +169,12 @@ public class CommentResource {
             .headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString()))
             .build();
     }
+
+    @GetMapping("/{id}/by-post")
+    public ResponseEntity<List<CommentDTO>> findAllByPostId(@PathVariable("id") Long id) {
+        log.debug("REST request to get Comment : {}", id);
+        List<CommentDTO> commentDTO = commentService.findAllByPostId(id);
+        // return ResponseUtil.wrapOrNotFound(commentDTO);
+        return ResponseEntity.ok().body(commentDTO);
+    }
 }

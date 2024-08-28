@@ -7,6 +7,7 @@ import PostCardView from '../post-card-view/post-card-view';
 import PostCardViewRight from '../post-card-view-large/post-card-view-large';
 import PostCardViewMedium from '../post-card-view-medium/post-card-view-medium';
 import './PostList.css';
+import PostListViewHomeMini from '../post-list-view-home copy/post-list-view-home-mini';
 
 const PostListViewHome = ({ postList }) => {
   return (
@@ -31,15 +32,15 @@ const PostListViewHome = ({ postList }) => {
             </div>
             <div className="additional-posts">
               {postList.slice(5, 8).map((post, i) => (
-                <PostCardView key={`entity-${i}`} post={post} />
+                <PostListViewHomeMini key={`entity-${i}`} post={post} hidesumary={true} />
               ))}
             </div>
           </div>
-          {/* <div className="other-posts">
+          <div className="other-posts">
             {postList.slice(8, 10).map((post, i) => (
               <PostCardView key={`entity-${i}`} post={post} />
             ))}
-          </div> */}
+          </div>
         </>
       ) : (
         <div>

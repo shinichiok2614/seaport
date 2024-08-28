@@ -18,7 +18,7 @@ export const Home = () => {
   const categoryList = useAppSelector(state => state.category.entities);
   const loading = useAppSelector(state => state.category.loading);
   useEffect(() => {
-    // dispatch(getEntityWithPost());
+    dispatch(getEntityWithPost());
   }, []);
   const Loading = () => (
     <div className="post loading">
@@ -33,9 +33,9 @@ export const Home = () => {
         </div>
         {categoryList.length > 0
           ? categoryList.map((category, i) => (
-              <LazyLoad key={category.id} placeholder={<Loading />}>
-                <CategoryCardView key={category.id} category={category}></CategoryCardView>
-              </LazyLoad>
+              // <LazyLoad key={category.id} placeholder={<Loading />}>
+              <CategoryCardView key={category.id} category={category}></CategoryCardView>
+              // </LazyLoad>
             ))
           : !loading && (
               <div className="alert alert-warning">
@@ -55,19 +55,6 @@ export const Home = () => {
             </div>
           ) : (
             <div>
-              <Alert color="warning">
-                <Translate contentKey="global.messages.info.authenticated.prefix">If you want to </Translate>
-
-                <Link to="/login" className="alert-link">
-                  <Translate contentKey="global.messages.info.authenticated.link"> sign in</Translate>
-                </Link>
-                <Translate contentKey="global.messages.info.authenticated.suffix">
-                  , you can try the default accounts:
-                  <br />- Administrator (login=&quot;admin&quot; and password=&quot;admin&quot;)
-                  <br />- User (login=&quot;user&quot; and password=&quot;user&quot;).
-                </Translate>
-              </Alert>
-
               <Alert color="warning">
                 <Translate contentKey="global.messages.info.register.noaccount">You do not have an account yet?</Translate>
                 &nbsp;
