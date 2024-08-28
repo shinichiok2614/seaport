@@ -1,0 +1,36 @@
+{
+  "seaportApp": {
+    "post": {
+      "home": {
+        "title": "Bài viết",
+        "refreshListLabel": "Làm mới danh sách",
+        "createLabel": "Tạo một Bài viết mới",
+        "createOrEditLabel": "Tạo hoặc chỉnh sửa một Bài viết",
+        "notFound": "Không tìm thấy Bài viết nào",
+        "listpost": "Danh sách bài viết"
+      },
+      "created": "Một Bài viết mới đã được tạo với mã định danh {{ param }}",
+      "updated": "Một Bài viết đã được cập nhật với mã định danh {{ param }}",
+      "deleted": "Một Bài viết đã bị xóa với mã định danh {{ param }}",
+      "delete": {
+        "question": "Bạn có chắc chắn muốn xóa Bài viết {{ id }} không?"
+      },
+      "detail": {
+        "title": "Bài viết"
+      },
+      "id": "ID",
+      "name": "Tên",
+      "summary": "Tóm tắt",
+      "image": "Ảnh",
+      "status": "Trạng thái",
+      "view": "Lượt xem",
+      "remark": "Ghi chú",
+      "createdAt": "Ngày tạo",
+      "updateAt": "Ngày cập nhật",
+      "approvedAt": "Ngày phê duyệt",
+      "modifiedAt": "Ngày chỉnh sửa",
+      "post": "Bài viết",
+      "category": "Danh mục"
+    }
+  }
+}

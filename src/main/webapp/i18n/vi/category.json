@@ -1,0 +1,24 @@
+{
+  "seaportApp": {
+    "category": {
+      "home": {
+        "title": "Danh mục",
+        "refreshListLabel": "Làm mới danh sách",
+        "createLabel": "Tạo mới một Danh mục",
+        "createOrEditLabel": "Tạo mới hoặc chỉnh sửa Danh mục",
+        "notFound": "Không tìm thấy Danh mục nào"
+      },
+      "created": "Một Danh mục mới đã được tạo với mã định danh {{ param }}",
+      "updated": "Danh mục đã được cập nhật với mã định danh {{ param }}",
+      "deleted": "Danh mục đã được xóa với mã định danh {{ param }}",
+      "delete": {
+        "question": "Bạn có chắc chắn muốn xóa Danh mục {{ id }} không?"
+      },
+      "detail": {
+        "title": "Danh mục"
+      },
+      "id": "ID",
+      "name": "Tên"
+    }
+  }
+}

@@ -25,6 +25,23 @@ export const getEntitiesByPerson = createAsyncThunk(
   },
   { serializeError: serializeAxiosError },
 );
+export const getEntitiesByCurrentUser = createAsyncThunk(
+  'post/fetch_entities_by_current_user',
+  async () => {
+    const requestUrl = `${apiUrl}/currentuser`;
+    return axios.get<IPost[]>(requestUrl);
+  },
+  { serializeError: serializeAxiosError },
+);
+export const getEntitiesByFollow = createAsyncThunk(
+  'post/fetch_entities_by_follow',
+  async (id: string | number) => {
+    const requestUrl = `${apiUrl}/${id}/follow`;
+    return axios.get<IPost[]>(requestUrl);
+  },
+  { serializeError: serializeAxiosError },
+);
+
 export const getEntityByPerson = createAsyncThunk(
   'post/fetch_entity_by_person',
   async (id: string | number) => {
@@ -107,7 +124,15 @@ export const PostSlice = createEntitySlice({
         state.loading = false;
         state.entity = action.payload.data;
       })
+      .addCase(getEntitiesByFollow.fulfilled, (state, action) => {
+        state.loading = false;
+        state.entities = action.payload.data;
+      })
       .addCase(getEntitiesByPerson.fulfilled, (state, action) => {
+        state.loading = false;
+        state.entities = action.payload.data;
+      })
+      .addCase(getEntitiesByCurrentUser.fulfilled, (state, action) => {
         state.loading = false;
         state.entities = action.payload.data;
       })
@@ -138,11 +163,14 @@ export const PostSlice = createEntitySlice({
         state.updateSuccess = true;
         state.entity = action.payload.data;
       })
-      .addMatcher(isPending(getEntities, getEntitiesByPerson, getEntity, getEntityByPerson), state => {
-        state.errorMessage = null;
-        state.updateSuccess = false;
-        state.loading = true;
-      })
+      .addMatcher(
+        isPending(getEntities, getEntitiesByPerson, getEntity, getEntityByPerson, getEntitiesByFollow, getEntitiesByCurrentUser),
+        state => {
+          state.errorMessage = null;
+          state.updateSuccess = false;
+          state.loading = true;
+        },
+      )
       .addMatcher(isPending(createEntity, updateEntity, partialUpdateEntity, deleteEntity), state => {
         state.errorMessage = null;
         state.updateSuccess = false;

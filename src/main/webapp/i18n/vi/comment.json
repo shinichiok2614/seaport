@@ -1,0 +1,29 @@
+{
+  "seaportApp": {
+    "comment": {
+      "home": {
+        "title": "Bình luận",
+        "refreshListLabel": "Làm mới danh sách",
+        "createLabel": "Tạo mới một Bình luận",
+        "createOrEditLabel": "Tạo mới hoặc chỉnh sửa Bình luận",
+        "notFound": "Không tìm thấy Bình luận nào"
+      },
+      "created": "Một Bình luận mới đã được tạo với mã định danh {{ param }}",
+      "updated": "Bình luận đã được cập nhật với mã định danh {{ param }}",
+      "deleted": "Bình luận đã được xóa với mã định danh {{ param }}",
+      "delete": {
+        "question": "Bạn có chắc chắn muốn xóa Bình luận {{ id }} không?"
+      },
+      "detail": {
+        "title": "Bình luận"
+      },
+      "id": "ID",
+      "description": "Mô tả",
+      "image": "Hình ảnh",
+      "createdAt": "Ngày tạo",
+      "updateAt": "Ngày cập nhật",
+      "comment": "Bình luận",
+      "post": "Bài viết"
+    }
+  }
+}

@@ -1,5 +1,6 @@
 package com.mycompany.myapp.web.rest;
 
+import com.mycompany.myapp.domain.Post;
 import com.mycompany.myapp.repository.PostRepository;
 import com.mycompany.myapp.service.PostService;
 import com.mycompany.myapp.service.dto.PostDTO;
@@ -11,6 +12,7 @@ import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.stream.Collectors;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -182,5 +184,17 @@ public class PostResource {
         log.debug("REST request to get Post : {}", id);
         List<PostDTO> postDTOs = postService.findAllByPersonId(id);
         return ResponseEntity.ok().body(postDTOs);
+    }
+
+    @GetMapping("/{id}/follow")
+    public ResponseEntity<List<PostDTO>> getAllPostsFromFollowedUsers() {
+        List<PostDTO> posts = postService.getAllPostsFromFollowedUsers();
+        return ResponseEntity.ok().body(posts);
+    }
+
+    @GetMapping("/currentuser")
+    public ResponseEntity<List<PostDTO>> findByPostIsCurrentUser() {
+        List<PostDTO> posts = postService.findByPostIsCurrentUser();
+        return ResponseEntity.ok().body(posts);
     }
 }

@@ -1,0 +1,10 @@
+{
+  "seaportApp": {
+    "Status": {
+      "null": "",
+      "PENDING": "ĐANG CHỜ",
+      "APPROVED": "ĐÃ ĐƯỢC DUYỆT",
+      "CANCELLED": "ĐÃ HỦY"
+    }
+  }
+}

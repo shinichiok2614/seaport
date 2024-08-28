@@ -1,0 +1,25 @@
+{
+  "seaportApp": {
+    "department": {
+      "home": {
+        "title": "Phòng ban",
+        "refreshListLabel": "Làm mới danh sách",
+        "createLabel": "Tạo mới một Phòng ban",
+        "createOrEditLabel": "Tạo mới hoặc chỉnh sửa Phòng ban",
+        "notFound": "Không tìm thấy Phòng ban nào"
+      },
+      "created": "Một Phòng ban mới đã được tạo với mã định danh {{ param }}",
+      "updated": "Phòng ban đã được cập nhật với mã định danh {{ param }}",
+      "deleted": "Phòng ban đã được xóa với mã định danh {{ param }}",
+      "delete": {
+        "question": "Bạn có chắc chắn muốn xóa Phòng ban {{ id }} không?"
+      },
+      "detail": {
+        "title": "Phòng ban"
+      },
+      "id": "ID",
+      "name": "Tên",
+      "image": "Hình ảnh"
+    }
+  }
+}

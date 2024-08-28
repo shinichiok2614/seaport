@@ -9,7 +9,7 @@ import { ASC, DESC, SORT } from 'app/shared/util/pagination.constants';
 import { overrideSortStateWithQueryParams } from 'app/shared/util/entity-utils';
 import { useAppDispatch, useAppSelector } from 'app/config/store';
 
-import { getEntities } from './person.reducer';
+import { getEntities, updateEntity } from './person.reducer';
 
 export const Person = () => {
   const dispatch = useAppDispatch();
@@ -64,6 +64,13 @@ export const Person = () => {
     }
   };
 
+  const handleUpdateAuthor = values => {
+    const entity = {
+      ...values,
+      isAuthor: !values.isAuthor,
+    };
+    dispatch(updateEntity(entity));
+  };
   return (
     <div>
       <h2 id="person-heading" data-cy="PersonHeading">
@@ -190,10 +197,20 @@ export const Person = () => {
                   <td>{person.department ? <Link to={`/department/${person.department.id}`}>{person.department.name}</Link> : ''}</td>
                   <td className="text-end">
                     <div className="btn-group flex-btn-group-container">
-                      <Button tag={Link} to={`/person/${person.id}`} color="info" size="sm" data-cy="entityDetailsButton">
+                      <Button
+                        tag={Link}
+                        onClick={() => handleUpdateAuthor(person)}
+                        color={person.isAuthor ? 'danger' : 'success'}
+                        size="sm"
+                        data-cy="entityDetailsButton"
+                      >
                         <FontAwesomeIcon icon="eye" />{' '}
                         <span className="d-none d-md-inline">
-                          <Translate contentKey="entity.action.view">View</Translate>
+                          {person.isAuthor ? (
+                            <Translate contentKey="entity.action.disableAuthor">View</Translate>
+                          ) : (
+                            <Translate contentKey="entity.action.updateAuthor">View</Translate>
+                          )}
                         </span>
                       </Button>
                       <Button tag={Link} to={`/person/${person.id}/edit`} color="primary" size="sm" data-cy="entityEditButton">

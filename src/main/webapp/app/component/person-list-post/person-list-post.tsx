@@ -10,7 +10,7 @@ import { overrideSortStateWithQueryParams } from 'app/shared/util/entity-utils';
 import { useAppDispatch, useAppSelector } from 'app/config/store';
 
 import PostList from 'app/component/post-list/post-list';
-import { getEntities } from 'app/entities/post/post.reducer';
+import { getEntities, getEntitiesByCurrentUser, getEntitiesByPerson } from 'app/entities/post/post.reducer';
 
 export const PersonListPost = () => {
   const dispatch = useAppDispatch();
@@ -22,17 +22,18 @@ export const PersonListPost = () => {
 
   const postList = useAppSelector(state => state.post.entities);
   const loading = useAppSelector(state => state.post.loading);
+  const currentUser = useAppSelector(state => state.authentication.account);
 
-  const getAllEntities = () => {
-    dispatch(
-      getEntities({
-        sort: `${sortState.sort},${sortState.order}`,
-      }),
-    );
-  };
-
+  // const getAllEntities = () => {
+  //   dispatch(
+  //     getEntitiesByPerson(currentUser.id),
+  //   );
+  // };
+  useEffect(() => {
+    dispatch(getEntitiesByCurrentUser());
+  }, []);
   const sortEntities = () => {
-    getAllEntities();
+    // getAllEntities();
     const endURL = `?sort=${sortState.sort},${sortState.order}`;
     if (pageLocation.search !== endURL) {
       navigate(`${pageLocation.pathname}${endURL}`);

@@ -142,6 +142,7 @@ import { getEntities as getDepartments } from 'app/entities/department/departmen
 import { IPerson } from 'app/shared/model/person.model';
 import PersonForm from 'app/component/person-edit/person-form';
 import { reset, getEntity, updateEntity, createEntity } from 'app/entities/person/person.reducer';
+import { unwrapResult } from '@reduxjs/toolkit';
 
 export const PersonUpdatePage = () => {
   const dispatch = useAppDispatch();
@@ -160,8 +161,8 @@ export const PersonUpdatePage = () => {
   const currentUser = useAppSelector(state => state.authentication.account);
 
   const handleClose = () => {
-    window.location.reload();
-    navigate('/');
+    // window.location.reload();
+    // navigate('/');
   };
 
   useEffect(() => {
@@ -182,7 +183,7 @@ export const PersonUpdatePage = () => {
   }, [updateSuccess]);
 
   // eslint-disable-next-line complexity
-  const saveEntity = values => {
+  const saveEntity = async values => {
     if (values.id !== undefined && typeof values.id !== 'number') {
       values.id = Number(values.id);
     }
@@ -199,9 +200,15 @@ export const PersonUpdatePage = () => {
     };
 
     if (isNew) {
-      dispatch(createEntity(entity));
+      // dispatch(createEntity(entity));
+      const actionResult = await dispatch(createEntity(entity));
+      const result = unwrapResult(actionResult);
+      navigate(`/personalpage/${result.data.id}`);
     } else {
       dispatch(updateEntity(entity));
+      // const actionResult = await dispatch(updateEntity(entity));
+      // const result = unwrapResult(actionResult);
+      // navigate(`/personalpage/${result.data.id}`);
     }
   };
 

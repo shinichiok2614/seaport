@@ -1,0 +1,36 @@
+{
+  "seaportApp": {
+    "person": {
+      "home": {
+        "title": "Nhân viên",
+        "refreshListLabel": "Làm mới danh sách",
+        "createLabel": "Tạo một Nhân viên mới",
+        "createOrEditLabel": "Tạo hoặc chỉnh sửa Nhân viên",
+        "notFound": "Không tìm thấy Nhân viên nào"
+      },
+      "created": "Một Nhân viên mới đã được tạo với mã định danh {{ param }}",
+      "updated": "Một Nhân viên đã được cập nhật với mã định danh {{ param }}",
+      "deleted": "Một Nhân viên đã bị xóa với mã định danh {{ param }}",
+      "delete": {
+        "question": "Bạn có chắc chắn muốn xóa Nhân viên {{ id }} không?"
+      },
+      "detail": {
+        "title": "Nhân viên"
+      },
+      "id": "ID",
+      "name": "Tên",
+      "avatar": "Ảnh đại diện",
+      "cover": "Ảnh bìa",
+      "bio": "Tiểu sử",
+      "phone": "Số điện thoại",
+      "country": "Quốc gia",
+      "address": "Địa chỉ",
+      "createdAt": "Ngày tạo",
+      "updateAt": "Ngày cập nhật",
+      "dateOfBirth": "Ngày sinh",
+      "isAuthor": "Là tác giả",
+      "user": "Người dùng",
+      "department": "Bộ phận"
+    }
+  }
+}

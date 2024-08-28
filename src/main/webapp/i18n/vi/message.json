@@ -1,0 +1,29 @@
+{
+  "seaportApp": {
+    "message": {
+      "home": {
+        "title": "Tin nhắn",
+        "refreshListLabel": "Tải lại danh sách",
+        "createLabel": "Tạo tin nhắn mới",
+        "createOrEditLabel": "Tạo hoặc chỉnh sửa tin nhắn",
+        "notFound": "Không tìm thấy tin nhắn nào"
+      },
+      "created": "Một tin nhắn mới được tạo với mã định danh {{ param }}",
+      "updated": "Một tin nhắn được cập nhật với mã định danh {{ param }}",
+      "deleted": "Một tin nhắn đã bị xóa với mã định danh {{ param }}",
+      "delete": {
+        "question": "Bạn có chắc chắn muốn xóa tin nhắn {{ id }} không?"
+      },
+      "detail": {
+        "title": "Tin nhắn"
+      },
+      "id": "ID",
+      "content": "Nội dung",
+      "image": "Hình ảnh",
+      "isActive": "Đang hoạt động",
+      "createdAt": "Ngày tạo",
+      "sender": "Người gửi",
+      "message": "Tin nhắn"
+    }
+  }
+}

@@ -47,4 +47,9 @@ public interface PostRepository extends JpaRepository<Post, Long> {
 
     @Query("SELECT p FROM Post p WHERE p.category.id = :categoryId AND p.status = :status ORDER BY p.createdAt DESC")
     List<Post> findTop10ByCategoryIdAndStatusOrderByCreatedAtDesc(@Param("categoryId") Long categoryId, @Param("status") Status status);
+
+    @Query(
+        "SELECT p FROM Post p WHERE p.post.id IN (SELECT f.followee.id FROM Follow f WHERE f.follower.id = ?#{authentication.id}) AND p.status = 'APPROVED'"
+    )
+    List<Post> findAllPostsFromFollowedUsers();
 }

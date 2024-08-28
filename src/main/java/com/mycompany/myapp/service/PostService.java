@@ -97,7 +97,41 @@ public class PostService {
     @Transactional(readOnly = true)
     public List<PostDTO> findAll() {
         log.debug("Request to get all Posts");
-        return postRepository.findAll().stream().map(postMapper::toDto).collect(Collectors.toCollection(LinkedList::new));
+        // return postRepository.findAll().stream().map(postMapper::toDto).collect(Collectors.toCollection(LinkedList::new));
+        return postRepository
+            .findAll()
+            .stream()
+            .map(post -> {
+                PostDTO postDTO = new PostDTO();
+                postDTO.setId(post.getId());
+                postDTO.setName(post.getName());
+                postDTO.setCreatedAt(post.getCreatedAt());
+                postDTO.setSummary(post.getSummary());
+                postDTO.setImage(post.getImage());
+                postDTO.setImageContentType(post.getImageContentType());
+                postDTO.setStatus(post.getStatus());
+                postDTO.setView(post.getView());
+                postDTO.setRemark(post.getRemark());
+                postDTO.setUpdateAt(post.getUpdateAt());
+                postDTO.setApprovedAt(post.getApprovedAt());
+                postDTO.setModifiedAt(post.getModifiedAt());
+
+                Optional<Person> personOpt = personRepository.findOneByUserId( // userid->personid
+                    post.getPost().getId()
+                );
+                personOpt.ifPresent(person -> {
+                    PersonDTO personDTO = personMapper.toDto(person); // lấy kq user và tìm person tương ứng
+                    postDTO.setPerson(personDTO);
+                });
+                if (post.getCategory() != null) {
+                    CategoryDTO categoryDTO = new CategoryDTO();
+                    categoryDTO.setId(post.getCategory().getId());
+                    categoryDTO.setName(post.getCategory().getName());
+                    postDTO.setCategory(categoryDTO);
+                }
+                return postDTO;
+            })
+            .collect(Collectors.toCollection(LinkedList::new));
     }
 
     /**
@@ -196,5 +230,15 @@ public class PostService {
             // khác
             return Collections.emptyList();
         }
+    }
+
+    @Transactional(readOnly = true)
+    public List<PostDTO> getAllPostsFromFollowedUsers() {
+        return postRepository.findAllPostsFromFollowedUsers().stream().map(postMapper::toDto).collect(Collectors.toList());
+    }
+
+    @Transactional(readOnly = true)
+    public List<PostDTO> findByPostIsCurrentUser() {
+        return postRepository.findByPostIsCurrentUser().stream().map(postMapper::toDto).collect(Collectors.toList());
     }
 }

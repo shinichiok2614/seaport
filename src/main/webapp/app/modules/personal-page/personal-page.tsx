@@ -7,7 +7,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { APP_DATE_FORMAT } from 'app/config/constants';
 import { useAppDispatch, useAppSelector } from 'app/config/store';
 import { getEntity as getPerson } from 'app/entities/person/person.reducer';
-import { getEntitiesByPerson } from 'app/entities/post/post.reducer';
+import { getEntitiesByFollow, getEntitiesByPerson } from 'app/entities/post/post.reducer';
 import PostCardView from 'app/component/post-card-view/post-card-view';
 import { faPhone, faGlobe, faMapMarkerAlt, faCalendarAlt, faUser } from '@fortawesome/free-solid-svg-icons';
 
@@ -20,6 +20,7 @@ export const PersonalPage = () => {
   useEffect(() => {
     dispatch(getPerson(id));
     dispatch(getEntitiesByPerson(id));
+    // dispatch(getEntitiesByFollow(id));
   }, []);
 
   const personEntity = useAppSelector(state => state.person.entity);
@@ -68,12 +69,12 @@ export const PersonalPage = () => {
             <span>
               <strong>{postList.length}</strong> posts
             </span>
-            <span>
+            {/* <span>
               <strong>200</strong> followers
             </span>
             <span>
               <strong>180</strong> following
-            </span>
+            </span> */}
           </div>
         </div>
       </div>
@@ -84,12 +85,12 @@ export const PersonalPage = () => {
         <Button color={activeTab === 'posts' ? 'primary' : 'secondary'} onClick={() => setActiveTab('posts')}>
           Posts
         </Button>
-        <Button color={activeTab === 'posts' ? 'primary' : 'secondary'} onClick={() => setActiveTab('posts')}>
+        {/* <Button color={activeTab === 'posts' ? 'primary' : 'secondary'} onClick={() => setActiveTab('posts')}>
           Follower
         </Button>
         <Button color={activeTab === 'posts' ? 'primary' : 'secondary'} onClick={() => setActiveTab('posts')}>
           Following
-        </Button>
+        </Button> */}
       </div>
       {activeTab === 'about' && (
         <div className="profile-bio">
@@ -121,6 +122,7 @@ export const PersonalPage = () => {
               <FontAwesomeIcon icon="pencil-alt" /> <Translate contentKey="seaportApp.post.home.createLabel">Create new Post</Translate>{' '}
             </Button>
           )}
+          &nbsp;
           {personEntity.id === currentUser.person?.id && currentUser.person?.isAuthor && (
             <Button tag={Link} to={`/personlistpost/${currentUser.person?.id}`} replace color="primary">
               <FontAwesomeIcon icon="pencil-alt" /> <Translate contentKey="seaportApp.post.home.listpost">List Post</Translate>{' '}

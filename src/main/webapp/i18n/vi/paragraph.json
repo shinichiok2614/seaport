@@ -1,0 +1,30 @@
+{
+  "seaportApp": {
+    "paragraph": {
+      "home": {
+        "title": "Đoạn văn",
+        "refreshListLabel": "Tải lại danh sách",
+        "createLabel": "Tạo một đoạn văn mới",
+        "createOrEditLabel": "Tạo hoặc chỉnh sửa một đoạn văn",
+        "notFound": "Không tìm thấy đoạn văn nào"
+      },
+      "created": "Một đoạn văn mới đã được tạo với định danh {{ param }}",
+      "updated": "Một đoạn văn đã được cập nhật với định danh {{ param }}",
+      "deleted": "Một đoạn văn đã bị xóa với định danh {{ param }}",
+      "delete": {
+        "question": "Bạn có chắc chắn muốn xóa đoạn văn {{ id }} không?"
+      },
+      "detail": {
+        "title": "Đoạn văn"
+      },
+      "id": "ID",
+      "image": "Hình ảnh",
+      "caption": "Chú thích",
+      "content": "Nội dung",
+      "contentType": "Loại nội dung",
+      "createdAt": "Ngày tạo",
+      "updatedAt": "Ngày cập nhật",
+      "paragraph": "Đoạn văn"
+    }
+  }
+}

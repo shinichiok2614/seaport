@@ -1,0 +1,15 @@
+{
+  "sessions": {
+    "title": "Các phiên hoạt động của [<strong>{{username}}</strong>]",
+    "table": {
+      "ipaddress": "Địa chỉ IP",
+      "useragent": "User Agent",
+      "date": "Ngày",
+      "button": "Hủy phiên"
+    },
+    "messages": {
+      "success": "<strong>Phiên đã bị hủy!</strong>",
+      "error": "<strong>Đã xảy ra lỗi!</strong> Không thể hủy phiên."
+    }
+  }
+}

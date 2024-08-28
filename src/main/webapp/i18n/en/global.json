@@ -113,7 +113,10 @@
       "view": "View",
       "join": "Join",
       "invite": "Invite",
-      "show": "Show {{otherEntity}}"
+      "show": "Show {{otherEntity}}",
+      "updateAuthor": "Update Author",
+      "disableAuthor": "Disable Author",
+      "createcontent": "Create Content"
     },
     "detail": {
       "field": "Field",

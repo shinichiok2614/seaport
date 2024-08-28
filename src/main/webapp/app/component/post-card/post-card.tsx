@@ -42,7 +42,7 @@ const PostCard = ({ post }) => {
       <td>{post.approvedAt ? <TextFormat type="date" value={post.approvedAt} format={APP_DATE_FORMAT} /> : null}</td>
       <td>{post.modifiedAt ? <TextFormat type="date" value={post.modifiedAt} format={APP_DATE_FORMAT} /> : null}</td>
       <td>{post.category ? <Link to={`/category/${post.category.id}`}>{post.category.name}</Link> : ''}</td>
-      <td>{post.post ? post.post.login : ''}</td>
+      <td>{post.person ? post.person.name : ''}</td>
       <td className="text-end">
         <div className="btn-group flex-btn-group-container">
           <Button tag={Link} to={`/postapprovepageremark/${post.id}`} color="info" size="sm" data-cy="entityDetailsButton">

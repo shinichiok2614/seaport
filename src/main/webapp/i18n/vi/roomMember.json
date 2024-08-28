@@ -1,0 +1,27 @@
+{
+  "seaportApp": {
+    "roomMember": {
+      "home": {
+        "title": "Thành viên phòng",
+        "refreshListLabel": "Làm mới danh sách",
+        "createLabel": "Tạo thành viên phòng mới",
+        "createOrEditLabel": "Tạo hoặc chỉnh sửa thành viên phòng",
+        "notFound": "Không tìm thấy thành viên phòng nào"
+      },
+      "created": "Một thành viên phòng mới đã được tạo với mã định danh {{ param }}",
+      "updated": "Một thành viên phòng đã được cập nhật với mã định danh {{ param }}",
+      "deleted": "Một thành viên phòng đã được xóa với mã định danh {{ param }}",
+      "delete": {
+        "question": "Bạn có chắc chắn muốn xóa thành viên phòng {{ id }} không?"
+      },
+      "detail": {
+        "title": "Thành viên phòng"
+      },
+      "id": "ID",
+      "name": "Tên",
+      "joinedAt": "Ngày gia nhập",
+      "roommember": "Thành viên phòng",
+      "room": "Phòng"
+    }
+  }
+}

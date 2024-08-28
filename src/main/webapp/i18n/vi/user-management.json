@@ -1,0 +1,31 @@
+{
+  "userManagement": {
+    "home": {
+      "title": "Người dùng",
+      "refreshListLabel": "Làm mới danh sách",
+      "createLabel": "Tạo người dùng mới",
+      "createOrEditLabel": "Tạo hoặc chỉnh sửa người dùng"
+    },
+    "created": "Người dùng mới được tạo với mã định danh {{ param }}",
+    "updated": "Người dùng được cập nhật với mã định danh {{ param }}",
+    "deleted": "Người dùng được xóa với mã định danh {{ param }}",
+    "delete": {
+      "question": "Bạn có chắc chắn muốn xóa người dùng {{ login }} không?"
+    },
+    "detail": {
+      "title": "Người dùng"
+    },
+    "login": "Đăng nhập",
+    "firstName": "Họ",
+    "lastName": "Tên",
+    "email": "Email",
+    "activated": "Đã kích hoạt",
+    "deactivated": "Đã vô hiệu hóa",
+    "profiles": "Hồ sơ",
+    "langKey": "Ngôn ngữ",
+    "createdBy": "Được tạo bởi",
+    "createdDate": "Ngày tạo",
+    "lastModifiedBy": "Được chỉnh sửa bởi",
+    "lastModifiedDate": "Ngày chỉnh sửa"
+  }
+}

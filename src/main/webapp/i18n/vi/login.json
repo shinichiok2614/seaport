@@ -1,0 +1,19 @@
+{
+  "login": {
+    "title": "Đăng nhập",
+    "form": {
+      "password": "Mật khẩu",
+      "password.placeholder": "Mật khẩu của bạn",
+      "rememberme": "Nhớ tôi",
+      "button": "Đăng nhập"
+    },
+    "messages": {
+      "error": {
+        "authentication": "<strong>Đăng nhập không thành công!</strong> Vui lòng kiểm tra thông tin đăng nhập và thử lại."
+      }
+    },
+    "password": {
+      "forgot": "Bạn quên mật khẩu?"
+    }
+  }
+}

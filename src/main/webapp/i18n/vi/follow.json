@@ -1,0 +1,26 @@
+{
+  "seaportApp": {
+    "follow": {
+      "home": {
+        "title": "Theo dõi",
+        "refreshListLabel": "Làm mới danh sách",
+        "createLabel": "Tạo mới một Theo dõi",
+        "createOrEditLabel": "Tạo mới hoặc chỉnh sửa Theo dõi",
+        "notFound": "Không tìm thấy Theo dõi nào"
+      },
+      "created": "Một Theo dõi mới đã được tạo với mã định danh {{ param }}",
+      "updated": "Theo dõi đã được cập nhật với mã định danh {{ param }}",
+      "deleted": "Theo dõi đã được xóa với mã định danh {{ param }}",
+      "delete": {
+        "question": "Bạn có chắc chắn muốn xóa Theo dõi {{ id }} không?"
+      },
+      "detail": {
+        "title": "Theo dõi"
+      },
+      "id": "ID",
+      "createdAt": "Ngày tạo",
+      "follower": "Người theo dõi",
+      "followee": "Người được theo dõi"
+    }
+  }
+}

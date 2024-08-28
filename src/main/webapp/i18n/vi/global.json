@@ -1,0 +1,165 @@
+{
+  "global": {
+    "title": "Seaport",
+    "browsehappy": "Bạn đang sử dụng một trình duyệt <strong>cũ</strong>. Vui lòng <a href=\"http://browsehappy.com/?locale=en\">nâng cấp trình duyệt của bạn</a> để cải thiện trải nghiệm của bạn.",
+    "menu": {
+      "postapprovemenu": "Duyệt Bài viết",
+      "home": "Trang chính",
+      "messageperson": "Tin nhắn",
+      "personalmenu": "Trang cá nhân",
+      "jhipster-needle-menu-add-element": "JHipster sẽ thêm các mục menu bổ sung ở đây (không dịch!)",
+      "entities": {
+        "main": "Thực thể",
+        "jhipster-needle-menu-add-entry": "JHipster sẽ thêm các thực thể bổ sung ở đây (không dịch!)",
+        "person": "Người",
+        "department": "Phòng ban",
+        "category": "Danh mục",
+        "post": "Bài viết",
+        "paragraph": "Đoạn văn",
+        "comment": "Bình luận",
+        "message": "Tin nhắn",
+        "room": "Phòng",
+        "roomMember": "Thành viên phòng",
+        "follow": "Theo dõi"
+      },
+      "account": {
+        "main": "Tài khoản",
+        "settings": "Cài đặt",
+        "password": "Mật khẩu",
+        "sessions": "Phiên làm việc",
+        "login": "Đăng nhập",
+        "logout": "Đăng xuất",
+        "register": "Đăng ký"
+      },
+      "admin": {
+        "main": "Quản trị",
+        "userManagement": "Quản lý người dùng",
+        "tracker": "Theo dõi người dùng",
+        "metrics": "Số liệu thống kê",
+        "health": "Sức khỏe",
+        "configuration": "Cấu hình",
+        "logs": "Nhật ký",
+        "apidocs": "Tài liệu API",
+        "database": "Cơ sở dữ liệu",
+        "jhipster-needle-menu-add-admin-element": "JHipster sẽ thêm các mục menu quản trị bổ sung ở đây (không dịch!)"
+      },
+      "language": "Ngôn ngữ"
+    },
+    "form": {
+      "username.label": "Tên người dùng",
+      "username.placeholder": "Tên người dùng của bạn",
+      "currentpassword.label": "Mật khẩu hiện tại",
+      "currentpassword.placeholder": "Mật khẩu hiện tại",
+      "newpassword.label": "Mật khẩu mới",
+      "newpassword.placeholder": "Mật khẩu mới",
+      "confirmpassword.label": "Xác nhận mật khẩu mới",
+      "confirmpassword.placeholder": "Xác nhận mật khẩu mới",
+      "email.label": "Email",
+      "email.placeholder": "Email của bạn"
+    },
+    "messages": {
+      "info": {
+        "authenticated": {
+          "prefix": "Nếu bạn muốn ",
+          "link": "đăng nhập",
+          "suffix": ", bạn có thể thử các tài khoản mặc định:<br/>- Quản trị viên (tên đăng nhập=\"admin\" và mật khẩu=\"admin\") <br/>- Người dùng (tên đăng nhập=\"user\" và mật khẩu=\"user\")."
+        },
+        "register": {
+          "noaccount": "Bạn chưa có tài khoản?",
+          "link": "Đăng ký tài khoản mới"
+        }
+      },
+      "error": {
+        "dontmatch": "Mật khẩu và xác nhận mật khẩu không khớp!"
+      },
+      "validate": {
+        "newpassword": {
+          "required": "Mật khẩu của bạn là bắt buộc.",
+          "minlength": "Mật khẩu của bạn cần có ít nhất 4 ký tự.",
+          "maxlength": "Mật khẩu của bạn không được dài hơn 50 ký tự.",
+          "strength": "Độ mạnh của mật khẩu:"
+        },
+        "confirmpassword": {
+          "required": "Xác nhận mật khẩu của bạn là bắt buộc.",
+          "minlength": "Xác nhận mật khẩu của bạn cần có ít nhất 4 ký tự.",
+          "maxlength": "Xác nhận mật khẩu của bạn không được dài hơn 50 ký tự."
+        },
+        "email": {
+          "required": "Email của bạn là bắt buộc.",
+          "invalid": "Email của bạn không hợp lệ.",
+          "minlength": "Email của bạn cần có ít nhất 5 ký tự.",
+          "maxlength": "Email của bạn không được dài hơn 50 ký tự."
+        }
+      }
+    },
+    "field": {
+      "id": "ID"
+    },
+    "ribbon": {
+      "dev": "Phát triển"
+    },
+    "item-count": "Hiển thị từ {{first}} - {{second}} của {{total}} mục."
+  },
+  "entity": {
+    "action": {
+      "addblob": "Thêm blob",
+      "addimage": "Thêm hình ảnh",
+      "back": "Quay lại",
+      "cancel": "Hủy",
+      "delete": "Xóa",
+      "edit": "Chỉnh sửa",
+      "open": "Mở",
+      "save": "Lưu",
+      "view": "Xem",
+      "join": "Tham gia",
+      "invite": "Mời",
+      "show": "Hiển thị {{otherEntity}}",
+      "updateAuthor": "Cập nhật tác giả",
+      "disableAuthor": "Vô hiệu hóa tác giả",
+      "createcontent": "Tạo nội dung"
+    },
+    "detail": {
+      "field": "Trường",
+      "value": "Giá trị"
+    },
+    "delete": {
+      "title": "Xác nhận thao tác xóa"
+    },
+    "validation": {
+      "required": "Trường này là bắt buộc.",
+      "minlength": "Trường này cần có ít nhất {{ min }} ký tự.",
+      "maxlength": "Trường này không được dài hơn {{ max }} ký tự.",
+      "min": "Trường này nên ít nhất {{ min }}.",
+      "max": "Trường này không được nhiều hơn {{ max }}.",
+      "minbytes": "Trường này nên có ít nhất {{ min }} byte.",
+      "maxbytes": "Trường này không được nhiều hơn {{ max }} byte.",
+      "pattern": "Trường này nên theo mẫu {{ pattern }}.",
+      "number": "Trường này nên là một số.",
+      "datetimelocal": "Trường này nên là ngày và giờ.",
+      "patternLogin": "Trường này chỉ có thể chứa chữ cái, chữ số và địa chỉ email."
+    },
+    "filters": {
+      "set": "Các bộ lọc sau đây đã được thiết lập",
+      "clear": "Xóa bộ lọc",
+      "clearAll": "Xóa tất cả bộ lọc"
+    }
+  },
+  "error": {
+    "internalServerError": "Lỗi máy chủ nội bộ",
+    "server.not.reachable": "Không thể kết nối đến máy chủ",
+    "url.not.found": "Không tìm thấy",
+    "NotNull": "Trường {{ fieldName }} không được để trống!",
+    "Size": "Trường {{ fieldName }} không đáp ứng yêu cầu kích thước tối thiểu/tối đa!",
+    "userexists": "Tên đăng nhập đã được sử dụng!",
+    "emailexists": "Email đã được sử dụng!",
+    "idexists": "Một {{ entityName }} mới không thể đã có ID",
+    "idnull": "ID không hợp lệ",
+    "idinvalid": "ID không hợp lệ",
+    "idnotfound": "Không thể tìm thấy ID",
+    "file": {
+      "could.not.extract": "Không thể trích xuất tệp",
+      "not.image": "Tệp được mong đợi là hình ảnh nhưng lại là \"{{ fileType }}\""
+    }
+  },
+  "footer": "Đây là chân trang của bạn"
+}

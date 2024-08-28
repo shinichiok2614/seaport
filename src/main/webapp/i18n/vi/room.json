@@ -1,0 +1,27 @@
+{
+  "seaportApp": {
+    "room": {
+      "home": {
+        "title": "Các phòng",
+        "refreshListLabel": "Làm mới danh sách",
+        "createLabel": "Tạo phòng mới",
+        "createLabelPrivate": "Tạo phòng riêng tư",
+        "createOrEditLabel": "Tạo hoặc chỉnh sửa phòng",
+        "notFound": "Không tìm thấy phòng nào"
+      },
+      "created": "Một phòng mới đã được tạo với mã định danh {{ param }}",
+      "updated": "Một phòng đã được cập nhật với mã định danh {{ param }}",
+      "deleted": "Một phòng đã được xóa với mã định danh {{ param }}",
+      "delete": {
+        "question": "Bạn có chắc chắn muốn xóa phòng {{ id }} không?"
+      },
+      "detail": {
+        "title": "Phòng"
+      },
+      "id": "ID",
+      "name": "Tên",
+      "isPrivate": "Có phải riêng tư không",
+      "createdAt": "Ngày tạo"
+    }
+  }
+}
