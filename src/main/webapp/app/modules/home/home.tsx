@@ -18,7 +18,7 @@ export const Home = () => {
   const categoryList = useAppSelector(state => state.category.entities);
   const loading = useAppSelector(state => state.category.loading);
   useEffect(() => {
-    dispatch(getEntityWithPost());
+    // dispatch(getEntityWithPost());
   }, []);
   const Loading = () => (
     <div className="post loading">

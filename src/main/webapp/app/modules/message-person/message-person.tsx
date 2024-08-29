@@ -68,9 +68,9 @@ export const MessagePersonRoomMember = () => {
     });
   };
 
-  const handleSyncList = () => {
-    sortEntities();
-  };
+  // const handleSyncList = () => {
+  //   sortEntities();
+  // };
 
   const getSortIconByFieldName = (fieldName: string) => {
     const sortFieldName = sortState.sort;
@@ -94,9 +94,6 @@ export const MessagePersonRoomMember = () => {
   const [selectedRoomMemberId, setSelectedRoomMemberId] = useState<string>('');
   const [selectedRoomMember, setSelectedRoomMember] = useState(null);
   useEffect(() => {
-    // if (selectedRoomId) {
-    //   dispatch(getAllMessageByRoom(selectedRoomId));
-    // }
     socketRef.current = new WebSocket('ws://localhost:8000');
     //lich su chat
     // socketRef.current.onmessage = event => {
@@ -113,19 +110,26 @@ export const MessagePersonRoomMember = () => {
     };
     // }, [selectedRoomId, selectedRoomMemberId]);
   }, []);
+  // useEffect(() => {
+  //   // Lắng nghe tín hiệu từ server chỉ một lần khi component được mount
+  //   socketRef.current.onmessage = event => {
+  //     const { type, room: receivedRoom } = JSON.parse(event.data);
 
+  //     if (type === 'newMessage' && receivedRoom === selectedRoomId) {
+  //       // Có tin nhắn mới, tải lại danh sách tin nhắn
+  //       dispatch(getAllMessageByRoom(receivedRoom));
+  //     }
+  //   };
+  // }, [dispatch, selectedRoomId]);
   useEffect(() => {
     if (selectedRoomId) {
       dispatch(getAllMessageByRoom(selectedRoomId));
     }
-    // socketRef.current.onmessage = event => {
-    //   const { room: receivedRoom, text, username } = JSON.parse(event.data);
-    //   if (receivedRoom === room) {
-    //     setMessages(prevMessages => [...prevMessages, { text, username }]);
-    //   }
-    // };
     socketRef.current.onmessage = event => {
-      const { room: receivedRoom, text, username, id } = JSON.parse(event.data);
+      const { type, room: receivedRoom, text, username, id } = JSON.parse(event.data);
+      if (type === 'newMessage' && selectedRoomId) {
+        dispatch(getAllMessageByRoom(selectedRoomId));
+      }
 
       if (receivedRoom === room) {
         setMessages(prevMessages => {
@@ -136,6 +140,13 @@ export const MessagePersonRoomMember = () => {
       }
     };
   }, [selectedRoomId, selectedRoomMemberId, messageupdateSuccess]);
+
+  useEffect(() => {
+    if (socketRef.current && joined) {
+      const messageId = dayjs().valueOf().toString(); // Tạo ID duy nhất cho tin nhắn này
+      socketRef.current.send(JSON.stringify({ type: 'save', room, text: inputValue, username, id: messageId }));
+    }
+  }, [messageupdateSuccess]);
 
   const handleRoomMemberClick = (roomMember, roommemberId, roomId) => {
     setSelectedRoomMember(roomMember);
@@ -150,13 +161,6 @@ export const MessagePersonRoomMember = () => {
       setJoined(true);
     }
   };
-  // const sendMessage = () => {
-  //   if (socketRef.current && inputValue && joined) {
-  //     socketRef.current.send(JSON.stringify({ type: 'message', room, text: inputValue, username }));
-  //     setInputValue('');
-  //     saveEntity();
-  //   }
-  // };
   const [sentMessageIds, setSentMessageIds] = useState<Set<string>>(new Set());
   const sendMessage = () => {
     if (socketRef.current && inputValue && joined) {
@@ -195,10 +199,8 @@ export const MessagePersonRoomMember = () => {
       isPrivate: true,
       createdAt: dayjs(),
     };
-    // dispatch(createRoom(entity));
     const actionResult = await dispatch(createRoom(entity));
     const result = unwrapResult(actionResult);
-    // alert(JSON.stringify(result));
 
     const RoomMemberEntity = {
       room: result.data,
@@ -248,6 +250,10 @@ export const MessagePersonRoomMember = () => {
             />
             <button onClick={sendMessage}>Send</button>
           </div>
+          <Button className="me-2" color="info" disabled={loadingmessageList}>
+            <FontAwesomeIcon icon="sync" spin={loading} />{' '}
+            <Translate contentKey="seaportApp.message.home.refreshListLabel">Refresh List</Translate>
+          </Button>
         </div>
       </div>
     </div>

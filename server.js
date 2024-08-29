@@ -31,12 +31,36 @@ wss.on('connection', ws => {
       const clientsInRoom = rooms[ws.room] || new Set();
       clientsInRoom.forEach(client => {
         if (client.readyState === WebSocket.OPEN) {
-          client.send(JSON.stringify({ room: ws.room, text, username: ws.username }));
+          // client.send(JSON.stringify({ room: ws.room, text, username: ws.username }));
+          client.send(JSON.stringify({ type: 'newMessage', room: ws.room, text, username: ws.username }));
         }
       });
     }
   });
+  ws.on('save', message => {
+    const parsedMessage = JSON.parse(message);
+    const { type, room, text, username } = parsedMessage;
 
+    if (type === 'join') {
+      // Thêm client vào room
+      if (!rooms[room]) {
+        rooms[room] = new Set();
+      }
+      rooms[room].add(ws);
+      ws.room = room;
+      ws.username = username;
+      console.log(`${username} joined room: ${room}`);
+    } else if (type === 'message') {
+      // Gửi tin nhắn tới tất cả các client trong cùng room
+      const clientsInRoom = rooms[ws.room] || new Set();
+      clientsInRoom.forEach(client => {
+        if (client.readyState === WebSocket.OPEN) {
+          // client.send(JSON.stringify({ room: ws.room, text, username: ws.username }));
+          client.send(JSON.stringify({ type: 'load', room: ws.room, text, username: ws.username }));
+        }
+      });
+    }
+  });
   ws.on('close', () => {
     console.log('A client disconnected');
     // Xóa client khỏi room khi đóng kết nối
