@@ -6,7 +6,8 @@
         "refreshListLabel": "Refresh list",
         "createLabel": "Create a new Message",
         "createOrEditLabel": "Create or edit a Message",
-        "notFound": "No Messages found"
+        "notFound": "No Messages found",
+        "send": "Send"
       },
       "created": "A new Message is created with identifier {{ param }}",
       "updated": "A Message is updated with identifier {{ param }}",

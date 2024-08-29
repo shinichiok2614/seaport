@@ -1,6 +1,6 @@
 {
   "global": {
-    "title": "Seaport",
+    "title": "Cổng thông tin điện tử vùng 5",
     "browsehappy": "Bạn đang sử dụng một trình duyệt <strong>cũ</strong>. Vui lòng <a href=\"http://browsehappy.com/?locale=en\">nâng cấp trình duyệt của bạn</a> để cải thiện trải nghiệm của bạn.",
     "menu": {
       "postapprovemenu": "Duyệt Bài viết",
@@ -161,5 +161,5 @@
       "not.image": "Tệp được mong đợi là hình ảnh nhưng lại là \"{{ fileType }}\""
     }
   },
-  "footer": "Đây là chân trang của bạn"
+  "footer": ""
 }

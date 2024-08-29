@@ -77,6 +77,22 @@
   color: #8f8f8f;
   font-size: 12px;
 }
+
 .RoomMemberTable-person {
   display: flex;
+}
+
+.MessagePersonRoomMember-send {
+  display: flex;
+  /* align-content: center; */
+}
+
+.MessagePersonRoomMember-send input {
+  width: 90%;
+  margin-top: 10px;
+}
+
+.MessagePersonRoomMember-send button {
+  width: 10%;
+  /* margin: 6px; */
 }

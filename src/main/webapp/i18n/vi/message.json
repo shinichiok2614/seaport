@@ -6,7 +6,8 @@
         "refreshListLabel": "Tải lại danh sách",
         "createLabel": "Tạo tin nhắn mới",
         "createOrEditLabel": "Tạo hoặc chỉnh sửa tin nhắn",
-        "notFound": "Không tìm thấy tin nhắn nào"
+        "notFound": "Không tìm thấy tin nhắn nào",
+        "send": "Gửi"
       },
       "created": "Một tin nhắn mới được tạo với mã định danh {{ param }}",
       "updated": "Một tin nhắn được cập nhật với mã định danh {{ param }}",

@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { Button, Col, Row, Table } from 'reactstrap';
+import { Button, Col, Input, Row, Table } from 'reactstrap';
 import { Translate, TextFormat, getSortState, ValidatedField, ValidatedForm, ValidatedBlobField, translate } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSort, faSortUp, faSortDown } from '@fortawesome/free-solid-svg-icons';
@@ -127,16 +127,17 @@ export const MessagePersonRoomMember = () => {
     }
     socketRef.current.onmessage = event => {
       const { type, room: receivedRoom, text, username, id } = JSON.parse(event.data);
-      if (type === 'newMessage' && selectedRoomId) {
+      if (type === 'load' && selectedRoomId) {
         dispatch(getAllMessageByRoom(selectedRoomId));
       }
 
-      if (receivedRoom === room) {
-        setMessages(prevMessages => {
-          // Loại bỏ các tin nhắn đã lưu thành công
-          const filteredMessages = prevMessages.filter(message => message.id !== id);
-          return [...filteredMessages, { text, username, id }];
-        });
+      if (receivedRoom === room && type === 'message') {
+        // setMessages(prevMessages => {
+        //   // Loại bỏ các tin nhắn đã lưu thành công
+        //   const filteredMessages = prevMessages.filter(message => message.id !== id);
+        //   return [...filteredMessages, { text, username, id }];
+        // });
+        setMessages(prevMessages => [...prevMessages, { text, username, id }]);
       }
     };
   }, [selectedRoomId, selectedRoomMemberId, messageupdateSuccess]);
@@ -240,20 +241,33 @@ export const MessagePersonRoomMember = () => {
               ))}
             </div>
             <div className="MessagePersonRoomMember-message"></div>
-            <input
+            {/* <input
               type="text"
               value={inputValue}
               onChange={e => setInputValue(e.target.value)}
               onKeyPress={e => {
                 if (e.key === 'Enter') sendMessage();
               }}
-            />
-            <button onClick={sendMessage}>Send</button>
+            /> */}
+            <div className="MessagePersonRoomMember-send">
+              <Input
+                type="text"
+                placeholder="Insert message"
+                value={inputValue}
+                onChange={e => setInputValue(e.target.value)}
+                className="mb-3"
+                onKeyPress={e => {
+                  if (e.key === 'Enter') sendMessage();
+                }}
+              />
+
+              {/* <button onClick={sendMessage}>Send</button> */}
+              <Button className="me-2" color="info" disabled={loadingmessageList} onClick={sendMessage}>
+                <FontAwesomeIcon icon="sync" spin={loadingmessageList} />{' '}
+                <Translate contentKey="seaportApp.message.home.send">Send</Translate>
+              </Button>
+            </div>
           </div>
-          <Button className="me-2" color="info" disabled={loadingmessageList}>
-            <FontAwesomeIcon icon="sync" spin={loading} />{' '}
-            <Translate contentKey="seaportApp.message.home.refreshListLabel">Refresh List</Translate>
-          </Button>
         </div>
       </div>
     </div>
