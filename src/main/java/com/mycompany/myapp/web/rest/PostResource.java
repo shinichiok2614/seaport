@@ -197,4 +197,18 @@ public class PostResource {
         List<PostDTO> posts = postService.findByPostIsCurrentUser();
         return ResponseEntity.ok().body(posts);
     }
+
+    @PutMapping("/{id}/increaseView")
+    public ResponseEntity<Post> increaseView(@PathVariable Long id) {
+        log.debug("REST request to increase view count for Post : {}", id);
+        Optional<Post> postOptional = postRepository.findById(id);
+        if (postOptional.isPresent()) {
+            Post post = postOptional.get();
+            post.setView(post.getView() + 1);
+            postRepository.save(post);
+            return ResponseEntity.ok().body(post);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
 }

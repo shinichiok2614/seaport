@@ -16,6 +16,12 @@ const initialState: EntityState<IPost> = {
 
 const apiUrl = 'api/posts';
 
+export const increaseView = createAsyncThunk('post/increase_view', async (id: number) => {
+  const requestUrl = `${apiUrl}/${id}/increaseView`;
+  const response = await axios.put<IPost>(requestUrl);
+  return response.data;
+});
+
 // Actions
 export const getEntitiesByPerson = createAsyncThunk(
   'post/fetch_entities_by_person',

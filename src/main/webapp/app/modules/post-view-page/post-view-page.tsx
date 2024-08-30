@@ -8,7 +8,7 @@ import { APP_DATE_FORMAT, APP_LOCAL_DATE_FORMAT } from 'app/config/constants';
 import { useAppDispatch, useAppSelector } from 'app/config/store';
 
 import PostPageView from 'app/component/post-page-view/post-page-view';
-import { getEntity, getEntityByPerson } from 'app/entities/post/post.reducer';
+import { getEntity, getEntityByPerson, increaseView } from 'app/entities/post/post.reducer';
 import { getEntitiesByPost } from 'app/entities/paragraph/paragraph.reducer';
 import { ParagraphViewEachPostPage } from 'app/component/paragraph-view-each-postpage/paragraph-view-each-postpage';
 import CommentList from 'app/component/comment-list/comment-list';
@@ -49,6 +49,7 @@ export const PostViewPage = () => {
 
   const [newComment, setNewComment] = useState('');
   useEffect(() => {
+    dispatch(increaseView(parseInt(id, 10)));
     dispatch(getEntityByPerson(id));
     dispatch(getEntitiesByPost(id));
     dispatch(getComments(id));
