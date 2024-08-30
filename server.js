@@ -2,6 +2,21 @@ const express = require('express');
 const WebSocket = require('ws');
 const http = require('http');
 
+const kafka = require('kafka-node');
+
+// Cấu hình Kafka
+const { KafkaClient, Producer } = kafka;
+const client = new KafkaClient({ kafkaHost: 'localhost:9092' }); // Địa chỉ Kafka broker của bạn
+const producer = new Producer(client);
+
+producer.on('ready', () => {
+  console.log('Kafka Producer is connected and ready.');
+});
+
+producer.on('error', err => {
+  console.error('Kafka Producer error:', err);
+});
+
 const app = express();
 const server = http.createServer(app);
 const wss = new WebSocket.Server({ server });
@@ -35,6 +50,29 @@ wss.on('connection', ws => {
           client.send(JSON.stringify({ type: 'message', room: ws.room, text, username: ws.username }));
         }
       });
+
+      const kafkaMessage = {
+        type: 'message',
+        room: ws.room,
+        text,
+        username: ws.username,
+        timestamp: new Date().toISOString(),
+      };
+
+      producer.send(
+        [{ topic: 'chat-messages', messages: JSON.stringify({ type: 'message', room: ws.room, text, username: ws.username }) }],
+        (err, data) => {
+          if (err) {
+            console.error('Failed to send message to Kafka:', err);
+          } else {
+            console.log('Message sent to Kafka:', data);
+            console.log('Message sent to Kafka:', {
+              message: kafkaMessage, // Nội dung tin nhắn đã gửi
+              response: data, // Thông tin phản hồi từ Kafka
+            });
+          }
+        },
+      );
     } else if (type === 'save') {
       // Gửi tin nhắn tới tất cả các client trong cùng room
       const clientsInRoom = rooms[ws.room] || new Set();

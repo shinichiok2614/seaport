@@ -94,5 +94,6 @@
 
 .MessagePersonRoomMember-send button {
   width: 10%;
+  min-width: 100px;
   /* margin: 6px; */
 }

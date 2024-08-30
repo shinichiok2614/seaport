@@ -158,7 +158,24 @@ spring:
   output:
     ansi:
       console-available: true
-
+  kafka:
+    client:
+    dns:
+      lookup: use_dns_cache
+    bootstrap-servers: ${KAFKA_BROKER_SERVER:localhost}:${KAFKA_BROKER_PORT:9092}
+    producer:
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+      #transaction-id-prefix: tx.
+      properties:
+        # "[spring.json.type.mapping]": category:com.mycompany.myapp.domain.Category
+        '[spring.json.type.mapping]': message:com.mycompany.myapp.domain.ChatMessage
+    # consumer:
+    #   value-deserializer: org.apache.kafka.common.serialization.ByteArrayDeserializer
+    consumer:
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+      properties:
+        '[spring.json.trusted.packages]': '*'
+        '[spring.json.value.default.type]': com.mycompany.myapp.domain.ChatMessage
 server:
   servlet:
     session:
